@@ -1,0 +1,7 @@
+# Published bytes are hashed and referenced in signed documents. Line endings are
+# part of the hash, so they are never left to the platform.
+*.md text eol=lf
+*.sol text eol=lf
+*.sh text eol=lf
+*.toml text eol=lf
+*.json text eol=lf
