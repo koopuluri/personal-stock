@@ -16,7 +16,9 @@ Except for terminal exits and `ATTRIBUTABLE_TAXES` events, only actual USD cash 
 
 ## Reinvestment Capital is an aggregate balance
 
-Reinvestment Capital is purpose-bound in the aggregate, not a segregated fund, trust, or set of per-holding or per-share accounts. Adjustments are made reasonably and in good faith without tracing particular dollars. A transferor retains no residual interest, except that §18 fixes entitlement to the final balance among non-owner holders at the owner's death.
+Reinvestment Capital is purpose-bound in the aggregate, not a segregated fund, trust, or set of per-holding or per-share accounts. Adjustments are made reasonably and in good faith without tracing particular dollars. A transferor retains no residual interest, except that §13 fixes entitlement to the final balance among non-owner holders at the owner's death.
+
+Reinvestment Capital is expected to be reflected in the economic value of the shares, as retained capital ordinarily is in company stock, so it is not paid separately when shares are transferred. With sufficient liquidity, recent transaction prices should cause `BENCHMARK_PRICE` to reflect that value; with illiquid stock, the benchmark may be stale and fail to do so. The benchmark is only the contractual minimum, and the owner is expected to ensure that a buyback reflects fair market value when it is higher, but that expectation is nonbinding and is not part of the agreement.
 
 ## Incapacity and death use limited succession rules
 
