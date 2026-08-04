@@ -16,7 +16,7 @@ OWNER        = Karthik Uppuluri (@koopuluri)
 
 ## 1. Scope
 
-`SCOPE` identifies the categories of holdings whose realized value is accounted for under §3. An in-scope holding is the owner's position in one of those categories. Everything else the owner earns or owns is outside this agreement.
+`SCOPE` identifies the categories of holdings governed by this agreement. An in-scope holding is the owner's position in one of those categories. `IN_SCOPE_PROCEEDS`, defined below, identifies the value arising from those holdings that is accounted for under §§3 and 4. Everything else the owner earns or owns is outside this agreement.
 
 ```
 SCOPE =
@@ -36,9 +36,47 @@ SCOPE =
     - retirement accounts and similar long-term savings wrappers.
 ```
 
-The owner must include and account for every in-scope holding. Any payment right, substitute holding, or noncash consideration arising from one remains in scope until accounted for under §3.
+The owner must include and account for every in-scope holding.
 
-The owner may not gift, consume, or otherwise voluntarily dispose of an in-scope holding except through a transform, terminal exit, or exit producing cash or substitute consideration governed by §3.
+### Continuation and in-scope proceeds
+
+An exit occurs to the extent the owner sells, redeems, exchanges, or otherwise disposes of all or part of an in-scope holding for cash or noncash consideration other than through a transform.
+
+A transform is a conversion, split, rollover, exchange for another in-scope holding, or other change in form in which the owner's economic position continues. The resulting substitute holding remains an in-scope holding. A transaction may be partly a transform and partly an exit; the continuing portion is the transform, and any other consideration is tested under the `IN_SCOPE_PROCEEDS` definition below.
+
+A terminal exit occurs when all or part of an in-scope holding is irrevocably forfeited, abandoned, cancelled, expired, or otherwise extinguished without consideration, in good faith, with no direct or indirect economic interest retained by the owner. A decline in estimated value, including to zero, is not a terminal exit while the owner retains the holding or any economic rights in it.
+
+`IN_SCOPE_PROCEEDS` means cash, a payment right, or noncash consideration arising from:
+
+- an exit;
+- an exit-equivalent distribution; or
+- a later recovery attributable to a terminal exit.
+
+An exit-equivalent distribution is a distribution, or a separately allocable component of one, whose principal economic effect is to monetize all or part of an in-scope holding, or the assets from which it derives its principal value, without a formal disposition of the owner's position.
+
+`IN_SCOPE_PROCEEDS` includes, without limitation:
+
+- cash or noncash consideration from a sale, redemption, exchange, or other disposition constituting an exit;
+- installment payments, deferred consideration, and contingent consideration from an exit;
+- a liquidating distribution or return of capital;
+- recapitalization proceeds;
+- a distribution funded by the sale of substantially all or a material part of the holding's underlying assets;
+- a distribution through another person's personal stock, but only to the extent attributable to a transaction involving an underlying asset that would constitute an exit or exit-equivalent distribution under this agreement if that asset were held directly by the owner; and
+- a later recovery attributable to a terminal exit.
+
+`IN_SCOPE_PROCEEDS` does not include, without limitation:
+
+- an ordinary or special dividend funded by earnings or operating revenue rather than an exit or exit-equivalent transaction;
+- interest, coupon payments, or other yield;
+- an operating, pass-through, or tax distribution funded by earnings, operating revenue, or other ordinary income;
+- a revenue-share, royalty, or other income payment that is not consideration from an exit or exit-equivalent transaction; or
+- a distribution through another person's personal stock to the extent attributable to income or yield that would be excluded under this agreement if received directly by the owner.
+
+A payment's economic source and substance—not its amount, timing, frequency, or label—determine whether it is `IN_SCOPE_PROCEEDS`. A transaction or payment containing both `IN_SCOPE_PROCEEDS` and excluded value must be allocated reasonably and in good faith according to its economic substance. Any cost, expense, or tax attributable to both components must be allocated on the same basis.
+
+Any payment right or noncash consideration that is `IN_SCOPE_PROCEEDS` is treated as an in-scope holding and remains in scope until accounted for under §3.
+
+The owner may not gift, consume, or otherwise voluntarily dispose of an in-scope holding except through an exit, transform, or terminal exit.
 
 ## 2. Floor
 
@@ -61,17 +99,17 @@ in good faith applies.
 
 ## 3. Realized value
 
-This section determines when value from an in-scope holding counts as realized and how the resulting gains and losses are accounted for over time.
+This section determines when `IN_SCOPE_PROCEEDS` counts as realized and how gains and losses from in-scope holdings are accounted for over time.
 
 ### Realization events
 
 A `REALIZATION_EVENT` occurs only as one of the following types:
 
-- Type A—cash receipt: when cash from an in-scope holding—including sale proceeds and every cash dividend, interest payment, income, or distribution—is actually received by the owner or irrevocably paid, withheld, or made available for the owner's benefit;
-- Type B—terminal exit: when a terminal exit occurs; or
+- Type A—cash realization: when cash forming part of `IN_SCOPE_PROCEEDS` is actually received by the owner or irrevocably paid, withheld, or made available for the owner's benefit;
+- Type B—terminal exit: when a terminal exit, as defined in §1, occurs; or
 - Type C—tax recognition or reconciliation: when `ATTRIBUTABLE_TAXES`, as defined below, are first recognized or later reconciled under this section, except that a released reserve, refund, or credit is recognized only when available as cash.
 
-Unpaid or unavailable cash and noncash consideration or distributions do not create a `REALIZATION_EVENT`; they remain in scope until accounted for under this section. One transaction may produce multiple `REALIZATION_EVENT`s.
+`IN_SCOPE_PROCEEDS` does not create a Type A `REALIZATION_EVENT` until and to the extent it is cash satisfying the Type A receipt condition. Any remaining payment right or noncash consideration stays in scope until accounted for under this section. One transaction may produce multiple `REALIZATION_EVENT`s.
 
 Transactions in the owner's own personal-stock shares are not `REALIZATION_EVENT`s.
 
@@ -86,7 +124,7 @@ REALIZED_VALUE = GROSS_CASH_PROCEEDS
                  - ATTRIBUTABLE_TAXES
 ```
 
-`GROSS_CASH_PROCEEDS` is the gross cash described in a Type A `REALIZATION_EVENT`, before transaction expenses or attributable taxes. It includes cash paid directly toward those expenses or taxes. At a Type B or Type C `REALIZATION_EVENT`, it is zero.
+`GROSS_CASH_PROCEEDS` is the gross cash component of `IN_SCOPE_PROCEEDS` giving rise to a Type A `REALIZATION_EVENT`, before transaction expenses or attributable taxes. It includes cash paid directly toward those expenses or taxes. At a Type B or Type C `REALIZATION_EVENT`, it is zero.
 
 `ALLOCATED_HOLDING_COST` is the holding-cost deduction determined under the holding-cost rules below.
 
@@ -98,15 +136,13 @@ REALIZED_VALUE = GROSS_CASH_PROCEEDS
 
 `REALIZED_VALUE` may be negative. `CUMULATIVE_REALIZED_VALUE` is the sum of `REALIZED_VALUE` from every `REALIZATION_EVENT` at or after `COMMENCEMENT_TIME` (defined in §5).
 
-### Exits, terminal exits, and transforms
+### Accounting for exits, terminal exits, and transforms
 
-An exit occurs when the owner sells, redeems, exchanges, or otherwise disposes of all or part of an in-scope holding.
+An exit-equivalent distribution is treated as a partial exit.
 
-An exit-equivalent distribution is a distribution from an in-scope holding whose principal economic effect is to monetize or materially reduce the holding's underlying value without a formal disposition. It includes a liquidating distribution, return of capital, recapitalization proceeds, a distribution funded by a sale of substantially all or a material part of the holding's underlying assets, cash received through another personal stock's distribution mechanism, and any economic equivalent. It is treated as a partial exit.
+At a Type B `REALIZATION_EVENT`, `GROSS_CASH_PROCEEDS` is zero and `ALLOCATED_HOLDING_COST` is all remaining `HOLDING_COST` (defined under “Holding cost and allocation” below) attributable to the extinguished part. A later recovery attributable to that part is `IN_SCOPE_PROCEEDS` with zero `HOLDING_COST`.
 
-A terminal exit occurs when all or part of an in-scope holding is irrevocably forfeited, abandoned, cancelled, expired, or otherwise extinguished without consideration, in good faith, with no direct or indirect economic interest retained by the owner. A decline in estimated value, including to zero, is not a terminal exit while the owner retains the holding or any economic rights in it. At the resulting Type B `REALIZATION_EVENT`, `GROSS_CASH_PROCEEDS` is zero and `ALLOCATED_HOLDING_COST` is all remaining `HOLDING_COST` (defined under “Holding cost and allocation” below) attributable to the extinguished part. Any later recovery attributable to that part remains in scope with zero `HOLDING_COST`.
-
-A transform is a conversion, split, rollover, exchange for another in-scope holding, or other change in form in which the owner's economic position continues. It is not itself a `REALIZATION_EVENT`, and unrecovered `HOLDING_COST` carries forward. A transaction may be partly a transform and partly an exit; the continuing in-scope portion is the transform, and any cash is tested separately under the `REALIZATION_EVENT` definition.
+A transform is not itself a `REALIZATION_EVENT`, and unrecovered `HOLDING_COST` carries forward.
 
 ### Holding cost and allocation
 
@@ -120,7 +156,7 @@ An expense forms part of `HOLDING_COST` only to the extent it is reasonable, doc
 
 `HOLDING_COST` remains attached to a holding until allocated under the rules below. `ALLOCATED_HOLDING_COST` is the portion deducted in calculating `REALIZED_VALUE` for a particular `REALIZATION_EVENT`; any unallocated portion remains attached to a continuing holding or carries into a resulting holding.
 
-At a Type A `REALIZATION_EVENT` that is neither an exit nor an exit-equivalent distribution, `ALLOCATED_HOLDING_COST` is zero and `HOLDING_COST` does not change. A payment containing more than one component is allocated in good faith according to its economic substance.
+Receiving cash or other value from an in-scope holding that is not `IN_SCOPE_PROCEEDS` does not allocate or otherwise change `HOLDING_COST`.
 
 If a transform produces more than one in-scope holding, unrecovered `HOLDING_COST` is allocated among them proportionally in good faith according to relative value. When an exit produces noncash consideration, the cost allocated to it carries into the resulting in-scope holding or holdings; if there is more than one, it is allocated among them on the same basis. On a full exit producing only cash, `ALLOCATED_HOLDING_COST` is all remaining `HOLDING_COST` attributable to the disposed holding. On a full exit producing only noncash consideration, all remaining `HOLDING_COST` carries forward. For a partial exit or an exit producing both cash and noncash consideration, cost is allocated proportionally in good faith according to the relative value of each portion. Additional cash, expenses, or attributable taxes incurred to receive noncash consideration are added to its `HOLDING_COST`.
 
@@ -134,7 +170,7 @@ The same method must be applied consistently to every component of the transacti
 
 ### Taxes
 
-Taxes attributable to acquiring, receiving, exercising, vesting, maintaining, or transforming an in-scope holding form part of its `HOLDING_COST`. `ATTRIBUTABLE_TAXES` are the incremental federal, state, local, foreign, withholding, and similar taxes the owner pays or reasonably expects to pay because of an in-scope holding or `REALIZATION_EVENT`, net of related refunds and credits, except to the extent included in `HOLDING_COST`. They exclude a shareholder's taxes on a distribution and penalties or interest caused by the owner's failure to pay taxes when due.
+Taxes attributable to acquiring, receiving, exercising, vesting, maintaining, or transforming an in-scope holding form part of its `HOLDING_COST`. A tax attributable to income or other value arising from an in-scope holding that is not `IN_SCOPE_PROCEEDS` does not form part of `HOLDING_COST`. `ATTRIBUTABLE_TAXES` are the incremental federal, state, local, foreign, withholding, and similar taxes the owner pays or reasonably expects to pay because of `IN_SCOPE_PROCEEDS` or another `REALIZATION_EVENT`, net of related refunds and credits, except to the extent included in `HOLDING_COST`. They exclude taxes attributable to income or other value arising from an in-scope holding that is not `IN_SCOPE_PROCEEDS`, a shareholder's taxes on a distribution, and penalties or interest caused by the owner's failure to pay taxes when due.
 
 Each cost, expense, or tax may be included only once among `HOLDING_COST`, `DIRECT_TRANSACTION_EXPENSES`, and `ATTRIBUTABLE_TAXES`, and no item may otherwise be deducted twice.
 
@@ -227,7 +263,7 @@ Except for a required sale under §9, an issuance or transfer settles when every
 
 `COMMENCEMENT_TIME` is the date and time the first issuance under this agreement settles. Immediately before it, no shares are outstanding; `CUMULATIVE_REALIZED_VALUE`, `DISTRIBUTION_HIGH_WATER_MARK`, and `REINVESTMENT_CAPITAL_BALANCE` are zero; and the benchmark window under §6 is empty. By completing the first issuance, the owner adopts this agreement and becomes bound by it.
 
-Before or simultaneously with the first issuance, the owner must record every in-scope holding then owned, its unrecovered opening `HOLDING_COST`, the first issuance, resulting share ownership, applicable agreement versions, and every other opening input needed to apply this agreement. No event before `COMMENCEMENT_TIME` is itself included in `CUMULATIVE_REALIZED_VALUE`, `DISTRIBUTION_HIGH_WATER_MARK`, or any other event-based calculation under this agreement. An in-scope holding, payment right, or substitute holding existing at `COMMENCEMENT_TIME` enters the agreement only as an opening position, together with the unrecovered `HOLDING_COST` then attributable to that position. Pre-commencement transactions may be considered only to determine that opening `HOLDING_COST`; no cost or other amount carries forward independently of an opening position.
+Before or simultaneously with the first issuance, the owner must record every in-scope holding then owned, its unrecovered opening `HOLDING_COST`, the first issuance, resulting share ownership, applicable agreement versions, and every other opening input needed to apply this agreement. No event before `COMMENCEMENT_TIME` is itself included in `CUMULATIVE_REALIZED_VALUE`, `DISTRIBUTION_HIGH_WATER_MARK`, or any other event-based calculation under this agreement. An in-scope holding, or a payment right or noncash consideration constituting `IN_SCOPE_PROCEEDS`, that exists at `COMMENCEMENT_TIME` enters the agreement only as an opening position, together with the unrecovered `HOLDING_COST` then attributable to that position. Pre-commencement transactions may be considered only to determine that opening `HOLDING_COST`; no cost or other amount carries forward independently of an opening position.
 
 ## 6. Benchmark price
 
@@ -335,7 +371,7 @@ A buyback transfers shares to the owner; it does not cancel them or reduce outst
 
 The owner must maintain one complete chronological official history sufficient to determine the stock's current state and reproduce every result under this agreement. That history is authoritative: the current state and every result are determined by applying this agreement to it. Derived views, caches, or other implementation artifacts may be maintained, but they have no independent contractual authority and must remain reproducible from the official history.
 
-The official history must record or identify all material inputs, including share movements and prices; agreement versions, elections, approvals, and amendments; holdings, costs, valuations, realization events, taxes, and distributions; Reinvestment Capital adjustments; royalties; and corrections. Each record must use the event's actual occurrence or settlement time even if entered later. Material events and inputs must be recorded promptly and before they or later events are relied on to calculate or complete a transaction.
+The official history must record or identify all material inputs, including share movements and prices; agreement versions, elections, approvals, and amendments; holdings, costs, and valuations; material cash or other value arising from in-scope holdings and whether it is `IN_SCOPE_PROCEEDS`; `REALIZATION_EVENT`s, `ATTRIBUTABLE_TAXES`, and distributions under §4; Reinvestment Capital adjustments; royalties; and corrections. Each record must use the event's actual occurrence or settlement time even if entered later. Material events and inputs must be recorded promptly and before they or later events are relied on to calculate or complete a transaction.
 
 The official history must be preserved. A correction must identify the matter corrected rather than erase it, and every affected result must be recalculated from the corrected history.
 
@@ -359,7 +395,7 @@ The latest version is the most recent agreement version the owner has issued for
 
 Seller-side transfer obligations, royalties, and buyback and directed-sale rules may operate separately by shareholder. Each shareholder's latest adopted version governs that shareholder for those terms. The seller's version governs a transaction; the recipient's version governs the recipient and the shares after settlement. No shareholder is bound by an individual change they have not adopted.
 
-Every other term governing the stock as a whole is a shared term, including `SCOPE`, `FLOOR`, `AUTHORIZED_SHARES`, the benchmark rules, holding and realized-value accounting, distribution and Reinvestment Capital rules, official-history and correction rules, and this amendment process. One set of shared terms applies to everyone, and signing any version incorporates the shared terms then in effect.
+Every other term governing the stock as a whole is a shared term, including `SCOPE`, `IN_SCOPE_PROCEEDS`, `FLOOR`, `AUTHORIZED_SHARES`, the benchmark rules, holding and realized-value accounting, distribution and Reinvestment Capital rules, official-history and correction rules, and this amendment process. One set of shared terms applies to everyone, and signing any version incorporates the shared terms then in effect.
 
 A proposed shared-term change takes effect at the time recorded by the owner only when every current shareholder's latest adopted version contains the same change. Until then, the existing shared term governs everyone. A version proposing a shared-term change must identify the existing term that remains effective while the proposal is pending.
 
@@ -375,9 +411,9 @@ On the owner's death, the owner's personal representative administers the stock,
 
 At the owner's death, notwithstanding §4's Reinvestment Capital rules, entitlement to the final `REINVESTMENT_CAPITAL_BALANCE` vests pro rata in the persons then holding non-owner shares, based on shares held at death, and passes to their legal successors. The balance is paid after all in-scope holdings and tax reserves are finally resolved under §§3 and 4. The owner's estate has no interest in it.
 
-`FLOOR` and all other value belonging to the owner after applying this agreement belong to the owner's estate. This agreement remains in effect until every holding, substitute holding, payment right, tax reserve, distribution, and other obligation is finally resolved; the stock dissolves only then. The agreement binds the owner's estate, and the owner must maintain a will directing the estate to perform it.
+`FLOOR` and all other value belonging to the owner after applying this agreement belong to the owner's estate. This agreement remains in effect until every in-scope holding, item of `IN_SCOPE_PROCEEDS`, tax reserve, distribution, and other obligation is finally resolved; the stock dissolves only then. The agreement binds the owner's estate, and the owner must maintain a will directing the estate to perform it.
 
-Before marrying, the owner must enter into and maintain a marital agreement recognizing and preserving this agreement's obligations. With respect to in-scope holdings and their proceeds, value distributable to non-owner shareholders and Reinvestment Capital must be excluded from marital or community property. Only value belonging to the owner after applying this agreement may enter the marital estate.
+Before marrying, the owner must enter into and maintain a marital agreement recognizing and preserving this agreement's obligations. With respect to in-scope holdings and `IN_SCOPE_PROCEEDS` derived from them, value distributable to non-owner shareholders and Reinvestment Capital must be excluded from marital or community property. Only value belonging to the owner after applying this agreement may enter the marital estate.
 
 The owner may pledge or use the owner's shares, or amounts belonging to the owner after this agreement is applied, to support an obligation. The obligation must remain expressly subject to this agreement, may not be secured by an in-scope holding or Reinvestment Capital, and may not reduce or redirect an amount distributable to another shareholder. Any enforcement transfer remains subject to the recipient-signature, transfer, and legal-compliance rules. The owner may not voluntarily incur an obligation the owner reasonably expects would materially impair performance of this agreement.
 
@@ -385,7 +421,7 @@ The owner may pledge or use the owner's shares, or amounts belonging to the owne
 
 Notwithstanding anything else in this agreement, a transaction involving shares may occur only if the owner reasonably determines that it complies with securities law and all other applicable law. The owner may require information, representations, certifications, supporting documents, or other verification reasonably needed to determine or document compliance and may delay or refuse the transaction until those requirements are satisfied. Permission under this agreement does not itself establish legality.
 
-Every monetary amount under this agreement is denominated in USD, and any cash paid, received, withheld, or settled in connection with an issuance, transfer, holding acquisition, holding exit, distribution, expense, tax, or other transaction governed by this agreement must be USD.
+Every monetary amount under this agreement is denominated in USD, and any cash paid, received, withheld, or settled in connection with an issuance, transfer, holding acquisition, `IN_SCOPE_PROCEEDS`, distribution under §4, expense, tax, or other transaction governed by this agreement must be USD.
 
 No tax will be withheld from a payment unless required by law. Tax properly withheld and remitted is treated as paid to the recipient.
 
