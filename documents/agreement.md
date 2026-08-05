@@ -99,7 +99,7 @@ Once cash has been accounted for at a `REALIZATION_EVENT`, it leaves scope. Its 
 
 Every increase must be reasonable, documented, and caused by an in-scope asset. Noncash consideration, the owner's time or imputed compensation, general overhead, financing costs, and shareholder distribution taxes do not increase `GLOBAL_COST`. An asset received without a cash payment, including as compensation, may therefore add no acquisition cost, while its eligible expenses and attributable taxes still increase `GLOBAL_COST`.
 
-An increase to `GLOBAL_COST` does not itself create a `REALIZATION_EVENT` or `REALIZED_VALUE`; it increases the amount that later event cash must recover. A transform, noncash receipt, or ending without cash neither changes nor allocates `GLOBAL_COST`. A correction to a recorded increase is handled under §10.
+An increase to `GLOBAL_COST` does not itself create a `REALIZATION_EVENT` or `REALIZED_VALUE`; it increases the amount that later event cash must recover. A transform, noncash receipt, or ending without cash neither changes nor allocates `GLOBAL_COST`. A correction to a recorded increase is handled under §11.
 
 ### Attributable taxes
 
@@ -112,7 +112,7 @@ The owner must recognize attributable taxes when reasonably estimable, may deter
 - To the extent a decrease reduces an unpaid recognized amount, it releases the same amount of reserve. The released amount is `GROSS_CASH_PROCEEDS` from a `REALIZATION_EVENT` at the time of reconciliation and is accounted for like any other event cash.
 - To the extent the reduced tax was already paid or withheld, the reduction creates no `REALIZATION_EVENT` until the corresponding refund becomes available or credit is used. That refund or used credit is then `GROSS_CASH_PROCEEDS`. The same amount may not be counted more than once.
 - Any other tax benefit caused by an in-scope asset is `GROSS_CASH_PROCEEDS` to the extent and at the time it actually reduces tax otherwise payable and is not already reflected in `ATTRIBUTABLE_TAXES` or counted under this section.
-- An error in an earlier recognition is corrected under §10 rather than treated as a new economic event.
+- An error in an earlier recognition is corrected under §11 rather than treated as a new economic event.
 
 Unresolved tax may not delay a distribution beyond the amount reasonably recognized as reserved. Tax or expense withheld from non-USD currency before conversion is already reflected in the net USD proceeds and does not increase `GLOBAL_COST`.
 
@@ -161,7 +161,7 @@ If none exists, the closest published measure of US consumer prices selected
 in good faith applies.
 ```
 
-`DISTRIBUTION_HIGH_WATER_MARK` begins at zero at `COMMENCEMENT_TIME`. Immediately before each `REALIZATION_EVENT`, it is the greatest prior level of `LIFETIME_REALIZED_VALUE` through which value has already qualified under this section. It never decreases because of a later economic event, although a correction under §10 may recalculate it.
+`DISTRIBUTION_HIGH_WATER_MARK` begins at zero at `COMMENCEMENT_TIME`. Immediately before each `REALIZATION_EVENT`, it is the greatest prior level of `LIFETIME_REALIZED_VALUE` through which value has already qualified under this section. It never decreases because of a later economic event, although a correction under §11 may recalculate it.
 
 At each `REALIZATION_EVENT`, `NEWLY_QUALIFYING_VALUE` is the portion of that event's `REALIZED_VALUE` that takes `LIFETIME_REALIZED_VALUE` above both `FLOOR` and `DISTRIBUTION_HIGH_WATER_MARK`:
 
@@ -239,13 +239,13 @@ Shares are whole and indivisible. No fractional share may be issued, held, or tr
 AUTHORIZED_SHARES = 20,000,000
 ```
 
-Outstanding shares may never exceed `AUTHORIZED_SHARES`. The limit may increase only when every current shareholder adopts an agreement version containing the increase under §11.
+Outstanding shares may never exceed `AUTHORIZED_SHARES`. The limit may increase only when every current shareholder adopts an agreement version containing the increase under §12.
 
 The “latest agreement version” is the most recent agreement version the owner has issued for adoption.
 
-Before a person who does not currently hold shares may receive any shares, that person must sign the latest agreement version. This applies to an issuance, transfer, or directed sale. Temporary succession by operation of law under §12 is the only exception.
+Before a person who does not currently hold shares may receive any shares, that person must sign the latest agreement version. This applies to an issuance, transfer, or directed sale. Temporary succession by operation of law under §13 is the only exception.
 
-Shareholders must hold shares for their own benefit. Except for a legal representative or temporary holder under §12, no shareholder may act as a nominee, agent, or proxy for a third party; hold shares on another's behalf; transfer the economic interest to a non-shareholder; or exercise an election on another's instructions.
+Shareholders must hold shares for their own benefit. Except for a legal representative or temporary holder under §13, no shareholder may act as a nominee, agent, or proxy for a third party; hold shares on another's behalf; transfer the economic interest to a non-shareholder; or exercise an election on another's instructions.
 
 Only the owner acting personally may authorize an issuance. This power is nondelegable, and no issuance may settle during the owner's incapacity or after death.
 
@@ -272,7 +272,7 @@ BENCHMARK_WINDOW        = 100,000 shares
 
 The benchmark history is empty at `COMMENCEMENT_TIME`. If fewer than `BENCHMARK_WINDOW` eligible shares have moved, all eligible shares are used. If none have moved, `INITIAL_BENCHMARK_PRICE` applies. If the oldest included transaction crosses the window boundary, only the shares needed to complete the window are included from that transaction.
 
-Each share moved in an issuance or transfer has the following recorded transaction price, except that a royalty share transferred to the owner under §8 has no recorded transaction price:
+Each share moved in an issuance or transfer has the following recorded transaction price, except that a royalty share transferred to the owner under §8 and a share surrendered under §10 have no recorded transaction price:
 
 ```
 cash-only movement          = actual USD price paid per share received
@@ -282,23 +282,23 @@ buyback or directed sale    = actual settlement price per share
 
 For a cash-only movement, actual price includes every linked cash or cash-equivalent arrangement, including a rebate, refund, reimbursement, credit, debt forgiveness, offset, or indirect payment. Related arrangements must be combined and valued in good faith so the recorded price reflects the transaction's effective cash economics.
 
-A recorded transaction price is a contractual input for the benchmark and `ROYALTY_BASIS` under §8. It is not fair market value, compensation value, tax basis, proof of consideration, or evidence that shares were acquired in any particular manner. Private consideration, payment, employment, gift, and tax details remain in the supporting records under §10.
+A recorded transaction price is a contractual input for the benchmark and `ROYALTY_BASIS` under §8. It is not fair market value, compensation value, tax basis, proof of consideration, or evidence that shares were acquired in any particular manner. Private consideration, payment, employment, gift, and tax details remain in the supporting records under §11.
 
 An issuance or voluntary transfer by the owner whose recorded transaction price would be below `BENCHMARK_PRICE` immediately before settlement requires the written approval of the owner and every other current shareholder. This does not restrict a noncash issuance or owner transfer whose recorded transaction price equals the benchmark under this section.
 
-Issuances and transfers other than buybacks and directed sales are eligible benchmark movements unless disregarded or corrected under the anti-manipulation rule below. When a sale includes royalty shares, only the shares purchased by the buyer are eligible.
+Issuances and transfers other than buybacks, directed sales, and surrenders are eligible benchmark movements unless disregarded or corrected under the anti-manipulation rule below. When a sale includes royalty shares, only the shares purchased by the buyer are eligible.
 
-The owner and each shareholder must administer and use the benchmark rules in good faith. Neither the owner nor any shareholder may structure, divide, combine, time, price, fund, characterize, or record a transaction or related series primarily to artificially increase, decrease, preserve, or otherwise manipulate `BENCHMARK_PRICE` or any royalty, buyback price, or directed-sale price derived from it. A bona fide transaction is not prohibited merely because it affects the benchmark. A violating transaction remains otherwise effective but must be disregarded or corrected for benchmark purposes, and every affected calculation must be recalculated under §10. Correcting its benchmark treatment does not require public disclosure of private consideration or acquisition type.
+The owner and each shareholder must administer and use the benchmark rules in good faith. Neither the owner nor any shareholder may structure, divide, combine, time, price, fund, characterize, or record a transaction or related series primarily to artificially increase, decrease, preserve, or otherwise manipulate `BENCHMARK_PRICE` or any royalty, buyback price, or directed-sale price derived from it. A bona fide transaction is not prohibited merely because it affects the benchmark. A violating transaction remains otherwise effective but must be disregarded or corrected for benchmark purposes, and every affected calculation must be recalculated under §11. Correcting its benchmark treatment does not require public disclosure of private consideration or acquisition type.
 
 ## 7. Transfers
 
 Subject to §6's below-benchmark restriction, the owner may transfer the owner's existing shares for cash or noncash consideration.
 
-A non-owner shareholder may voluntarily transfer shares only through a bona fide cash sale permitted by the owner in the owner's sole discretion at settlement. Gifts, donations, transfers for services, and other noncash voluntary transfers by a non-owner shareholder are prohibited.
+Except for a surrender under §10, a non-owner shareholder may voluntarily transfer shares only through a bona fide cash sale permitted by the owner in the owner's sole discretion at settlement. Gifts, donations, transfers for services, and other noncash voluntary transfers by a non-owner shareholder are prohibited.
 
 Permission may arise from a generally applicable policy, a transaction-specific writing, or both. The owner may change a policy or withdraw transaction-specific permission before settlement, affecting any unsettled transfer if communicated before it settles. A completed transfer is unaffected. Transaction-specific permission is irrevocable only if it expressly says so.
 
-The owner's permission does not override any other requirement of this agreement, including legal compliance under §13.
+The owner's permission does not override any other requirement of this agreement, including legal compliance under §14.
 
 For a permitted cash sale, payment and every required share transfer must occur as one settlement.
 
@@ -347,7 +347,7 @@ high_water_after    = max(royalty_high_water, cumulative_after)
 
 The negotiated quantity is `buyer_shares`. The buyer pays `sale_proceeds` and receives those shares. The seller must own and simultaneously transfer both `buyer_shares` to the buyer and `royalty_shares` to the owner. The sale result, royalty assessment, and resulting state must be recorded as part of that settlement.
 
-The seller's aggregate royalty basis is reduced proportionally for every share surrendered. The buyer receives royalty basis equal to the cash price paid. The owner's own sales carry no royalty.
+The seller's aggregate royalty basis is reduced proportionally for every share transferred in the sale. The buyer receives royalty basis equal to the cash price paid. The owner's own sales carry no royalty.
 
 Prior negative sale results must be recovered before an additional royalty applies. Once royalty has been assessed on a level of cumulative contractual sale gain, recovery after a later negative result does not cause that gain to be charged again.
 
@@ -359,13 +359,21 @@ The shareholder's consent, signature, cooperation, payment instructions, and adv
 
 No separate Reinvestment Capital amount is added to the price of a buyback or directed sale. The owner may not require a buyback if a material purpose is (a) to cause Reinvestment Capital to be released to the owner or (b) to prevent value from a specific `REALIZATION_EVENT` the owner then reasonably expects from being allocated under §4 to the shares being bought back.
 
-A required sale settles only when both: (a) the purchaser irrevocably deposits the purchase price, less any tax required to be withheld and properly remitted under §13, with a payment agent or in a segregated account solely for the shareholder; and (b) the owner records the transfer. The owner must notify the shareholder promptly. The deposited funds must remain unconditionally available to the shareholder. Without full funding, no sale occurs.
+A required sale settles only when both: (a) the purchaser irrevocably deposits the purchase price, less any tax required to be withheld and properly remitted under §14, with a payment agent or in a segregated account solely for the shareholder; and (b) the owner records the transfer. The owner must notify the shareholder promptly. The deposited funds must remain unconditionally available to the shareholder. Without full funding, no sale occurs.
 
 A buyback or directed sale carries no royalty and does not enter the seller's `cumulative_sale_result` or `royalty_high_water`. The seller's aggregate royalty basis is reduced proportionally, and the purchaser receives royalty basis equal to the actual price paid.
 
 A buyback transfers shares to the owner; it does not cancel them or reduce outstanding shares.
 
-## 10. Records, corrections, and information
+## 10. Surrender and dissolution
+
+A non-owner shareholder may at any time surrender all shares held by giving written notice to the owner. The surrender is effective when the notice is received, requires no approval, is irrevocable, and transfers the shares to the owner without consideration. It relinquishes all existing and future economic rights under this agreement, including unpaid distributions and participation through Reinvestment Capital. The shares remain outstanding; the surrender carries no royalty or recorded transaction price and does not enter the benchmark history. The owner must record it promptly.
+
+`DISSOLUTION` is the irrevocable final recorded action terminating the personal stock. It extinguishes all outstanding shares, terminates all accounting balances, ends this agreement's application to every person and asset, permits no later economic event, and leaves the official history permanent.
+
+Only the owner acting personally may cause a voluntary dissolution. It may occur only when no shares are held by anyone else, no economic obligation to another person remains, and any remaining Reinvestment Capital has been released under §4. It requires no sale, disposition, or extinguishment of an in-scope asset.
+
+## 11. Records, corrections, and information
 
 The owner must maintain one complete chronological official history sufficient to determine the stock's current state and reproduce every result under this agreement. That history is authoritative: the current state and every result are determined by applying this agreement to it. Derived views, caches, or other implementation artifacts may be maintained, but they have no independent contractual authority and must remain reproducible from the official history.
 
@@ -381,13 +389,13 @@ A shareholder receiving nonpublic information must keep it confidential and use 
 
 ### Public history
 
-By signing this agreement, each shareholder agrees that the owner must permanently publish the public subset of the official history: each shareholder's immutable shareholder ID, display names, public handles, share ownership, agreement versions, distribution elections, and events involving their shares, including recorded quantities, prices, royalties, transfers, buybacks, and directed sales.
+By signing this agreement, each shareholder agrees that the owner must permanently publish the public subset of the official history: each shareholder's immutable shareholder ID, display names, public handles, share ownership, agreement versions, distribution elections, and events involving their shares, including recorded quantities, prices, royalties, transfers, buybacks, directed sales, surrenders, and dissolution.
 
 The public history remains available after a person ceases to be a shareholder. Prior identities and historical information are not erased; a correction may update the current record but must preserve the prior history.
 
 The owner generally will not publish a shareholder's legal name unless the shareholder uses it as a display name or consents to publication. The owner may disclose it when reasonably necessary to comply with law, verify or reconcile stock records, enforce or defend legal rights, or prevent the public record from being materially misleading, and only to the extent reasonably necessary. Signed agreements, private payment records, tax information, and other supporting materials remain private subject to the same limited exceptions.
 
-## 11. Amendments
+## 12. Amendments
 
 A shareholder adopts an agreement version by signing it. The owner may issue a new version at any time with a plain-language summary of its changes, and each existing shareholder may choose whether to adopt it.
 
@@ -399,7 +407,7 @@ A proposed shared-term change takes effect at the time recorded by the owner onl
 
 The owner may resolve administrative matters not addressed by this agreement reasonably and in good faith but may not contradict this agreement, change its economic rights, or bypass an approval or amendment requirement.
 
-## 12. Incapacity, death, marital covenants, and pledges
+## 13. Incapacity, death, marital covenants, and pledges
 
 If the owner or a shareholder becomes incapacitated, a person legally authorized to manage that person's property may exercise their rights and perform their duties under this agreement, subject to the same limits.
 
@@ -409,13 +417,13 @@ On the owner's death, the owner's personal representative administers the stock,
 
 At the owner's death, the persons then holding non-owner shares acquire a pro rata entitlement, based on shares held at death, to whatever `REINVESTMENT_CAPITAL_BALANCE` remains after the following terminal accounting; that entitlement passes to their legal successors. After every in-scope asset has been converted to cash or otherwise finally disposed of or extinguished, every related cost and tax reserve has been resolved, and every resulting `REALIZATION_EVENT` has been accounted for, any `GLOBAL_COST` then remaining reduces `REINVESTMENT_CAPITAL_BALANCE` dollar for dollar until either balance reaches zero. `GLOBAL_COST` then becomes zero; any amount that exceeded Reinvestment Capital is borne by the owner's estate. The remaining Reinvestment Capital is paid pro rata to those entitled to it, and the owner's estate has no interest in that balance.
 
-`FLOOR` and all other value belonging to the owner after applying this agreement belong to the owner's estate. This agreement remains in effect until every in-scope asset, tax reserve, distribution, and other obligation is finally resolved; the stock dissolves only then. The agreement binds the owner's estate, and the owner must maintain a will directing the estate to perform it.
+`FLOOR` and all other value belonging to the owner after applying this agreement belong to the owner's estate. When every action and payment required by this section is complete, the owner's personal representative must record a `DISSOLUTION` under §10. The agreement binds the owner's estate, and the owner must maintain a will directing the estate to perform it.
 
 Before marrying, the owner must enter into and maintain a marital agreement recognizing and preserving this agreement's obligations. With respect to in-scope assets and value arising from them, value distributable to non-owner shareholders and Reinvestment Capital must be excluded from marital or community property. Only value belonging to the owner after applying this agreement may enter the marital estate.
 
 The owner may pledge or use the owner's shares, or amounts belonging to the owner after this agreement is applied, to support an obligation. The obligation must remain expressly subject to this agreement, may not be secured by an in-scope asset or Reinvestment Capital, and may not reduce or redirect an amount distributable to another shareholder. Any enforcement transfer remains subject to the recipient-signature, transfer, and legal-compliance rules. The owner may not voluntarily incur an obligation the owner reasonably expects would materially impair performance of this agreement.
 
-## 13. General
+## 14. General
 
 Notwithstanding anything else in this agreement, a transaction involving shares may occur only if the owner reasonably determines that it complies with securities law and all other applicable law. The owner may require information, representations, certifications, supporting documents, or other verification reasonably needed to determine or document compliance and may delay or refuse the transaction until those requirements are satisfied. Permission under this agreement does not itself establish legality.
 
@@ -425,8 +433,8 @@ No tax will be withheld from a payment unless required by law. Tax properly with
 
 If any provision or application is invalid or unenforceable, it is severed only to the extent necessary, and the remainder remains effective.
 
-The owner and each shareholder must maintain a current electronic notice address in the private records under §10. Electronic notice satisfies a writing requirement and is received when it enters the designated system in retrievable form; known delivery failure requires another reasonable method.
+The owner and each shareholder must maintain a current electronic notice address in the private records under §11. Electronic notice satisfies a writing requirement and is received when it enters the designated system in retrievable form; known delivery failure requires another reasonable method.
 
-This agreement is the complete statement of the terms governing the stock. A separate record, transaction document, summary, or communication may establish transaction facts or separate obligations but changes this agreement only as it expressly permits or through §11.
+This agreement is the complete statement of the terms governing the stock. A separate record, transaction document, summary, or communication may establish transaction facts or separate obligations but changes this agreement only as it expressly permits or through §12.
 
 This agreement may be signed electronically. The signature packet must contain or identify the complete agreement version accepted, which governs over any summary or explanatory copy.
