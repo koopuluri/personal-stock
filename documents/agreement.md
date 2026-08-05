@@ -6,17 +6,21 @@ VERSION_NOTE = -
 OWNER        = Karthik Uppuluri (@koopuluri)
 ```
 
+## Introduction
+
 `OWNER` identifies the person whose personal stock is governed by this agreement. That person is the “owner.” A person who holds shares is a “shareholder.” A “non-owner shareholder” is any shareholder other than the owner.
 
-Each share represents a proportional contractual economic participation in the owner's in-scope realized upside over the owner's life, as defined by this agreement.
+Each share represents a proportional contractual participation in the owner's net realized economic upside from in-scope assets over the owner's life, above a defined portion of upside that is excluded from shareholder participation.
+
+Personal stock is contractual only. All in-scope assets remain solely owned and controlled by the owner. A shareholder has only the economic, election, and approval rights expressly stated in this agreement and has no ownership of, lien on, or other property right in any in-scope asset or its unrealized value. This agreement gives shareholders no control over the owner's actions or life and creates no partnership, agency, trust, or fiduciary relationship.
 
 `COMMENCEMENT_TIME` is the date and time the first issuance under this agreement settles. Immediately before it, no shares are outstanding. By completing the first issuance, the owner adopts this agreement and becomes bound by it.
 
 ## 1. Scope
 
-This agreement captures the owner's exceptional realized upside from concentrated, ownership-like positions—not ordinary compensation, borrowing, consumption, savings, or diversified market exposure. The categories implement that purpose. Scope turns on a position's economic character, not its outcome.
+Personal stock is intended to represent the net economic value the owner creates over the owner's life through endeavors whose economic outcomes are characterized by extreme upside potential, power-law distributions, and superlinear growth.
 
-`IN_SCOPE_ASSETS` identifies the assets, instruments, rights, and ownership-like interests governed by this agreement.
+`IN_SCOPE_ASSETS` includes the owner's investment and ownership assets broadly. Scope does not depend on expected return, diversification, account type, or eventual outcome.
 
 ```
 IN_SCOPE_ASSETS =
@@ -25,136 +29,122 @@ IN_SCOPE_ASSETS =
     - equity-linked interests, including restricted stock, restricted stock
       units, options, warrants, SAFEs, convertible notes, stock-appreciation
       rights, phantom equity, and physical- or cash-settled equivalents;
+    - debt, fixed-income, deposit, revenue-share, royalty, and other financial
+      interests;
     - shares in other persons' personal stocks;
-    - interests in venture, private-equity, single-asset, or other concentrated
-      investment vehicles whose principal strategy depends on exceptional
-      appreciation in one or more included assets;
-    - token-based upside instruments; and
-    - other ownership-like or equity-linked interests with materially
-      asymmetric upside.
+    - interests in investment, savings, retirement, and pooled vehicles, whether
+      concentrated or diversified, including venture, private-equity,
+      single-asset, index, mutual, exchange-traded, target-date, pension, and
+      similar vehicles;
+    - token-based financial or investment instruments; and
+    - other assets, instruments, rights, or interests held for investment or
+      capable of producing economic return or appreciation.
 
   excludes:
     - salary, hourly pay, fees, commissions, cash bonuses, severance, benefits,
-      reimbursements, and other wage-like compensation that is not itself an
-      included asset or paid in settlement of one;
-    - pure income or fixed-return rights, including non-equity revenue shares,
-      royalties, deposits, and conventional fixed-income instruments;
-    - broad-based index, mutual, target-date, pension, and other diversified
-      pooled or savings vehicles designed primarily for ordinary market return,
-      income, capital preservation, or retirement saving;
-    - bona fide borrowing and rights to borrowed funds;
-    - personal consumption.
+      reimbursements, and other wage-like compensation paid for employment or
+      services, other than an included asset or value paid in settlement of one;
+    - bona fide borrowing and rights to borrowed funds.
 ```
 
 An asset, instrument, right, or ownership-like interest is an in-scope asset if it falls within an included category and not an excluded category of `IN_SCOPE_ASSETS`.
 
-The express categories control. Direct company equity remains included even if the owner's stake is small or its expected return is modest. A category's qualitative standard is assessed reasonably and in good faith when the position is acquired.
+The listed categories govern the asset forms they cover. A future asset class or instrument not reasonably covered by them is also an in-scope asset if, assessed reasonably and in good faith when classified, its economic character falls within the purpose stated above and it is not substantially equivalent to an excluded category. An included asset requires no forecast, minimum investment or ownership, or particular outcome.
 
-How the owner acquired a position does not determine scope. An included asset remains included whether purchased, granted, earned as compensation, exercised, converted, gifted, or otherwise acquired. Employment or service conditions, vesting, payroll or tax treatment, and characterization as compensation do not exclude it. The wage-like-compensation exclusion applies only to compensation that is not an included asset or value arising from one.
+Scope depends on what a position is, not how the owner acquired it. An otherwise included asset remains included whether purchased, granted, earned as compensation, exercised, converted, gifted, or otherwise acquired. Employment, service conditions, vesting, payroll or tax treatment, and characterization as compensation do not exclude equity or an equity-linked interest. Salary, fees, cash bonuses, and other wage-like cash compensation remain excluded; cash or noncash value received in settlement of an included equity or equity-linked interest is value from that asset and remains governed by this agreement.
 
-An opening position is classified at `COMMENCEMENT_TIME`; a later position, when acquired. Later performance does not change it. An account or wrapper does not control: a diversified retirement fund may be excluded, while included company equity remains included inside a retirement account. An included position does not leave scope by maturing, becoming public, entering a wrapper, or changing form. A broadly diversified third-party vehicle is not looked through merely because it holds an included asset, but a transform, single-asset vehicle, controlled wrapper, or similar arrangement cannot wash one out of scope.
+An opening asset is classified at `COMMENCEMENT_TIME`; a later asset is classified when acquired. Later performance does not change the classification.
 
-The scope boundary exists in one place — around the asset — not again around each kind of value it produces. Once an asset is in scope, every cash payment, payment right, and item of transferable noncash consideration arising from it is governed as provided below, including sale proceeds, dividends, interest, yield, and distributions, regardless of form or label. Everything else the owner earns, owns, or receives is outside this agreement.
+The scope boundary exists only at the asset level, not again around each kind of value the asset produces. Once an asset is in scope, all sale proceeds, dividends, interest payments, distributions, settlements, recoveries, and other items of value arising from it are governed by this agreement.
 
-## 2. Holdings
+An in-scope payment right or transferable noncash item remains an in-scope asset until it becomes cash. Once accounted for under §2, the cash itself leaves scope; any asset later acquired with it is classified independently under this section. Everything else the owner earns, owns, or receives is outside this agreement.
 
-An in-scope holding is the owner's position in an in-scope asset, payment right, or transferable noncash item derived from one. The simple rule is continuity: noncash value derived from an in-scope holding remains in scope, while USD cash is accounted for under §3 and then leaves scope. No cost is assigned or allocated among individual holdings.
+The owner may not remove an in-scope asset from this agreement through a gift, consumption, or other voluntary transfer, except through a bona fide disposition or a good-faith extinguishment in which no economic interest is retained.
 
-### Ownership and shareholder rights
+## 2. Realized value
 
-Shares create only the economic, election, and approval rights expressly stated in this agreement. All in-scope holdings remain solely owned and controlled by the owner. No shareholder has any legal or beneficial ownership of, lien on, security interest in, or other property right in an in-scope holding or its unrealized value. Shareholders have no control over the owner's actions or life beyond the election and approval rights expressly stated in this agreement. This agreement creates no partnership, agency, trust, or fiduciary relationship.
+This agreement accounts for value from in-scope assets when a `REALIZATION_EVENT` occurs. At each event, any related eligible expense or attributable tax not already recognized is recognized first, the event's cash then reduces the portfolio's single `GLOBAL_COST` balance, and only the cash left after that balance reaches zero is the event's `REALIZED_VALUE`. Section 3 adds each event's `REALIZED_VALUE` to `LIFETIME_REALIZED_VALUE` and applies the floor; §4 allocates any resulting `NEWLY_QUALIFYING_VALUE` among the shares.
 
-### Holding lifecycle
+### When a realization event occurs
 
-An in-scope holding enters at `COMMENCEMENT_TIME`, when later acquired, or when another in-scope holding produces it. An event takes effect when it occurs or settles, regardless of when recorded.
+A `REALIZATION_EVENT` occurs at the moment cash arising from an in-scope asset is received by the owner or irrevocably paid, withheld, or made available for the owner's benefit, or when an amount is expressly treated as `GROSS_CASH_PROCEEDS` under the attributable-tax rules below. Cash arises from an in-scope asset when received because of owning, holding, enforcing, lending, transferring, redeeming, or ending it. Sales, dividends, interest, distributions, settlements, recoveries, and distributions from another personal stock are treated alike.
 
-A transform is a conversion, split, rollover, noncash exchange, or other change in form in which the position continues. It creates no `REALIZATION_EVENT`, and every resulting holding remains in scope. Standing alone, granting, vesting, or exercising an included compensatory interest creates, increases, or transforms a holding; related USD cash remains governed by §3.
-
-On a sale, redemption, exchange, or other disposition, USD cash is governed by §3 and every resulting payment right or transferable noncash item remains in scope. A forfeiture, abandonment, cancellation, expiration, or other ending without consideration creates no `REALIZATION_EVENT` and does not reduce global cost under §3. Any later recovery attributable to a former in-scope holding remains governed.
-
-The owner may not gift, consume, or otherwise voluntarily dispose of an in-scope holding except through a bona fide disposition, transform, or irrevocable good-faith extinguishment with no economic interest retained.
-
-## 3. Realized value
-
-`REALIZED_VALUE` is USD cash extracted from the owner's entire in-scope portfolio after every unrecovered USD investment, expense, and attributable tax of that portfolio has been repaid. There is one global cost balance and one rule: every eligible USD cost increases it, and every in-scope USD cash inflow recovers it. Only the excess is `REALIZED_VALUE`. Costs and returns net across all in-scope holdings, even unrelated ones; unrealized value is never counted.
-
-### Value arising from a holding
-
-Cash, a payment right, or transferable noncash consideration arises from a holding when received by the owner, or paid, withheld, or made available for the owner's benefit, because of owning, holding, enforcing, lending, transferring, redeeming, or ending it. Sales, dividends, interest, distributions, settlements, recoveries, and distributions from another personal stock are treated alike. Non-USD money is noncash consideration until converted to USD.
-
-Unrealized appreciation, value retained inside an entity, and a transform are not receipts. Payment by the same issuer or in the same transaction is not enough: separate wage-like compensation, reimbursement, excluded rights, and bona fide borrowed principal remain outside scope. Substance controls. A disguised or mixed payment and its related costs, expenses, and taxes must be allocated reasonably and in good faith.
-
-A payment right or transferable noncash receipt remains an in-scope holding and creates no `REALIZATION_EVENT` until it becomes USD cash. Once accounted for, USD cash leaves scope; its later earnings or use do not arise from the original holding. If used to acquire or increase an in-scope holding, the new investment instead increases global cost under this section.
-
-To avoid subjective valuation, a nontransferable benefit is not a holding or `REALIZATION_EVENT`. The owner may not arrange one in place of cash, a payment right, or transferable noncash consideration that would otherwise arise.
-
-### Global cost and recovery
-
-`GLOBAL_HOLDING_COST` is the single running balance of unrecovered USD amounts invested, spent, or reasonably reserved for the entire in-scope portfolio, regardless of source. It begins at the opening amount determined under §6 and increases by:
-
-- USD cash actually paid or irrevocably applied to acquire, exercise, or increase an in-scope holding;
-- direct USD expenses actually incurred to acquire, exercise, vest, preserve, enforce, maintain, transform, sell, or otherwise realize one; and
-- `ATTRIBUTABLE_TAXES` when recognized or increased under this section.
-
-Each addition must be reasonable, documented, and caused by an in-scope holding. Noncash consideration, the owner's time or imputed compensation, general overhead, financing costs, and shareholder distribution taxes add nothing. A holding received without a USD payment, including as compensation, may therefore add zero cost, while its actual USD expenses and attributable taxes still count. A cost addition creates no `REALIZED_VALUE`; it only increases the amount that later cash must recover.
-
-Events occurring together are applied in economic order: every eligible expense or tax caused by or required to produce a cash receipt is added first; the receipt and its cost recovery are applied next; and any unrelated new investment is added last. Cash then invested or reinvested is therefore always treated as a receipt before it becomes new `GLOBAL_HOLDING_COST`.
-
-Every USD cash receipt from any in-scope holding automatically recovers the single global balance:
-
-```
-COST_RECOVERY = min(GROSS_CASH_PROCEEDS,
-                    GLOBAL_HOLDING_COST immediately before the receipt)
-
-GLOBAL_HOLDING_COST after the receipt =
-  GLOBAL_HOLDING_COST before the receipt - COST_RECOVERY
-```
-
-For example, if `GLOBAL_HOLDING_COST` is 20 million USD and there is no additional cost when a holding pays 12 million USD, `REALIZED_VALUE` is zero and the global balance becomes 8 million USD. If any holding later pays 20 million USD with no additional cost, the first 8 million USD recovers that balance and the remaining 12 million USD is `REALIZED_VALUE`.
-
-No cost is assigned to a holding. A transform, noncash receipt, or ending without cash neither changes nor allocates `GLOBAL_HOLDING_COST`; unrecovered cost remains available against every later in-scope cash receipt. A correction to a recorded addition is handled under §11. A USD refund, reimbursement, recovery, or reserve release attributable to an amount previously added is deemed to arise from an in-scope holding and follows the same cash-receipt rule.
-
-After the owner's death, once every in-scope holding, payment right, noncash receipt, and related tax reserve has been finally resolved and no further recovery is reasonably possible, a `FINAL_PORTFOLIO_CLOSING` occurs:
-
-```
-FINAL_PORTFOLIO_LOSS = GLOBAL_HOLDING_COST immediately before closing
-GLOBAL_HOLDING_COST after closing = 0
-```
-
-No individual holding's loss is recognized separately; all in-scope investments are one portfolio until this final closing. `FINAL_PORTFOLIO_LOSS` is allocated under §5 but is not a `REALIZATION_EVENT`, because no later value remains to qualify.
-
-### Attributable taxes
-
-`ATTRIBUTABLE_TAXES` are the incremental federal, state, local, foreign, withholding, and similar taxes caused by an in-scope holding or cash arising from one. They exclude shareholder distribution taxes and penalties or interest caused by the owner's late payment.
-
-The owner must recognize them when reasonably estimable, may determine them in good faith with professional advice when appropriate, and must reconcile them whenever they later change. A recognized amount is treated as reserved whether or not held separately. Each initial or increased amount adds to `GLOBAL_HOLDING_COST`; actual payment of an amount already recognized adds nothing again. A later decrease in the estimate is deemed to release the same amount of USD reserve and follows the cash-receipt rule when reconciled. An actual refund or credit follows that rule when the corresponding USD becomes available to the owner. An error in the prior recognition is instead corrected under §11. Unresolved tax may not delay distribution beyond the recognized reserve.
-
-Tax or expense withheld from non-USD money before conversion is already reflected in the net USD proceeds and is not added again.
-
-### Realization events
-
-A `REALIZATION_EVENT` occurs whenever USD cash arising from an in-scope holding is received by the owner or irrevocably paid, withheld, or made available for the owner's benefit. A refund, reimbursement, recovery, or reserve release governed above is a `REALIZATION_EVENT` when available as USD cash.
+A cash refund, reimbursement, or recovery attributable to an amount previously added to `GLOBAL_COST` also creates a `REALIZATION_EVENT` when the cash becomes available. A decrease in a previously recognized attributable-tax reserve creates a `REALIZATION_EVENT` for the amount released at the time of reconciliation, even if the reserved amount was not held separately.
 
 Transactions in the owner's own personal-stock shares are not `REALIZATION_EVENT`s.
 
-### Event calculation
+### What does not create a realization event
 
-`GROSS_CASH_PROCEEDS` is the USD cash giving rise to the event before cost recovery, including USD cash applied directly toward an eligible investment, expense, or tax. For non-USD money, it is only the USD actually produced by conversion, net of tax or expense withheld before conversion. Each cost, cash flow, or reserve adjustment is recorded once; an initial recognition and its later release are separate adjustments.
+Unrealized appreciation and value retained inside an entity do not create a `REALIZATION_EVENT`. An in-scope payment right or transferable noncash item remains an in-scope asset and creates no event until it becomes cash. Non-USD currency is noncash until converted to USD.
 
-At each `REALIZATION_EVENT`:
+A transform is a conversion, split, rollover, noncash exchange, or other change in form through which a position continues. It creates no `REALIZATION_EVENT`, and every resulting in-scope asset remains governed. Granting, vesting, or exercising an included compensatory interest without cash likewise creates no event.
+
+A forfeiture, abandonment, cancellation, expiration, or other good-faith ending without cash creates no `REALIZATION_EVENT` and does not reduce `GLOBAL_COST`. Any later cash recovery remains governed.
+
+Payment by the same issuer or in the same transaction is not enough: separate wage-like compensation, employment- or service-related reimbursement, excluded rights, and bona fide borrowed principal remain outside scope. Substance controls. A disguised or mixed payment and its related costs, expenses, and taxes must be allocated reasonably and in good faith.
+
+To avoid subjective valuation, a nontransferable noncash benefit that is not an enforceable payment right is not an in-scope asset or `REALIZATION_EVENT`. The owner may not arrange one in place of cash, a payment right, or transferable noncash consideration that would otherwise arise.
+
+Once cash has been accounted for at a `REALIZATION_EVENT`, it leaves scope. Its later earnings or use do not arise from the original asset. If the cash is used to acquire or increase an in-scope asset, that new investment instead increases `GLOBAL_COST`.
+
+### Global cost
+
+`GLOBAL_COST` is the single running balance of eligible costs that the owner's entire in-scope portfolio has not yet recovered. It determines how much cash from the next `REALIZATION_EVENT` must be applied before any of that event's cash can become `REALIZED_VALUE`. Costs and returns net across all in-scope assets: no cost is assigned to an individual asset, and the source of the cash used to pay a cost does not matter.
+
+`GLOBAL_COST` begins at the opening amount determined under §5 and increases by:
+
+- cash actually paid or irrevocably applied to acquire, exercise, or increase an in-scope asset;
+- direct expenses actually incurred to acquire, exercise, vest, preserve, enforce, maintain, transform, sell, or otherwise realize one; and
+- `ATTRIBUTABLE_TAXES` when initially recognized or later increased under this section.
+
+Every increase must be reasonable, documented, and caused by an in-scope asset. Noncash consideration, the owner's time or imputed compensation, general overhead, financing costs, and shareholder distribution taxes do not increase `GLOBAL_COST`. An asset received without a cash payment, including as compensation, may therefore add no acquisition cost, while its eligible expenses and attributable taxes still increase `GLOBAL_COST`.
+
+An increase to `GLOBAL_COST` does not itself create a `REALIZATION_EVENT` or `REALIZED_VALUE`; it increases the amount that later event cash must recover. A transform, noncash receipt, or ending without cash neither changes nor allocates `GLOBAL_COST`. A correction to a recorded increase is handled under §10.
+
+### Attributable taxes
+
+`ATTRIBUTABLE_TAXES` are the incremental federal, state, local, foreign, withholding, and similar taxes caused by an in-scope asset or cash arising from one. They exclude shareholder distribution taxes and penalties or interest caused by the owner's late payment.
+
+The owner must recognize attributable taxes when reasonably estimable, may determine them in good faith with professional advice when appropriate, and must reconcile them whenever the estimate or actual liability later changes. A recognized amount is treated as reserved whether or not held separately. A change based on later information or a later determination of liability is a reconciliation; a mistake in the original record or application based on information then available is an error. Tax adjustments are accounted for as follows:
+
+- An initial recognition or later increase increases `GLOBAL_COST` when recognized.
+- Payment of an amount already recognized consumes the corresponding reserve but does not increase `GLOBAL_COST` again or create a `REALIZATION_EVENT`.
+- To the extent a decrease reduces an unpaid recognized amount, it releases the same amount of reserve. The released amount is `GROSS_CASH_PROCEEDS` from a `REALIZATION_EVENT` at the time of reconciliation and is accounted for like any other event cash.
+- To the extent the reduced tax was already paid or withheld, the reduction creates no `REALIZATION_EVENT` until the corresponding refund becomes available or credit is used. That refund or used credit is then `GROSS_CASH_PROCEEDS`. The same amount may not be counted more than once.
+- An error in an earlier recognition is corrected under §10 rather than treated as a new economic event.
+
+Unresolved tax may not delay a distribution beyond the amount reasonably recognized as reserved. Tax or expense withheld from non-USD currency before conversion is already reflected in the net USD proceeds and does not increase `GLOBAL_COST`.
+
+### Calculating realized value at an event
+
+Events occurring together are applied in economic order: every eligible expense or attributable tax caused by or required to produce the event cash and not already recognized is added to `GLOBAL_COST` first; the event cash is applied next; and any unrelated new investment is added last. Cash invested or reinvested immediately after an event is therefore accounted for as event cash before it becomes new `GLOBAL_COST`.
+
+`GROSS_CASH_PROCEEDS` for a `REALIZATION_EVENT` is all cash giving rise to that event before reducing `GLOBAL_COST`, including cash applied directly toward an eligible investment, expense, or tax, plus any amount expressly treated as proceeds under the attributable-tax rules. For non-USD currency, it is only the USD actually produced by conversion, net of tax or expense withheld before conversion. Each cost, cash flow, and reserve adjustment is recorded once.
+
+`REALIZED_VALUE` for a `REALIZATION_EVENT` is the portion of that event's `GROSS_CASH_PROCEEDS` remaining after the proceeds have reduced `GLOBAL_COST` to zero. It is specific to that event and cannot be negative:
 
 ```
-REALIZED_VALUE = GROSS_CASH_PROCEEDS
-                 - COST_RECOVERY
+cash = GROSS_CASH_PROCEEDS for this event
+cost = GLOBAL_COST immediately before applying that cash
+
+if cash <= cost:
+  GLOBAL_COST after the event = cost - cash
+  REALIZED_VALUE for the event = 0
+
+otherwise:
+  GLOBAL_COST after the event = 0
+  REALIZED_VALUE for the event = cash - cost
 ```
 
-### Cumulative realized value
+For example, if `GLOBAL_COST` is 20 million and an asset produces 12 million of `GROSS_CASH_PROCEEDS` with no additional cost, that event's `REALIZED_VALUE` is zero and `GLOBAL_COST` becomes 8 million. If any asset later produces 20 million with no additional cost, the first 8 million clears `GLOBAL_COST` and that later event's `REALIZED_VALUE` is 12 million.
 
-`REALIZED_VALUE` cannot be negative. `CUMULATIVE_REALIZED_VALUE` begins at zero at `COMMENCEMENT_TIME` and is the sum of `REALIZED_VALUE` from every `REALIZATION_EVENT` at or after that time.
+Each event is calculated at its actual occurrence time using the agreement state and terms then in effect.
 
-## 4. Floor and qualification
+## 3. Floor and qualification
 
-`FLOOR` is the level of `CUMULATIVE_REALIZED_VALUE` reserved for the owner before value can qualify for allocation.
+`LIFETIME_REALIZED_VALUE` is the running total that begins at zero at `COMMENCEMENT_TIME` and, after each `REALIZATION_EVENT`, increases by that event's `REALIZED_VALUE`.
+
+`FLOOR` is the level of `LIFETIME_REALIZED_VALUE` reserved for the owner before value can qualify for allocation.
 
 ```
 FLOOR = 10,000,000 USD × (CPI_CURRENT / CPI_2026_06)
@@ -170,33 +160,33 @@ If none exists, the closest published measure of US consumer prices selected
 in good faith applies.
 ```
 
-`DISTRIBUTION_HIGH_WATER_MARK` begins at zero at `COMMENCEMENT_TIME`. Immediately before each `REALIZATION_EVENT`, it is the greatest prior level of `CUMULATIVE_REALIZED_VALUE` through which value has already qualified under this section. It never decreases because of a later economic event, although a correction under §11 may recalculate it.
+`DISTRIBUTION_HIGH_WATER_MARK` begins at zero at `COMMENCEMENT_TIME`. Immediately before each `REALIZATION_EVENT`, it is the greatest prior level of `LIFETIME_REALIZED_VALUE` through which value has already qualified under this section. It never decreases because of a later economic event, although a correction under §10 may recalculate it.
 
-At each `REALIZATION_EVENT`, `NEWLY_QUALIFYING_VALUE` is the positive `REALIZED_VALUE` that takes `CUMULATIVE_REALIZED_VALUE` above both `FLOOR` and `DISTRIBUTION_HIGH_WATER_MARK`:
+At each `REALIZATION_EVENT`, `NEWLY_QUALIFYING_VALUE` is the portion of that event's `REALIZED_VALUE` that takes `LIFETIME_REALIZED_VALUE` above both `FLOOR` and `DISTRIBUTION_HIGH_WATER_MARK`:
 
 ```
-cumulative_before = CUMULATIVE_REALIZED_VALUE before this event
+lifetime_before   = LIFETIME_REALIZED_VALUE before this event
 event_value       = REALIZED_VALUE from this event
 floor_at_event    = FLOOR at this event
 high_water_before = DISTRIBUTION_HIGH_WATER_MARK before this event
 
-cumulative_after        = cumulative_before + event_value
+lifetime_after          = lifetime_before + event_value
 qualification_threshold = max(floor_at_event, high_water_before)
 
 NEWLY_QUALIFYING_VALUE = max(0, min(event_value,
-                                    cumulative_after - qualification_threshold))
+                                    lifetime_after - qualification_threshold))
 
 if NEWLY_QUALIFYING_VALUE > 0:
-  DISTRIBUTION_HIGH_WATER_MARK = cumulative_after
+  DISTRIBUTION_HIGH_WATER_MARK = lifetime_after
 ```
 
-`REALIZED_VALUE` that did not become `NEWLY_QUALIFYING_VALUE` when evaluated remains the owner's. It does not become `NEWLY_QUALIFYING_VALUE` later solely because `FLOOR` decreases; a lower `FLOOR` applies only to later `REALIZATION_EVENT`s. A later cost or loss increases `GLOBAL_HOLDING_COST` and must be recovered before more cash can qualify. No completed distribution must be returned solely because of a later cost or loss.
+`REALIZED_VALUE` that did not become `NEWLY_QUALIFYING_VALUE` when evaluated remains the owner's. It does not become `NEWLY_QUALIFYING_VALUE` later solely because `FLOOR` decreases; a lower `FLOOR` applies only to later `REALIZATION_EVENT`s. A later cost or loss increases `GLOBAL_COST` and must be recovered before more cash can qualify. No completed distribution must be returned solely because of a later cost or loss.
 
 Each `REALIZATION_EVENT` is evaluated using the `FLOOR`, `DISTRIBUTION_HIGH_WATER_MARK`, and other applicable terms then in effect.
 
-## 5. Participation and distribution
+## 4. Participation and distribution
 
-Cash becomes shareable only after the portfolio's global cost has been recovered and the owner's floor has been cleared. Non-owner shareholders then choose collectively whether their portion is paid now or retained as Reinvestment Capital; retained value is deemed to fund new in-scope investment first, while investment activity itself only updates `GLOBAL_HOLDING_COST`.
+Cash becomes shareable only after the portfolio's global cost has been recovered and the owner's floor has been cleared. Non-owner shareholders then choose collectively whether their portion is paid now or retained as Reinvestment Capital; retained value is deemed to fund new in-scope investment first, while investment activity itself only updates `GLOBAL_COST`.
 
 `PARTICIPATION` is the contractual allocation of `NEWLY_QUALIFYING_VALUE` among the outstanding shares at a `REALIZATION_EVENT`. Each outstanding share is one equal unit of `PARTICIPATION`. The portion attributable to owner shares belongs to the owner; the portion attributable to non-owner shares is `NON_OWNER_PARTICIPATION`.
 
@@ -224,32 +214,23 @@ When the result is `DISTRIBUTE`, each non-owner shareholder receives `NEWLY_QUAL
 
 The owner must calculate and settle each distribution within 30 calendar days after the `REALIZATION_EVENT`. If a shareholder has not provided payment instructions, tax documentation, or other information reasonably required for payment, that shareholder's deadline is 30 calendar days after the owner receives it. Payment may otherwise be delayed only as reasonably necessary to comply with law, maintain a permitted tax reserve, or resolve a good-faith dispute; any unaffected undisputed amount must be paid by the otherwise applicable deadline. Each shareholder is responsible for taxes imposed on that shareholder's distribution.
 
-`REINVESTMENT_CAPITAL_BALANCE` begins at zero at `COMMENCEMENT_TIME`, increases by each `NON_OWNER_PARTICIPATION` retained under `REINVEST`, and may never be less than zero. For accounting purposes, the entire balance is deemed deployed first and foremost into the in-scope portfolio's new investments, before the owner's capital. It therefore bears the portfolio's final loss first even if some retained cash was not actually invested. This is a contractual portfolio-level convention: no portion of Reinvestment Capital is attributed to a particular dollar, holding, cost, or shareholder.
+`REINVESTMENT_CAPITAL_BALANCE` begins at zero at `COMMENCEMENT_TIME`, increases by each `NON_OWNER_PARTICIPATION` retained under `REINVEST`, and may never be less than zero. For accounting purposes, the entire balance is deemed deployed first and foremost into the in-scope portfolio's new investments, before the owner's capital. This is a contractual portfolio-level convention: no portion of Reinvestment Capital is attributed to a particular dollar, asset, cost, or shareholder.
 
-Deploying Reinvestment Capital into an in-scope holding does not itself change `REINVESTMENT_CAPITAL_BALANCE`; the USD investment increases `GLOBAL_HOLDING_COST` like any other. Because losses remain in that single global balance while the portfolio continues, no holding-level Reinvestment Capital gain or loss is calculated. At `FINAL_PORTFOLIO_CLOSING`:
+Deploying Reinvestment Capital into an in-scope asset does not itself change `REINVESTMENT_CAPITAL_BALANCE`; the investment increases `GLOBAL_COST` like any other. Because costs and returns remain in that single global balance, no asset-level Reinvestment Capital gain or loss is calculated.
 
-```
-REINVESTMENT_CAPITAL_LOSS =
-  min(FINAL_PORTFOLIO_LOSS, REINVESTMENT_CAPITAL_BALANCE)
+During the owner's life, Reinvestment Capital must be retained or used first and foremost for present or future in-scope assets and may otherwise be used in good faith to maintain, develop, or increase the owner's capacity to create value through them. The owner has sole discretion over its timing, form, and use, and no investment or return is guaranteed. Unrelated personal consumption and gratuitous transfers are not permitted uses.
 
-REINVESTMENT_CAPITAL_BALANCE -= REINVESTMENT_CAPITAL_LOSS
-```
-
-The remainder of `FINAL_PORTFOLIO_LOSS`, if any, is borne by the owner. No completed distribution is changed.
-
-During the owner's life, Reinvestment Capital must be retained or used first and foremost for present or future in-scope holdings and may otherwise be used in good faith to maintain, develop, or increase the owner's capacity to create value through them. The owner has sole discretion over its timing, form, and use, and no investment or return is guaranteed. Unrelated personal consumption and gratuitous transfers are not permitted uses.
-
-A permitted USD expenditure is handled exactly once. If eligible for `GLOBAL_HOLDING_COST`, it increases that balance and does not directly reduce `REINVESTMENT_CAPITAL_BALANCE`. Otherwise, if it leaves no recoverable asset, it reduces `REINVESTMENT_CAPITAL_BALANCE`, but not below zero, and a direct recovery or refund reverses only that reduction without creating `REALIZED_VALUE`. A mixed use must be allocated reasonably and in good faith.
+A permitted expenditure is handled exactly once. If eligible for `GLOBAL_COST`, it increases that balance and does not directly reduce `REINVESTMENT_CAPITAL_BALANCE`. Otherwise, if it leaves no recoverable asset, it reduces `REINVESTMENT_CAPITAL_BALANCE`, but not below zero, and a direct recovery or refund reverses only that reduction without creating `REALIZED_VALUE`. A mixed use must be allocated reasonably and in good faith.
 
 No shareholder may withdraw Reinvestment Capital during the owner's life. A person participates in it only through shares held when this agreement requires a distribution. After transferring shares, the transferor retains no interest in it, and no separate Reinvestment Capital amount is added to the transfer price.
 
-Designating value as Reinvestment Capital does not create a holding or `REALIZATION_EVENT`.
+Designating value as Reinvestment Capital does not create an in-scope asset or `REALIZATION_EVENT`.
 
 If no shares remain held by anyone other than the owner, any remaining `REINVESTMENT_CAPITAL_BALANCE` ceases to be purpose-bound and belongs to the owner. The release must be recorded and is not a `REALIZATION_EVENT` or `NEWLY_QUALIFYING_VALUE`.
 
 Each `REALIZATION_EVENT` is allocated using the shares, elections, and other applicable terms then in effect.
 
-## 6. Shares and issuances
+## 5. Shares and issuances
 
 Shares are whole and indivisible. No fractional share may be issued, held, or transferred.
 
@@ -257,31 +238,31 @@ Shares are whole and indivisible. No fractional share may be issued, held, or tr
 AUTHORIZED_SHARES = 20,000,000
 ```
 
-Outstanding shares may never exceed `AUTHORIZED_SHARES`. The limit may increase only when every current shareholder adopts an agreement version containing the increase under §12.
+Outstanding shares may never exceed `AUTHORIZED_SHARES`. The limit may increase only when every current shareholder adopts an agreement version containing the increase under §11.
 
 The “latest agreement version” is the most recent agreement version the owner has issued for adoption.
 
-Before a person who does not currently hold shares may receive any shares, that person must sign the latest agreement version. This applies to an issuance, transfer, or directed sale. Temporary succession by operation of law under §13 is the only exception.
+Before a person who does not currently hold shares may receive any shares, that person must sign the latest agreement version. This applies to an issuance, transfer, or directed sale. Temporary succession by operation of law under §12 is the only exception.
 
-Shareholders must hold shares for their own benefit. Except for a legal representative or temporary holder under §13, no shareholder may act as a nominee, agent, or proxy for a third party; hold shares on another's behalf; transfer the economic interest to a non-shareholder; or exercise an election on another's instructions.
+Shareholders must hold shares for their own benefit. Except for a legal representative or temporary holder under §12, no shareholder may act as a nominee, agent, or proxy for a third party; hold shares on another's behalf; transfer the economic interest to a non-shareholder; or exercise an election on another's instructions.
 
 Only the owner acting personally may authorize an issuance. This power is nondelegable, and no issuance may settle during the owner's incapacity or after death.
 
-Except for a below-benchmark issuance requiring approval under §7, the owner may issue authorized but unissued shares at any time, to any recipient, for cash, services, no consideration, or any other lawful consideration, without shareholder approval. No shareholder has any preemptive or anti-dilution right, including any right to participate pro rata in an issuance. Subject to this agreement, the owner may choose to offer a shareholder a transaction-specific opportunity to acquire shares, but no offer, policy, or past practice creates a right to any future offer.
+Except for a below-benchmark issuance requiring approval under §6, the owner may issue authorized but unissued shares at any time, to any recipient, for cash, services, no consideration, or any other lawful consideration, without shareholder approval. No shareholder has any preemptive or anti-dilution right, including any right to participate pro rata in an issuance. Subject to this agreement, the owner may choose to offer a shareholder a transaction-specific opportunity to acquire shares, but no offer, policy, or past practice creates a right to any future offer.
 
-Money received from issuing shares belongs solely to the owner. It is not a `REALIZATION_EVENT`, creates no `REALIZED_VALUE`, and need not be used for any particular purpose. If later used to acquire an in-scope holding, that holding is governed like any other.
+Money received from issuing shares belongs solely to the owner. It is not a `REALIZATION_EVENT`, creates no `REALIZED_VALUE`, and need not be used for any particular purpose. An in-scope asset later acquired with it is governed like any other.
 
-Except for a required sale under §10, an issuance or transfer settles when every action and condition required to complete it has occurred and the share movement has become irrevocable. Its event time is the actual settlement time, regardless of when it is recorded.
+Except for a required sale under §9, an issuance or transfer settles when every action and condition required to complete it has occurred and the share movement has become irrevocable. Its event time is the actual settlement time, regardless of when it is recorded.
 
-Before or simultaneously with the first issuance, the owner must record every in-scope holding then owned, the opening `GLOBAL_HOLDING_COST`, the first issuance, resulting share ownership, applicable agreement versions, and every other opening input needed to apply this agreement.
+Before or simultaneously with the first issuance, the owner must record every in-scope asset then owned, the opening `GLOBAL_COST`, the first issuance, resulting share ownership, applicable agreement versions, and every other opening input needed to apply this agreement.
 
-The opening `GLOBAL_HOLDING_COST` is determined reasonably and in good faith by applying §3 chronologically to every eligible pre-commencement cost and cash receipt attributable to the opening holdings and their prior forms, all treated as one portfolio. No cost, receipt, or loss from a position extinguished before `COMMENCEMENT_TIME` and not represented by an opening holding carries into it.
+The opening `GLOBAL_COST` is determined reasonably and in good faith by applying §2 chronologically to every eligible pre-commencement cost and cash receipt attributable to the opening assets and their prior forms, all treated as one portfolio. No cost, receipt, or loss from a position extinguished before `COMMENCEMENT_TIME` and not represented by an opening asset carries into it.
 
-No event before `COMMENCEMENT_TIME` is itself included in `CUMULATIVE_REALIZED_VALUE`, `DISTRIBUTION_HIGH_WATER_MARK`, or any other event-based calculation under this agreement. Every in-scope asset, payment right, and transferable noncash item existing then enters only as an opening holding; any later recovery from a pre-commencement position not represented by one is outside this agreement.
+No event before `COMMENCEMENT_TIME` is itself included in `LIFETIME_REALIZED_VALUE`, `DISTRIBUTION_HIGH_WATER_MARK`, or any other event-based calculation under this agreement. Every in-scope asset existing then enters only as an opening asset; any later recovery from a pre-commencement position not represented by one is outside this agreement.
 
-## 7. Benchmark price
+## 6. Benchmark price
 
-`BENCHMARK_PRICE` is the per-share price used under this agreement to record noncash share transactions, establish `ROYALTY_BASIS` under §9 for noncash acquisitions, and set the minimum price for buybacks and directed sales under §10. It is the volume-weighted average recorded transaction price of the most recent `BENCHMARK_WINDOW` eligible shares.
+`BENCHMARK_PRICE` is the per-share price used under this agreement to record noncash share transactions, establish `ROYALTY_BASIS` under §8 for noncash acquisitions, and set the minimum price for buybacks and directed sales under §9. It is the volume-weighted average recorded transaction price of the most recent `BENCHMARK_WINDOW` eligible shares.
 
 ```
 INITIAL_BENCHMARK_PRICE = 1 USD per share
@@ -290,41 +271,41 @@ BENCHMARK_WINDOW        = 100,000 shares
 
 The benchmark history is empty at `COMMENCEMENT_TIME`. If fewer than `BENCHMARK_WINDOW` eligible shares have moved, all eligible shares are used. If none have moved, `INITIAL_BENCHMARK_PRICE` applies. If the oldest included transaction crosses the window boundary, only the shares needed to complete the window are included from that transaction.
 
-Each share moved in an issuance or transfer has the following recorded transaction price, except that a royalty share transferred to the owner under §9 has no recorded transaction price:
+Each share moved in an issuance or transfer has the following recorded transaction price, except that a royalty share transferred to the owner under §8 has no recorded transaction price:
 
 ```
 cash-only movement          = actual USD price paid per share received
-all other non-§10 movements = BENCHMARK_PRICE immediately before the movement
+all other non-§9 movements  = BENCHMARK_PRICE immediately before the movement
 buyback or directed sale    = actual settlement price per share
 ```
 
 For a cash-only movement, actual price includes every linked cash or cash-equivalent arrangement, including a rebate, refund, reimbursement, credit, debt forgiveness, offset, or indirect payment. Related arrangements must be combined and valued in good faith so the recorded price reflects the transaction's effective cash economics.
 
-A recorded transaction price is a contractual input for the benchmark and `ROYALTY_BASIS` under §9. It is not fair market value, compensation value, tax basis, proof of consideration, or evidence that shares were acquired in any particular manner. Private consideration, payment, employment, gift, and tax details remain in the supporting records under §11.
+A recorded transaction price is a contractual input for the benchmark and `ROYALTY_BASIS` under §8. It is not fair market value, compensation value, tax basis, proof of consideration, or evidence that shares were acquired in any particular manner. Private consideration, payment, employment, gift, and tax details remain in the supporting records under §10.
 
 An issuance or voluntary transfer by the owner whose recorded transaction price would be below `BENCHMARK_PRICE` immediately before settlement requires the written approval of the owner and every other current shareholder. This does not restrict a noncash issuance or owner transfer whose recorded transaction price equals the benchmark under this section.
 
 Issuances and transfers other than buybacks and directed sales are eligible benchmark movements unless disregarded or corrected under the anti-manipulation rule below. When a sale includes royalty shares, only the shares purchased by the buyer are eligible.
 
-The owner and each shareholder must administer and use the benchmark rules in good faith. Neither the owner nor any shareholder may structure, divide, combine, time, price, fund, characterize, or record a transaction or related series primarily to artificially increase, decrease, preserve, or otherwise manipulate `BENCHMARK_PRICE` or any royalty, buyback price, or directed-sale price derived from it. A bona fide transaction is not prohibited merely because it affects the benchmark. A violating transaction remains otherwise effective but must be disregarded or corrected for benchmark purposes, and every affected calculation must be recalculated under §11. Correcting its benchmark treatment does not require public disclosure of private consideration or acquisition type.
+The owner and each shareholder must administer and use the benchmark rules in good faith. Neither the owner nor any shareholder may structure, divide, combine, time, price, fund, characterize, or record a transaction or related series primarily to artificially increase, decrease, preserve, or otherwise manipulate `BENCHMARK_PRICE` or any royalty, buyback price, or directed-sale price derived from it. A bona fide transaction is not prohibited merely because it affects the benchmark. A violating transaction remains otherwise effective but must be disregarded or corrected for benchmark purposes, and every affected calculation must be recalculated under §10. Correcting its benchmark treatment does not require public disclosure of private consideration or acquisition type.
 
-## 8. Transfers
+## 7. Transfers
 
-Subject to §7's below-benchmark restriction, the owner may transfer the owner's existing shares for cash or noncash consideration.
+Subject to §6's below-benchmark restriction, the owner may transfer the owner's existing shares for cash or noncash consideration.
 
 A non-owner shareholder may voluntarily transfer shares only through a bona fide cash sale permitted by the owner in the owner's sole discretion at settlement. Gifts, donations, transfers for services, and other noncash voluntary transfers by a non-owner shareholder are prohibited.
 
 Permission may arise from a generally applicable policy, a transaction-specific writing, or both. The owner may change a policy or withdraw transaction-specific permission before settlement, affecting any unsettled transfer if communicated before it settles. A completed transfer is unaffected. Transaction-specific permission is irrevocable only if it expressly says so.
 
-The owner's permission does not override any other requirement of this agreement, including legal compliance under §14.
+The owner's permission does not override any other requirement of this agreement, including legal compliance under §13.
 
 For a permitted cash sale, payment and every required share transfer must occur as one settlement.
 
-## 9. Royalties
+## 8. Royalties
 
 A royalty is the additional whole shares that a non-owner shareholder transfers to the owner when a permitted cash sale produces new cumulative contractual sale gain for that seller. A royalty is paid in shares, not cash.
 
-`ROYALTY_BASIS` is the recorded transaction price under §7 assigned to a share solely to calculate later royalty gain. It does not change until shares leave the shareholder's holdings. If shares were acquired at different bases, the bases are pooled and allocated using a weighted average.
+`ROYALTY_BASIS` is the recorded transaction price under §6 assigned to a share solely to calculate later royalty gain. It does not change until shares leave the shareholder's holdings. If shares were acquired at different bases, the bases are pooled and allocated using a weighted average.
 
 ```
 ROYALTY_RATE = 0.05
@@ -349,7 +330,7 @@ For a permitted cash sale by a non-owner shareholder:
 
 ```
 buyer_shares        = whole shares the buyer will receive
-sale_price          = recorded transaction price under §7
+sale_price          = recorded transaction price under §6
 sale_proceeds       = buyer_shares × sale_price
 allocated_basis     = average_royalty_basis × buyer_shares
 sale_result         = sale_proceeds - allocated_basis
@@ -369,25 +350,25 @@ The seller's aggregate royalty basis is reduced proportionally for every share s
 
 Prior negative sale results must be recovered before an additional royalty applies. Once royalty has been assessed on a level of cumulative contractual sale gain, recovery after a later negative result does not cause that gain to be charged again.
 
-## 10. Buybacks and directed sales
+## 9. Buybacks and directed sales
 
-The owner may require a non-owner shareholder to sell any whole number of shares up to all shares held. A required sale to the owner is a `buyback`; one to a purchaser designated by the owner is a `directed sale`. Neither is a voluntary transfer or requires permission under §8.
+The owner may require a non-owner shareholder to sell any whole number of shares up to all shares held. A required sale to the owner is a `buyback`; one to a purchaser designated by the owner is a `directed sale`. Neither is a voluntary transfer or requires permission under §7.
 
 The shareholder's consent, signature, cooperation, payment instructions, and advance notice are not required. Each shareholder irrevocably authorizes the owner to record a required sale. The price per share must be at or above `BENCHMARK_PRICE` immediately before settlement.
 
-No separate Reinvestment Capital amount is added to the price of a buyback or directed sale. The owner may not require a buyback if a material purpose is (a) to cause Reinvestment Capital to be released to the owner or (b) to prevent value from a specific `REALIZATION_EVENT` the owner then reasonably expects from being allocated under §5 to the shares being bought back.
+No separate Reinvestment Capital amount is added to the price of a buyback or directed sale. The owner may not require a buyback if a material purpose is (a) to cause Reinvestment Capital to be released to the owner or (b) to prevent value from a specific `REALIZATION_EVENT` the owner then reasonably expects from being allocated under §4 to the shares being bought back.
 
-A required sale settles only when both: (a) the purchaser irrevocably deposits the purchase price, less any tax required to be withheld and properly remitted under §14, with a payment agent or in a segregated account solely for the shareholder; and (b) the owner records the transfer. The owner must notify the shareholder promptly. The deposited funds must remain unconditionally available to the shareholder. Without full funding, no sale occurs.
+A required sale settles only when both: (a) the purchaser irrevocably deposits the purchase price, less any tax required to be withheld and properly remitted under §13, with a payment agent or in a segregated account solely for the shareholder; and (b) the owner records the transfer. The owner must notify the shareholder promptly. The deposited funds must remain unconditionally available to the shareholder. Without full funding, no sale occurs.
 
 A buyback or directed sale carries no royalty and does not enter the seller's `cumulative_sale_result` or `royalty_high_water`. The seller's aggregate royalty basis is reduced proportionally, and the purchaser receives royalty basis equal to the actual price paid.
 
 A buyback transfers shares to the owner; it does not cancel them or reduce outstanding shares.
 
-## 11. Records, corrections, and information
+## 10. Records, corrections, and information
 
 The owner must maintain one complete chronological official history sufficient to determine the stock's current state and reproduce every result under this agreement. That history is authoritative: the current state and every result are determined by applying this agreement to it. Derived views, caches, or other implementation artifacts may be maintained, but they have no independent contractual authority and must remain reproducible from the official history.
 
-The official history must record or identify all inputs needed to apply this agreement, including share movements and prices; agreement versions, elections, approvals, and amendments; in-scope holdings and transforms; every change to `GLOBAL_HOLDING_COST`; every cash receipt, payment right, and transferable noncash item arising from an in-scope holding; `REALIZATION_EVENT`s, `ATTRIBUTABLE_TAXES`, and distributions under §5; `FINAL_PORTFOLIO_CLOSING` and `FINAL_PORTFOLIO_LOSS`; Reinvestment Capital adjustments; royalties; and corrections. Each record must use the event's actual occurrence or settlement time even if entered later. Events and inputs must be recorded promptly and before they or later events are relied on to calculate or complete a transaction.
+The official history must record or identify all inputs needed to apply this agreement, including share movements and prices; agreement versions, elections, approvals, and amendments; in-scope assets and transforms; every change to `GLOBAL_COST`; every cash receipt, payment right, and transferable noncash item arising from an in-scope asset; `REALIZATION_EVENT`s, `ATTRIBUTABLE_TAXES`, and distributions under §4; Reinvestment Capital adjustments; royalties; and corrections. Each record must use the event's actual occurrence or settlement time even if entered later. Events and inputs must be recorded promptly and before they or later events are relied on to calculate or complete a transaction.
 
 The official history must be preserved. A correction must identify the matter corrected rather than erase it, and every affected result must be recalculated from the corrected history.
 
@@ -405,7 +386,7 @@ The public history remains available after a person ceases to be a shareholder. 
 
 The owner generally will not publish a shareholder's legal name unless the shareholder uses it as a display name or consents to publication. The owner may disclose it when reasonably necessary to comply with law, verify or reconcile stock records, enforce or defend legal rights, or prevent the public record from being materially misleading, and only to the extent reasonably necessary. Signed agreements, private payment records, tax information, and other supporting materials remain private subject to the same limited exceptions.
 
-## 12. Amendments
+## 11. Amendments
 
 A shareholder adopts an agreement version by signing it. The owner may issue a new version at any time with a plain-language summary of its changes, and each existing shareholder may choose whether to adopt it.
 
@@ -417,34 +398,34 @@ A proposed shared-term change takes effect at the time recorded by the owner onl
 
 The owner may resolve administrative matters not addressed by this agreement reasonably and in good faith but may not contradict this agreement, change its economic rights, or bypass an approval or amendment requirement.
 
-## 13. Incapacity, death, marital covenants, and pledges
+## 12. Incapacity, death, marital covenants, and pledges
 
 If the owner or a shareholder becomes incapacitated, a person legally authorized to manage that person's property may exercise their rights and perform their duties under this agreement, subject to the same limits.
 
-If a non-owner shareholder dies or their shares otherwise pass by operation of law, the legally recognized successor becomes a temporary holder under the prior holder's applicable version and election. The temporary holder may receive notices and payments and preserve the shares but may not change the election. If the prior holder died, the shares may be transferred only through a buyback, which the owner must complete under §10 as soon as reasonably practicable. Otherwise, the temporary holder becomes permanent upon signing the latest version with the owner's written approval. To the extent permitted by law, this agreement binds the temporary holder and successor.
+If a non-owner shareholder dies or their shares otherwise pass by operation of law, the legally recognized successor becomes a temporary holder under the prior holder's applicable version and election. The temporary holder may receive notices and payments and preserve the shares but may not change the election. If the prior holder died, the shares may be transferred only through a buyback, which the owner must complete under §9 as soon as reasonably practicable. Otherwise, the temporary holder becomes permanent upon signing the latest version with the owner's written approval. To the extent permitted by law, this agreement binds the temporary holder and successor.
 
-On the owner's death, the owner's personal representative administers the stock, and in-scope holdings must be converted to cash as promptly as their terms reasonably permit. Shares held by the owner's estate are treated as the owner's shares under §5 and are not `NON_OWNER_SHARES`. For every later `REALIZATION_EVENT`, the distribution result is `DISTRIBUTE` regardless of standing elections, and no further value may become Reinvestment Capital.
+On the owner's death, the owner's personal representative administers the stock, and each in-scope asset must be converted to cash as promptly as its terms reasonably permit or, if it cannot reasonably be converted, otherwise finally disposed of or extinguished. Shares held by the owner's estate are treated as the owner's shares under §4 and are not `NON_OWNER_SHARES`. For every later `REALIZATION_EVENT`, the distribution result is `DISTRIBUTE` regardless of standing elections, and no further value may become Reinvestment Capital.
 
-At the owner's death, notwithstanding §5's Reinvestment Capital rules, the persons then holding non-owner shares acquire a pro rata entitlement, based on shares held at death, to whatever `REINVESTMENT_CAPITAL_BALANCE` remains after §5's final-loss allocation; that entitlement passes to their legal successors. After all in-scope holdings and related tax reserves are finally resolved, `FINAL_PORTFOLIO_CLOSING` occurs, `REINVESTMENT_CAPITAL_LOSS` is applied, and the remaining balance is paid. The owner's estate has no interest in that remaining balance.
+At the owner's death, the persons then holding non-owner shares acquire a pro rata entitlement, based on shares held at death, to whatever `REINVESTMENT_CAPITAL_BALANCE` remains after the following terminal accounting; that entitlement passes to their legal successors. After every in-scope asset has been converted to cash or otherwise finally disposed of or extinguished, every related cost and tax reserve has been resolved, and every resulting `REALIZATION_EVENT` has been accounted for, any `GLOBAL_COST` then remaining reduces `REINVESTMENT_CAPITAL_BALANCE` dollar for dollar until either balance reaches zero. `GLOBAL_COST` then becomes zero; any amount that exceeded Reinvestment Capital is borne by the owner's estate. The remaining Reinvestment Capital is paid pro rata to those entitled to it, and the owner's estate has no interest in that balance.
 
-`FLOOR` and all other value belonging to the owner after applying this agreement belong to the owner's estate. This agreement remains in effect until every in-scope holding, tax reserve, distribution, and other obligation is finally resolved; the stock dissolves only then. The agreement binds the owner's estate, and the owner must maintain a will directing the estate to perform it.
+`FLOOR` and all other value belonging to the owner after applying this agreement belong to the owner's estate. This agreement remains in effect until every in-scope asset, tax reserve, distribution, and other obligation is finally resolved; the stock dissolves only then. The agreement binds the owner's estate, and the owner must maintain a will directing the estate to perform it.
 
-Before marrying, the owner must enter into and maintain a marital agreement recognizing and preserving this agreement's obligations. With respect to in-scope holdings and value arising from them, value distributable to non-owner shareholders and Reinvestment Capital must be excluded from marital or community property. Only value belonging to the owner after applying this agreement may enter the marital estate.
+Before marrying, the owner must enter into and maintain a marital agreement recognizing and preserving this agreement's obligations. With respect to in-scope assets and value arising from them, value distributable to non-owner shareholders and Reinvestment Capital must be excluded from marital or community property. Only value belonging to the owner after applying this agreement may enter the marital estate.
 
-The owner may pledge or use the owner's shares, or amounts belonging to the owner after this agreement is applied, to support an obligation. The obligation must remain expressly subject to this agreement, may not be secured by an in-scope holding or Reinvestment Capital, and may not reduce or redirect an amount distributable to another shareholder. Any enforcement transfer remains subject to the recipient-signature, transfer, and legal-compliance rules. The owner may not voluntarily incur an obligation the owner reasonably expects would materially impair performance of this agreement.
+The owner may pledge or use the owner's shares, or amounts belonging to the owner after this agreement is applied, to support an obligation. The obligation must remain expressly subject to this agreement, may not be secured by an in-scope asset or Reinvestment Capital, and may not reduce or redirect an amount distributable to another shareholder. Any enforcement transfer remains subject to the recipient-signature, transfer, and legal-compliance rules. The owner may not voluntarily incur an obligation the owner reasonably expects would materially impair performance of this agreement.
 
-## 14. General
+## 13. General
 
 Notwithstanding anything else in this agreement, a transaction involving shares may occur only if the owner reasonably determines that it complies with securities law and all other applicable law. The owner may require information, representations, certifications, supporting documents, or other verification reasonably needed to determine or document compliance and may delay or refuse the transaction until those requirements are satisfied. Permission under this agreement does not itself establish legality.
 
-Every monetary amount calculated, recorded, or paid under this agreement is denominated in USD. Cash received from a third party need not be USD; non-USD money arising from an in-scope holding is governed by §§2–3 until converted to USD. Any cash payment the owner controls in connection with an issuance, transfer, in-scope holding, distribution under §5, expense, tax, or other transaction governed by this agreement must be USD.
+Unless expressly stated otherwise, every reference to cash means USD, and every monetary calculation under this agreement is denominated in USD. Non-USD currency is treated as noncash consideration until converted into USD.
 
 No tax will be withheld from a payment unless required by law. Tax properly withheld and remitted is treated as paid to the recipient.
 
 If any provision or application is invalid or unenforceable, it is severed only to the extent necessary, and the remainder remains effective.
 
-The owner and each shareholder must maintain a current electronic notice address in the private records under §11. Electronic notice satisfies a writing requirement and is received when it enters the designated system in retrievable form; known delivery failure requires another reasonable method.
+The owner and each shareholder must maintain a current electronic notice address in the private records under §10. Electronic notice satisfies a writing requirement and is received when it enters the designated system in retrievable form; known delivery failure requires another reasonable method.
 
-This agreement is the complete statement of the terms governing the stock. A separate record, transaction document, summary, or communication may establish transaction facts or separate obligations but changes this agreement only as it expressly permits or through §12.
+This agreement is the complete statement of the terms governing the stock. A separate record, transaction document, summary, or communication may establish transaction facts or separate obligations but changes this agreement only as it expressly permits or through §11.
 
 This agreement may be signed electronically. The signature packet must contain or identify the complete agreement version accepted, which governs over any summary or explanatory copy.
