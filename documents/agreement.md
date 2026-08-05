@@ -69,7 +69,7 @@ This agreement accounts for value from in-scope assets when a `REALIZATION_EVENT
 
 A `REALIZATION_EVENT` occurs at the moment cash arising from an in-scope asset is received by the owner or irrevocably paid, withheld, or made available for the owner's benefit, or when an amount is expressly treated as `GROSS_CASH_PROCEEDS` under the attributable-tax rules below. Cash arises from an in-scope asset when received because of owning, holding, enforcing, lending, transferring, redeeming, or ending it. Sales, dividends, interest, distributions, settlements, recoveries, and distributions from another personal stock are treated alike.
 
-A cash refund, reimbursement, or recovery attributable to an amount previously added to `GLOBAL_COST` also creates a `REALIZATION_EVENT` when the cash becomes available. A decrease in a previously recognized attributable-tax reserve creates a `REALIZATION_EVENT` for the amount released at the time of reconciliation, even if the reserved amount was not held separately.
+A cash refund, reimbursement, or recovery attributable to an amount previously added to `GLOBAL_COST` also creates a `REALIZATION_EVENT` when the cash becomes available. A decrease in a previously recognized unpaid eligible expense or attributable-tax reserve creates a `REALIZATION_EVENT` for the amount released at the time of reconciliation, even if the amount was not held separately.
 
 Transactions in the owner's own personal-stock shares are not `REALIZATION_EVENT`s.
 
@@ -111,6 +111,7 @@ The owner must recognize attributable taxes when reasonably estimable, may deter
 - Payment of an amount already recognized consumes the corresponding reserve but does not increase `GLOBAL_COST` again or create a `REALIZATION_EVENT`.
 - To the extent a decrease reduces an unpaid recognized amount, it releases the same amount of reserve. The released amount is `GROSS_CASH_PROCEEDS` from a `REALIZATION_EVENT` at the time of reconciliation and is accounted for like any other event cash.
 - To the extent the reduced tax was already paid or withheld, the reduction creates no `REALIZATION_EVENT` until the corresponding refund becomes available or credit is used. That refund or used credit is then `GROSS_CASH_PROCEEDS`. The same amount may not be counted more than once.
+- Any other tax benefit caused by an in-scope asset is `GROSS_CASH_PROCEEDS` to the extent and at the time it actually reduces tax otherwise payable and is not already reflected in `ATTRIBUTABLE_TAXES` or counted under this section.
 - An error in an earlier recognition is corrected under §10 rather than treated as a new economic event.
 
 Unresolved tax may not delay a distribution beyond the amount reasonably recognized as reserved. Tax or expense withheld from non-USD currency before conversion is already reflected in the net USD proceeds and does not increase `GLOBAL_COST`.
