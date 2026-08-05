@@ -12,7 +12,7 @@ OWNER        = Karthik Uppuluri (@koopuluri)
 
 Each share represents a proportional contractual participation in the owner's net realized economic upside from in-scope assets over the owner's life, above a defined portion of upside that is excluded from shareholder participation.
 
-Personal stock is contractual only. All in-scope assets remain solely owned and controlled by the owner. A shareholder has only the economic, election, and approval rights expressly stated in this agreement and has no ownership of, lien on, or other property right in any in-scope asset or its unrealized value. This agreement gives shareholders no control over the owner's actions or life and creates no partnership, agency, trust, or fiduciary relationship.
+This agreement gives shareholders no control over the owner's actions or life and creates no partnership, agency, trust, or fiduciary relationship.
 
 `COMMENCEMENT_TIME` is the date and time the first issuance under this agreement settles. Immediately before it, no shares are outstanding. By completing the first issuance, the owner adopts this agreement and becomes bound by it.
 
@@ -49,6 +49,8 @@ IN_SCOPE_ASSETS =
 
 An asset, instrument, right, or ownership-like interest is an in-scope asset if it falls within an included category and not an excluded category of `IN_SCOPE_ASSETS`.
 
+Personal stock is contractual only. All in-scope assets remain solely owned and controlled by the owner. A shareholder has only the economic, election, and approval rights expressly stated in this agreement and has no ownership of, lien on, or other property right in any in-scope asset or its unrealized value.
+
 The listed categories govern the asset forms they cover. A future asset class or instrument not reasonably covered by them is also an in-scope asset if, assessed reasonably and in good faith when classified, its economic character falls within the purpose stated above and it is not substantially equivalent to an excluded category. An included asset requires no forecast, minimum investment or ownership, or particular outcome.
 
 Scope depends on what a position is, not how the owner acquired it. An otherwise included asset remains included whether purchased, granted, earned as compensation, exercised, converted, gifted, or otherwise acquired. Employment, service conditions, vesting, payroll or tax treatment, and characterization as compensation do not exclude equity or an equity-linked interest. Salary, fees, cash bonuses, and other wage-like cash compensation remain excluded; cash or noncash value received in settlement of an included equity or equity-linked interest is value from that asset and remains governed by this agreement.
@@ -63,7 +65,7 @@ The owner may not remove an in-scope asset from this agreement through a gift, c
 
 ## 2. Realized value
 
-This agreement accounts for value from in-scope assets when a `REALIZATION_EVENT` occurs. At each event, any related eligible expense or attributable tax not already recognized is recognized first, the event's cash then reduces the portfolio's single `GLOBAL_COST` balance, and only the cash left after that balance reaches zero is the event's `REALIZED_VALUE`. Section 3 adds each event's `REALIZED_VALUE` to `LIFETIME_REALIZED_VALUE` and applies the floor; §4 allocates any resulting `NEWLY_QUALIFYING_VALUE` among the shares.
+This agreement accounts for value from in-scope assets when a `REALIZATION_EVENT` occurs. At each event, any related eligible expense or attributable tax not already recognized is recognized first, the event's cash then reduces the portfolio's single `GLOBAL_COST` balance, and only the cash left after that balance reaches zero is the event's `REALIZED_VALUE`. `REALIZED_VALUE` is then used to determine how much value qualifies for shareholder participation.
 
 ### When a realization event occurs
 
