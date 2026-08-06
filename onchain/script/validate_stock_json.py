@@ -1575,6 +1575,8 @@ class LedgerState:
 
 def validate_document(document: Document, draft: bool, previous: Document | None = None) -> LedgerState:
     validate_header(document.header, draft)
+    if draft and not document.events and previous is None:
+        return LedgerState(document.header, draft)
     validate_events(document.events, draft)
     if previous is not None:
         validate_header(previous.header, draft)

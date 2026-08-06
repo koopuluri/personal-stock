@@ -337,7 +337,7 @@ class ValidatorTest(unittest.TestCase):
             state = validator.validate_document(current, draft=False, previous=previous)
             self.assertIn("holder_000001", state.profiles)
 
-    def test_repository_draft_passes_schema_validation(self):
+    def test_repository_draft_has_empty_ledger(self):
         document = validator.load_document(REPO_ROOT / "documents" / "stock.md")
         state = validator.validate_document(document, draft=True)
         self.assertEqual(state.outstanding, 0)

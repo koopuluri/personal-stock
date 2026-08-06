@@ -1,5 +1,7 @@
 # Karthik Uppuluri Stock
 
+> Draft only. No formation or other state-ledger event has been recorded.
+
 ```json
 {
   "document_type": "personal_stock",
