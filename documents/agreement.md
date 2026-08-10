@@ -8,15 +8,23 @@ OWNER        = Karthik Uppuluri (@koopuluri)
 
 ## Introduction
 
-`OWNER` identifies the person whose personal stock is governed by this agreement. That person is the “owner.” A person who holds shares is a “shareholder.” A “non-owner shareholder” is any shareholder other than the owner.
+The personal stock gives its shareholders a contractual right to share in the owner’s lifetime net gains from stakes in companies, other personal stocks, and similar assets with extreme upside potential, after a defined portion of those gains is reserved for the owner.
 
-Each share is one equal unit of contractual participation in the owner's net portfolio gains above the floor defined below. The rights continue through the final administration of the owner's in-scope assets after the owner's death.
+This agreement establishes which assets and gains are covered, how shareable value is calculated and distributed, how shares may be issued and transferred, and the rights, duties, records, remedies, and succession rules governing the stock.
 
-The shares and this agreement are contractual only. All in-scope assets remain solely owned and controlled by the owner. A shareholder has no ownership of, lien on, or other property right in an in-scope asset or its unrealized value, and no control over the owner's actions or life. This agreement creates no partnership, agency, or trust and creates no fiduciary relationship except for the administrative duties expressly stated in §9.
+## 1. Definitions
 
-`COMMENCEMENT_TIME` is the date and time the owner's initial capitalization becomes effective under this agreement. Immediately before it, no shares are outstanding. The initial capitalization creates the owner's opening share balance as recorded in the official history. By completing it, the owner adopts this agreement and becomes bound by it.
+These terms apply throughout this agreement. Other terms are defined in the sections where they are used.
 
-## 1. Scope
+`OWNER` identifies the person whose personal stock is governed by this agreement. That person is the “owner.”
+
+A “share” is one equal unit of contractual participation in the owner's net portfolio gains above the `FLOOR` defined below.
+
+A person who holds one or more shares is a “shareholder.” A “non-owner shareholder” is any shareholder other than the owner.
+
+`COMMENCEMENT_TIME` is the date and time the owner's initial capitalization becomes effective under this agreement.
+
+## 2. Scope
 
 ```
 IN_SCOPE_ASSETS =
@@ -53,15 +61,15 @@ Scope depends on what an asset is, not how the owner acquired it. An otherwise i
 
 An opening asset is classified at `COMMENCEMENT_TIME`; a later asset is classified when acquired. Once an asset is in scope, all sale proceeds, dividends, interest payments, distributions, settlements, recoveries, payment rights, and transferable items arising from it remain governed by this agreement. A payment right or transferable noncash item remains an in-scope asset until it becomes USD cash.
 
-After USD cash has been accounted for under §2, that cash leaves scope. Merely holding it in an ordinary liquidity account does not bring the principal back into scope. If it is later used to acquire or increase an in-scope asset, the new investment is accounted for independently under §2.
+After USD cash has been accounted for under §3, that cash leaves scope. Merely holding it in an ordinary liquidity account does not bring the principal back into scope. If it is later used to acquire or increase an in-scope asset, the new investment is accounted for independently under §3.
 
 Unrealized appreciation is never counted. A conversion, split, rollover, noncash exchange, or other continuation in form does not produce cash under this agreement, and every resulting in-scope asset remains governed. A forfeiture, abandonment, cancellation, expiration, or other good-faith ending without cash produces no value under this agreement.
 
 Substance controls over form. A mixed receipt or expense must be allocated reasonably and in good faith. The owner may not intentionally remove value from scope through a gift, consumption, disguised payment, substitute noncash benefit, or other arrangement whose primary purpose is to defeat this agreement. A bona fide disposition or good-faith extinguishment in which the owner retains no economic interest is permitted.
 
-## 2. Portfolio net gain
+## 3. Portfolio net gain
 
-`PORTFOLIO_NET_GAIN` is one running USD balance for the owner's entire in-scope portfolio. Costs and returns are netted across all in-scope assets; no cost or gain is permanently assigned to a particular asset.
+`PORTFOLIO_NET_GAIN` is one running USD balance for the owner's entire in-scope portfolio. Costs and returns are netted across all in-scope assets.
 
 ### Cash events
 
@@ -69,7 +77,7 @@ A `CASH_EVENT` occurs when USD cash arising from an in-scope asset is received b
 
 The amount of a `CASH_EVENT` is the gross USD cash arising from the asset, including measurable USD cash paid or withheld directly for an eligible expense or attributable tax. Non-USD currency is noncash until converted to USD; if tax or conversion expense is withheld before conversion, only the net USD actually produced is counted, and the withheld amount is not deducted again.
 
-A refund or recovery of a previously counted eligible cost is a `CASH_EVENT` when available. A released unpaid reserve and an attributable tax credit or other tax benefit are also `CASH_EVENT`s when §2 says they are available or used.
+A refund or recovery of a previously counted eligible cost is a `CASH_EVENT` when available. A released unpaid reserve and an attributable tax credit or other tax benefit are also `CASH_EVENT`s when §3 says they are available or used.
 
 The following do not create a `CASH_EVENT`:
 
@@ -113,7 +121,7 @@ For a measurable USD transaction, cash is recorded gross and a related eligible 
 
 If a net-only treatment satisfies an amount previously recognized as an eligible cost or reserve, a matching `CASH_EVENT` equal to the entire previously recognized amount attributable to that settlement must be recorded. For a reserve recognized before `COMMENCEMENT_TIME`, the matching event is limited to the portion carried into and still reflected in the opening `PORTFOLIO_NET_GAIN`. This reverses the earlier deduction while leaving the actual withholding embedded in the net proceeds or remaining property. Any difference between the estimate and actual withholding is already reflected in that net value and creates no separate cost or `CASH_EVENT`. Every cash flow, cost, reserve, payment, refund, credit, and benefit is counted exactly once.
 
-A good-faith estimate that later changes because of new information is adjusted when the change becomes known. A mistake in the original record or application based on information then available is instead corrected under §10.
+A good-faith estimate that later changes because of new information is adjusted when the change becomes known. A mistake in the original record or application based on information then available is instead corrected under §11.
 
 Unresolved tax or expense may delay a distribution only to the extent of the amount reasonably reserved.
 
@@ -145,12 +153,12 @@ After commencement:
 When related actions occur together, they are applied in this order:
 
 1. recognize every eligible cost and attributable tax caused by or needed to produce the event cash;
-2. add the `CASH_EVENT` and calculate any shareable value under §3; and
+2. add the `CASH_EVENT` and calculate any shareable value under §4; and
 3. recognize any unrelated new investment or other later cost.
 
 Cash invested immediately after receipt is therefore counted as event cash before the new investment reduces `PORTFOLIO_NET_GAIN`. A later cost can require recovery before another distribution, but never requires a completed distribution to be returned.
 
-## 3. Floor and distributions
+## 4. Floor and distributions
 
 `FLOOR` is the level of `PORTFOLIO_NET_GAIN` reserved for the owner before value becomes shareable.
 
@@ -168,7 +176,7 @@ If none exists, the closest published measure of US consumer prices selected
 reasonably and in good faith applies.
 ```
 
-`PORTFOLIO_PEAK` is the greatest `PORTFOLIO_NET_GAIN` immediately after step 2 of any prior `CASH_EVENT` under §2, before any unrelated new investment or later cost in step 3, whether or not that event produced a distribution.
+`PORTFOLIO_PEAK` is the greatest `PORTFOLIO_NET_GAIN` immediately after step 2 of any prior `CASH_EVENT` under §3, before any unrelated new investment or later cost in step 3, whether or not that event produced a distribution.
 
 ```
 PORTFOLIO_PEAK at COMMENCEMENT_TIME = 0
@@ -206,72 +214,64 @@ The owner must calculate and settle each distribution within `DISTRIBUTION_DEADL
 
 Each shareholder is responsible for taxes imposed on that shareholder's distribution. Tax required by law to be withheld and remitted is treated as paid to the shareholder.
 
-## 4. Shares and issuances
+## 5. Shares and issuances
 
 All shares are one class with equal rights. Shares are whole and indivisible; no fractional share may be issued, held, or transferred.
 
-```
-AUTHORIZED_SHARES     = 15,000,000
-NO_CASH_ISSUANCE_POOL =  2,000,000
-```
-
-The initial capitalization is not an issuance and does not use the `NO_CASH_ISSUANCE_POOL`. The owner's opening share balance must be a positive whole number recorded in the official history, and the initial capitalization must leave the full `NO_CASH_ISSUANCE_POOL` authorized but unissued. Outstanding shares may never exceed `AUTHORIZED_SHARES`.
-
-The `NO_CASH_ISSUANCE_POOL` exclusively reserves every `NO_CASH` issuance after `COMMENCEMENT_TIME`, including compensatory, service, contribution, gift, or similar awards. The owner may grant awards from it without shareholder approval. An unvested award is only a contractual right, carries no share rights, and reserves pool capacity. Shares issue as they vest and permanently consume capacity; cancelled or forfeited unvested amounts return to the pool. Issued pool shares plus shares reserved under unvested awards may never exceed `NO_CASH_ISSUANCE_POOL`.
+The shares and this agreement are contractual only. All in-scope assets remain solely owned and controlled by the owner. A shareholder has no ownership of, lien on, or other property right in an in-scope asset or its unrealized value, and no control over the owner's actions or life. This agreement creates no partnership, agency, or trust and creates no fiduciary relationship except for the administrative duties expressly stated in §10.
 
 ```
-ISSUANCE_TYPE =
-  CASH:
-    - the recipient pays the entire stated price in actual USD cash; and
-    - the owner determines reasonably and in good faith that the price is fair
-      at settlement.
-
-  NO_CASH:
-    - every other issuance, including one involving services, property, nominal
-      cash, mixed consideration, or no consideration; and
-    - actual cash paid for purposes of this agreement = 0.
+AUTHORIZED_SHARES = 12,000,000
 ```
 
-Every issuance must be assigned exactly one `ISSUANCE_TYPE`.
+Immediately before `COMMENCEMENT_TIME`, no shares are outstanding. At `COMMENCEMENT_TIME`, the initial capitalization issues the opening shares recorded in the official history. It must issue a positive whole number of shares to the owner, may issue shares to other persons, and may not cause outstanding shares to exceed `AUTHORIZED_SHARES`. By completing it, the owner adopts this agreement and becomes bound by it.
 
-Every `NO_CASH` issuance must come from the `NO_CASH_ISSUANCE_POOL`. Authorized but unissued shares outside that pool may be issued only as `CASH`. Cash issuances do not consume the pool, and unused pool capacity may not be used for cash issuances. Increasing `AUTHORIZED_SHARES` or `NO_CASH_ISSUANCE_POOL`, or reallocating capacity between them, requires an amendment under §11.
+An unvested award is only a contractual right and carries no share rights. It reserves the whole number of shares that may issue under it. Shares issue as they vest, reducing the award's unvested reservation by the same number; a cancelled or forfeited unvested amount ceases to be reserved.
 
-Only the owner acting personally may authorize an issuance or no-cash award. The owner may not be the recipient of an issuance or no-cash award after `COMMENCEMENT_TIME`. A vesting and issuance already authorized by an award may occur during the owner's incapacity without further authorization. No share may be issued, and no unvested award may vest, after the owner's death.
+```
+AVAILABLE_ISSUANCE_CAPACITY = AUTHORIZED_SHARES
+                              - outstanding shares
+                              - shares reserved under unvested awards
+```
 
-Subject to these limits, the owner may choose the non-owner recipient, number of shares, cash price, and vesting or other award terms without shareholder approval. No shareholder has a preemptive, pro rata, participation, anti-dilution, or other right to acquire newly issued shares. A transaction-specific invitation creates no right or precedent for a later issuance.
+`AVAILABLE_ISSUANCE_CAPACITY` may never be negative. Increasing `AUTHORIZED_SHARES` requires an amendment under §12.
+
+Only the owner acting personally may authorize an issuance or award. The owner may not be the recipient of an issuance or award after `COMMENCEMENT_TIME`. A vesting and issuance already authorized by an award may occur during the owner's incapacity without further authorization. No share may be issued, and no unvested award may vest, after the owner's death.
+
+Subject to these limits, the owner may issue shares or grant awards whether or not the recipient pays cash. The owner may choose the non-owner recipient, number of shares, cash price, vesting, and other award terms without shareholder approval. No shareholder has a preemptive, pro rata, participation, anti-dilution, or other right to acquire newly issued shares. A transaction-specific invitation creates no right or precedent for a later issuance.
 
 Money received from issuing personal-stock shares belongs solely to the owner. It is not a `CASH_EVENT`, does not increase `PORTFOLIO_NET_GAIN`, and need not be used for any particular purpose. An in-scope asset later acquired with that money is governed like any other.
 
-Before a person who does not hold shares may receive shares by issuance or voluntary transfer, that person must sign the then-current agreement. Succession by operation of law under §12 is the only exception.
+Before a person who does not hold shares may receive shares by issuance or voluntary transfer, that person must sign the then-current agreement. Succession by operation of law under §13 is the only exception.
 
 An issuance or transfer settles only when all conditions are satisfied and the share movement is irrevocable. Its actual settlement time controls even if it is recorded later.
 
-Before or simultaneously with the initial capitalization, the owner must record every opening in-scope asset, the opening `PORTFOLIO_NET_GAIN`, the owner's opening share balance, and every other opening fact needed to apply this agreement.
+Before or simultaneously with the initial capitalization, the owner must record every opening in-scope asset, the opening `PORTFOLIO_NET_GAIN`, every opening share issuance and resulting balance, and every other opening fact needed to apply this agreement.
 
-## 5. Transfers
+## 6. Transfers
 
-The owner may transfer the owner's existing shares for cash or no cash. Such a transfer is not an issuance and does not use the no-cash pool.
+The owner may transfer the owner's existing shares for cash or no cash. Such a transfer is not an issuance and does not change outstanding shares or available issuance capacity.
 
-Except for surrender under §8 or succession under §12, a non-owner shareholder may voluntarily transfer shares only through a bona fide sale for actual USD cash that the owner has approved in writing and that complies with applicable law. The owner may grant or withhold approval in the owner's sole discretion. Approval must remain effective at settlement.
+Except for surrender under §9 or succession under §13, a non-owner shareholder may voluntarily transfer shares only through a bona fide sale for actual USD cash that the owner has approved in writing and that complies with applicable law. The owner may grant or withhold approval in the owner's sole discretion. Approval must remain effective at settlement.
 
-For a permitted sale, the cash payment, buyer-share transfer, and any royalty-share transfer required by §6 must occur as one settlement. A transfer does not carry a distribution that accrued to the seller before settlement.
+For a permitted sale, the cash payment, buyer-share transfer, and any royalty-share transfer required by §7 must occur as one settlement. A transfer does not carry a distribution that accrued to the seller before settlement.
 
 The official history assigns actual cash paid as follows:
 
 ```
 ACTUAL_CASH_PAID =
-  CASH issuance or bona fide cash transfer:
+  issuance or bona fide transfer involving actual USD cash:
     actual net USD cash paid
 
-  NO_CASH issuance or no-cash transfer:
+  issuance or transfer involving no actual USD cash:
     0
 ```
 
 These amounts exist only for royalties and buyback minimums under this agreement; they are not tax basis, fair market value, or a legal characterization of the transaction.
 
-“Actual USD cash paid” means the transaction's net effective cash economics after combining every linked payment, rebate, refund, reimbursement, credit, offset, debt forgiveness, or indirect arrangement. No person may structure or record related arrangements primarily to inflate actual cash paid, reduce a royalty, increase a buyback minimum, or otherwise manipulate a calculation under this agreement. A violating record must be corrected under §10 without invalidating an otherwise completed transaction.
+“Actual USD cash paid” means the transaction's net effective cash economics after combining every linked payment, rebate, refund, reimbursement, credit, offset, debt forgiveness, or indirect arrangement. No person may structure or record related arrangements primarily to inflate actual cash paid, reduce a royalty, increase a buyback minimum, or otherwise manipulate a calculation under this agreement. A violating record must be corrected under §11 without invalidating an otherwise completed transaction.
 
-## 6. Royalties
+## 7. Royalties
 
 ```
 ROYALTY_RATE = 0.05
@@ -323,9 +323,9 @@ The seller's total actual cash paid is reduced proportionally for every share le
 
 Losses offset later gain, and gain is charged only once. The carried unconverted royalty value prevents whole-share rounding from being used to avoid royalties.
 
-An owner sale, issuance, buyback, surrender, legal succession, or other no-cash movement carries no royalty. Royalties and royalty shares do not affect `PORTFOLIO_NET_GAIN` or the number of outstanding shares.
+An owner sale, issuance, buyback, surrender, legal succession, or other movement involving no actual cash carries no royalty. Royalties and royalty shares do not affect `PORTFOLIO_NET_GAIN` or the number of outstanding shares.
 
-## 7. Buybacks
+## 8. Buybacks
 
 The owner may require a non-owner shareholder to sell any whole number of shares up to all shares held, at any time and for any reason, including material misalignment or conduct the owner believes is harmful to the personal stock or its community.
 
@@ -344,7 +344,7 @@ BUYBACK_PRICE_FLOOR = max(
 )
 ```
 
-The owner must give written notice stating the number of shares, settlement date, price per share, and a brief good-faith explanation. The settlement date may not precede `BUYBACK_MINIMUM_NOTICE` and the notice expires at `BUYBACK_NOTICE_EXPIRATION`. A later buyback requires a new notice and price. The price is fixed and assessed as of the notice date. It must be fair, determined reasonably and in good faith from the information then available, and no less than `BUYBACK_PRICE_FLOOR`.
+The owner must give written notice stating the number of shares, settlement date, price per share, and a brief good-faith explanation. The complete notice must be recorded in the official history when given. The settlement date may not precede `BUYBACK_MINIMUM_NOTICE` and the notice expires at `BUYBACK_NOTICE_EXPIRATION`. A later buyback requires a new notice and price. The price is fixed and assessed as of the notice date. It must be fair, determined reasonably and in good faith from the information then available, and no less than `BUYBACK_PRICE_FLOOR`.
 
 In determining fairness, the owner must consider all material information reasonably available, including recent bona fide cash transactions in the shares; in-scope assets and reasonably expected distributions; outstanding shares; and material changes in the owner's reputation, audience, opportunities, and prospects. The owner may not use a buyback primarily to capture for the owner a specific distribution the owner then reasonably expects would otherwise accrue to the shareholder. Any such expected distribution must also be reflected in the fair price.
 
@@ -352,7 +352,7 @@ By `HIGHER_OFFER_DEADLINE`, the shareholder may present a bona fide, binding, fu
 
 By `BUYBACK_DISPUTE_DEADLINE`, the shareholder may give written notice specifically identifying facts that, if established, would show that the price is unfair, material information was omitted, the buyback has a prohibited purpose, or the owner breached an administrative duty in initiating or pricing it. A shareholder's refusal or desire to remain a shareholder, without a claimed violation of this agreement, is not a dispute.
 
-A timely dispute suspends settlement and tolls `BUYBACK_NOTICE_EXPIRATION`. The shares remain held by the shareholder while the dispute is pending, and §3 continues to determine who owns every distribution arising before settlement. The shareholder must proceed promptly and advance any filing or neutral fees required to initiate the process, subject to final cost allocation. If `DISPUTE_RESOLUTION_PROVIDER` closes the matter because the shareholder, without good cause, fails to pay or proceed, the dispute is treated as withdrawn.
+A timely dispute suspends settlement and tolls `BUYBACK_NOTICE_EXPIRATION`. The shares remain held by the shareholder while the dispute is pending, and §4 continues to determine who owns every distribution arising before settlement. The shareholder must proceed promptly and advance any filing or neutral fees required to initiate the process, subject to final cost allocation. If `DISPUTE_RESOLUTION_PROVIDER` closes the matter because the shareholder, without good cause, fails to pay or proceed, the dispute is treated as withdrawn.
 
 The owner and shareholder may jointly select a single independent neutral with relevant expertise. If they cannot agree promptly, `DISPUTE_RESOLUTION_PROVIDER` appoints the neutral. The owner must provide the neutral every official-history entry and private supporting record reasonably necessary to decide the dispute. Before receiving private information, the neutral must agree in writing to protect it and may disclose only what is reasonably necessary to explain or enforce the decision.
 
@@ -375,37 +375,47 @@ If the shareholder's dispute is withdrawn or treated as withdrawn, the tolling o
 
 A buyback settles when the owner irrevocably deposits the full purchase price calculated using the price then governing under this section, less only tax required to be withheld and remitted, with a payment agent or in a segregated account solely for the shareholder, and records the transfer. The shareholder's consent, signature, cooperation, or payment instructions are not required. Without full funding, no buyback occurs.
 
-The neutral may allocate reasonable audit and dispute costs based on the outcome and the parties' conduct. Except for fraud or intentional concealment that could not reasonably have been discovered before settlement, a completed buyback has no later price adjustment, true-up, additional payment, or challenge under §10.
+The neutral may allocate reasonable audit and dispute costs based on the outcome and the parties' conduct. Except for fraud or intentional concealment that could not reasonably have been discovered before settlement, a completed buyback has no later price adjustment, true-up, additional payment, or challenge under §11.
 
-A buyback carries no royalty and does not enter the seller's cumulative sale result. The seller's total actual cash paid is reduced proportionally for the shares bought back. The shares transfer to the owner, remain outstanding, and do not replenish the no-cash issuance pool.
+A buyback carries no royalty and does not enter the seller's cumulative sale result. The seller's total actual cash paid is reduced proportionally for the shares bought back. The shares transfer to the owner and remain outstanding.
 
-## 8. Surrender and dissolution
+## 9. Surrender and dissolution
 
 A non-owner shareholder may surrender all shares held by written notice to the owner. The surrender is effective when received, requires no approval, is irrevocable, transfers the shares to the owner for no consideration, and carries no royalty. It ends every future right attached to those shares but does not extinguish a distribution or other payment that accrued before surrender.
 
 `DISSOLUTION` is the final recorded action terminating the personal stock. It extinguishes all outstanding shares, closes the accounting balances, ends this agreement's application to every person and asset, and permits no later economic event. The official history remains permanent.
 
-During the owner's life, only the owner acting personally may cause dissolution, and only when no shares are held by another person and no obligation to another person remains. After the owner's death, dissolution occurs under §12.
+During the owner's life, only the owner acting personally may cause dissolution, and only when no shares are held by another person and no obligation to another person remains. After the owner's death, dissolution occurs under §13.
 
-## 9. Duties
+## 10. Duties and owner judgment
 
 ### Owner duties
 
 Solely in administering this agreement, the owner owes every non-owner shareholder fiduciary duties of loyalty, reasonable care, candor, and impartiality. The owner must administer this agreement honestly and in good faith; must not manipulate or omit a classification, estimate, valuation, calculation, record, timing, or process to improperly benefit the owner or another person; must use reasonable care in maintaining records and performing calculations; must disclose the material information required to verify the administration of this agreement; and must apply this agreement consistently and treat equal shares equally except where it expressly permits holder-specific action.
 
-These duties do not govern the owner's personal life, career, labor, reputation, spending, investment decisions, tax affairs, or decisions to acquire, retain, manage, or dispose of an in-scope asset, except when this agreement expressly prescribes how an event must be classified, recorded, or calculated. They create no duty to maximize returns, minimize risk or taxes, pursue an opportunity, or devote any particular time or resources. They create no ownership interest, lien, trust, partnership, or agency relationship concerning the owner or any asset. An action expressly permitted by this agreement does not breach these duties solely because it benefits the owner or affects a shareholder, provided the owner complies fully with the applicable terms and these duties.
+### Owner judgment
+
+The owner's administrative duties do not govern the owner's personal life, career, labor, reputation, spending, investment decisions, tax affairs, or decisions to acquire, retain, manage, or dispose of an in-scope asset, except where this agreement expressly prescribes how an event must be classified, recorded, calculated, or paid.
+
+The owner will authorize an issuance or award only after determining that it is expected to benefit the personal stock. The expected benefit may be direct or indirect, financial or nonfinancial, immediate or long-term, and may be shared with the recipient or others.
+
+Matters of owner judgment include that determination; whether, when, to whom, and on what terms to issue shares or grant awards within available issuance capacity; whether, when, to whom, and on what terms the owner transfers the owner's shares; whether to approve or refuse a non-owner shareholder's voluntary transfer; whether to propose or withdraw an amendment; the personal and economic decisions described above; and any other decision that this agreement expressly places in the owner's sole discretion or states is not governed by a duty to shareholders.
+
+A matter of owner judgment, including the owner's purpose, reasons, decision-making process, and assessment of its expected benefit to the personal stock, is final and non-reviewable. A shareholder's different view of the decision, its terms, its expected benefit, or its ultimate result creates no claim or remedy under this agreement. A matter of owner judgment may not be audited or disputed under §11, and a neutral has no authority to review it or grant relief based on it.
+
+This protection does not excuse noncompliance with an express limit, condition, procedure, recording requirement, calculation, or payment obligation. The decision itself is a matter of owner judgment; its implementation and administration remain subject to the applicable terms of this agreement.
 
 ### Shareholder duties
 
-A shareholder must hold and act with respect to shares solely for that shareholder's own benefit. Except for a legal representative under §12, no shareholder may use a nominee, agent, proxy, or other arrangement to give a non-shareholder the beneficial ownership or control of shares or to act on a non-shareholder's instructions.
+A shareholder must hold and act with respect to shares solely for that shareholder's own benefit. Except for a legal representative under §13, no shareholder may use a nominee, agent, proxy, or other arrangement to give a non-shareholder the beneficial ownership or control of shares or to act on a non-shareholder's instructions.
 
-## 10. Records, audits, and disputes
+## 11. Records, audits, and disputes
 
 ### Official history and supporting records
 
 The owner must maintain one complete chronological official history sufficient to determine the current state, reproduce every calculation, and verify this agreement. It must record or identify:
 
-- shareholders, share movements, `CASH` or `NO_CASH` classification, actual cash paid, awards, vesting, cancellations, and pool capacity;
+- shareholders, share movements, actual cash paid, awards, vesting, cancellations, reserved shares, and available issuance capacity;
 - amendment proposals, record times, approvals, and effective versions;
 - in-scope assets and every input and result used for eligible costs, cash events, each reserve's recognized amount, paid or unpaid status, increase, payment, release, refund or used benefit, `PORTFOLIO_NET_GAIN`, the floor, portfolio peak, shareable value, and distributions; and
 - transfers, royalty calculations, buybacks, surrenders, successions, dissolution, and corrections.
@@ -414,7 +424,7 @@ The agreement controls; the history is authoritative unless corrected. Facts mus
 
 The complete event and calculation history and current state must remain directly observable by every shareholder without a request to or discretionary action by the owner. It may use display names, opaque asset identifiers, and aggregate amounts, but may not omit a numerical or logical input needed to reproduce a result. Underlying identities and source documents may remain in the private supporting records.
 
-The owner may publish a redacted public view of that history. The public state ledger must at minimum show every share movement's `CASH` or `NO_CASH` classification and every actual cash price used by this agreement. The owner may make other information public, but may not publicly disclose a shareholder's legal name unless that shareholder uses it as a display name or consents.
+The owner may publish a redacted public view of that history. The public state ledger must at minimum show every share movement, every actual cash price used by this agreement, outstanding shares, shares reserved under unvested awards, and available issuance capacity. The owner may make other information public, but may not publicly disclose a shareholder's legal name unless that shareholder uses it as a display name or consents.
 
 The owner must preserve the history. A correction identifies and supersedes rather than erases the error, and every affected result is recalculated chronologically. It does not automatically reverse a completed transaction or payment; practical consequences must be resolved reasonably and in good faith. Fraud, intentional misrepresentation, and intentional manipulation remain subject to otherwise available remedies.
 
@@ -430,11 +440,11 @@ The requesting shareholder initially pays the reasonable audit cost. If the audi
 
 ### Dispute resolution
 
-An audit may examine a buyback, but any dispute concerning a buyback is governed exclusively by §7, including its deadlines, remedies, and finality rules.
+An audit may examine a buyback, but any dispute concerning a buyback is governed exclusively by §8, including its deadlines, remedies, and finality rules.
 
 Any other unresolved dispute concerning an audit, record, classification, valuation, calculation, payment, or administrative duty must be decided by a single independent neutral with relevant expertise. The owner and the disputing shareholder or shareholders may select the neutral jointly. If they cannot agree, `DISPUTE_RESOLUTION_PROVIDER` appoints the neutral. The decision is binding, and the neutral may order corrections, payments, and a fair allocation of audit and dispute costs.
 
-## 11. Amendments
+## 12. Amendments
 
 One agreement version governs the owner, every shareholder, and every share at all times. No person-specific or parallel agreement version may govern this personal stock.
 
@@ -460,9 +470,9 @@ An amendment operates prospectively. It may not retroactively erase or reduce a 
 
 The owner may resolve an administrative matter not addressed by this agreement reasonably and in good faith, but may not change economic rights, contradict this agreement, or bypass an amendment or approval requirement.
 
-## 12. Incapacity, death, and succession
+## 13. Incapacity, death, and succession
 
-If the owner or a shareholder becomes incapacitated, a person legally authorized to manage that person's property may exercise ordinary rights and perform ordinary duties under this agreement, subject to the same limits. Only the owner personally may authorize a new issuance, no-cash award, buyback, amendment, or voluntary dissolution. A previously authorized award may continue vesting during incapacity under §4.
+If the owner or a shareholder becomes incapacitated, a person legally authorized to manage that person's property may exercise ordinary rights and perform ordinary duties under this agreement, subject to the same limits. Only the owner personally may authorize a new issuance, award, buyback, amendment, or voluntary dissolution. A previously authorized award may continue vesting during incapacity under §5.
 
 If a non-owner shareholder dies or shares otherwise pass by operation of law, the legal successor becomes the shareholder and receives the shares with their associated actual cash paid, cumulative sale result, royalty peak, unconverted royalty value, and accrued distributions. If more than one successor receives shares, all holder-level amounts are allocated among them in proportion to the shares received and then combined with any existing state of a successor who already holds shares. The succession requires neither prior owner approval nor a prior signature and carries no royalty. The successor is bound by this agreement and must provide information reasonably needed to record the succession and comply with law.
 
@@ -485,7 +495,7 @@ The agreement binds the owner's estate, and the owner must maintain estate-plann
 
 The owner may not intentionally create or permit a marital-property, nominee, creditor, pledge, security, or other arrangement whose primary purpose is to defeat or materially impair performance of this agreement. No such arrangement changes a shareholder's contractual rights to the extent enforceable by law.
 
-## 13. General
+## 14. General
 
 Every share transaction is subject to securities law and all other applicable law. The owner may require reasonable compliance information and delay or refuse a transaction until satisfied; permission under this agreement does not itself establish legality.
 
@@ -502,6 +512,6 @@ If a provision or application is invalid or unenforceable, it is severed only to
 
 The owner and each shareholder must maintain a current electronic notice address in the private supporting records. Electronic notice satisfies a writing requirement and is received when it enters the designated system in retrievable form; known delivery failure requires another reasonable method.
 
-This agreement is the complete statement of the terms governing the personal stock. A separate record, award, transaction document, summary, or communication may establish facts or separate obligations but changes this agreement only through §11.
+This agreement is the complete statement of the terms governing the personal stock. A separate record, award, transaction document, summary, or communication may establish facts or separate obligations but changes this agreement only through §12.
 
 This agreement may be signed electronically. A signature packet must contain or identify the complete agreement then in effect, which governs over any summary or explanatory copy.
