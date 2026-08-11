@@ -267,9 +267,24 @@ Before or simultaneously with the initial capitalization, the owner must record 
 
 The owner may transfer the owner's existing shares for cash or no cash. Such a transfer is not an issuance and does not change outstanding shares or available issuance capacity.
 
-### Transfer approval requests and refusals
-
 Except for surrender under §9 or succession under §13, a non-owner shareholder may voluntarily transfer shares only through a bona fide sale solely for actual cash that the owner has approved and that complies with applicable law. The owner may grant or withhold approval in the owner's sole discretion. Approval must remain effective at settlement.
+
+The official history assigns `ACTUAL_CASH_PAID` as follows:
+
+```
+ACTUAL_CASH_PAID =
+  issuance or transfer with a required USD cash purchase price:
+    required USD cash purchase price actually and irrevocably paid in full
+
+  issuance or transfer with no required USD cash purchase price:
+    0
+```
+
+These amounts exist only for royalties and buyout minimums under this agreement; they are not tax basis, fair market value, or a legal characterization of the transaction.
+
+`ACTUAL_CASH_PAID` is only the USD cash purchase price that the issuance or transfer expressly makes a condition of settlement and that the acquirer actually and irrevocably pays in full. Nothing else counts toward, substitutes for, reduces, or changes that required payment. A transaction with a required USD cash purchase price does not settle until that price has been paid in full.
+
+### Transfer approval requests and refusals
 
 ```
 TRANSFER_INFORMATION_NOTICE_DEADLINE = 5 business days
@@ -289,23 +304,6 @@ Within `REFUSAL_RECORDING_DEADLINE` after a refusal, the owner must record in th
 Whether the recorded explanation accurately states the principal reason or reasons actually relied upon is an administrative matter. The refusal itself and the sufficiency, reasonableness, weight, wisdom, or merits of any stated reason remain matters of owner judgment under §10. This procedure creates no right to approval, and noncompliance does not approve or authorize a transfer or permit a neutral to substitute approval.
 
 For a permitted sale, the cash payment, buyer-share transfer, and any royalty-share transfer required by §7 must occur as one settlement. A transfer does not carry a distribution that accrued to the seller before settlement.
-
-### Actual cash paid
-
-The official history assigns `ACTUAL_CASH_PAID` as follows:
-
-```
-ACTUAL_CASH_PAID =
-  issuance or transfer with a required USD cash purchase price:
-    required USD cash purchase price actually and irrevocably paid in full
-
-  issuance or transfer with no required USD cash purchase price:
-    0
-```
-
-These amounts exist only for royalties and buyout minimums under this agreement; they are not tax basis, fair market value, or a legal characterization of the transaction.
-
-`ACTUAL_CASH_PAID` is only the USD cash purchase price that the issuance or transfer expressly makes a condition of settlement and that the acquirer actually and irrevocably pays in full. Nothing else counts toward, substitutes for, reduces, or changes that required payment. A transaction with a required USD cash purchase price does not settle until that price has been paid in full.
 
 ## 7. Royalties
 
