@@ -267,9 +267,30 @@ Before or simultaneously with the initial capitalization, the owner must record 
 
 The owner may transfer the owner's existing shares for cash or no cash. Such a transfer is not an issuance and does not change outstanding shares or available issuance capacity.
 
+### Transfer approval requests and refusals
+
 Except for surrender under §9 or succession under §13, a non-owner shareholder may voluntarily transfer shares only through a bona fide sale solely for actual cash that the owner has approved and that complies with applicable law. The owner may grant or withhold approval in the owner's sole discretion. Approval must remain effective at settlement.
 
+```
+TRANSFER_INFORMATION_NOTICE_DEADLINE = 5 business days
+TRANSFER_DECISION_DEADLINE           = 10 business days
+TRANSFER_DECISION_EXTENSION          = 10 business days
+REFUSAL_RECORDING_DEADLINE           = 2 business days
+```
+
+A non-owner shareholder may request approval of a proposed voluntary cash sale by giving the owner written notice identifying the proposed buyer, number of shares, price per share, proposed settlement date, and every other material transaction term. The request must include information reasonably sufficient to show that the proposed sale is bona fide, solely for actual cash, and capable of complying with this agreement and applicable law, including the proposed buyer's legal identity in the private supporting records and written confirmation that the proposed buyer is willing to adopt the then-current agreement before settlement.
+
+Within `TRANSFER_INFORMATION_NOTICE_DEADLINE` after receiving the request, the owner must identify any additional information then reasonably required to evaluate it. If the owner does not do so, the request is complete at the end of that period. If the owner timely requests additional information, the request becomes complete when that information is received. The owner may later request further information only when reasonably required by facts not previously known or apparent, and the decision period is suspended until that information is received.
+
+The owner must approve or refuse a complete request in writing within `TRANSFER_DECISION_DEADLINE`. Before that deadline, the owner may extend it once by no more than `TRANSFER_DECISION_EXTENSION` by giving the seller written notice briefly stating why additional review is reasonably necessary. A response that does not approve the request as submitted, subject only to this agreement and applicable law, is a refusal. Failure to respond by the applicable deadline is also a refusal. The seller may withdraw the request before it is refused, in which case no refusal occurs. Revocation of an approval before settlement is a refusal unless the proposed transaction has materially changed or the seller or proposed buyer has withdrawn from it.
+
+Within `REFUSAL_RECORDING_DEADLINE` after a refusal, the owner must record in the official history the request date, refusal date, seller, proposed buyer, number of shares, proposed price per share, and a brief good-faith explanation of the principal reason or reasons actually relied upon. The proposed buyer may be identified in the official history by an opaque identifier unless that person consents to another form of identification. The entry need not disclose privileged information, information whose disclosure is prohibited by law, or confidential personal, financial, identity-verification, or compliance information, but must state the nonconfidential substance of the principal reason or reasons to the extent reasonably possible. An entry for a materially identical renewed request may incorporate a prior explanation by reference if it states whether any principal reason has changed.
+
+Whether the recorded explanation accurately states the principal reason or reasons actually relied upon is an administrative matter. The refusal itself and the sufficiency, reasonableness, weight, wisdom, or merits of any stated reason remain matters of owner judgment under §10. This procedure creates no right to approval, and noncompliance does not approve or authorize a transfer or permit a neutral to substitute approval.
+
 For a permitted sale, the cash payment, buyer-share transfer, and any royalty-share transfer required by §7 must occur as one settlement. A transfer does not carry a distribution that accrued to the seller before settlement.
+
+### Actual cash paid
 
 The official history assigns `ACTUAL_CASH_PAID` as follows:
 
@@ -434,7 +455,7 @@ The owner must maintain one complete chronological official history sufficient t
 - shareholders, share movements, `ACTUAL_CASH_PAID`, awards, vesting, cancellations, reserved shares, and available issuance capacity;
 - amendment proposals, record times, approvals, and effective versions;
 - in-scope assets and every input and result used for eligible costs, cash events, each reserve's recognized amount, paid or unpaid status, increase, payment, release, refund or used benefit, `PORTFOLIO_NET_GAIN`, the floor, portfolio peak, shareable value, and distributions; and
-- transfers, royalty calculations, buyouts, surrenders, successions, dissolution, and corrections.
+- transfer approval requests required to be recorded under §6, refusals, refusal explanations, completed transfers, royalty calculations, buyouts, surrenders, successions, dissolution, and corrections.
 
 The agreement controls; the history is authoritative unless corrected. Facts must be recorded promptly at their actual occurrence, effectiveness, or settlement time and before use in a later calculation or transaction. Every amount is applied once, and every derived view must be reproducible from the history.
 
