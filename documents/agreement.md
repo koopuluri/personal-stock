@@ -298,7 +298,7 @@ for a new non-owner shareholder other than by legal succession:
   unconverted_royalty_value = 0
 ```
 
-Shares received by legal succession carry their associated `ACTUAL_CASH_PAID` history and the predecessor's sale history. When shares acquired at different prices are combined, their `ACTUAL_CASH_PAID` is pooled and averaged. A later acquisition does not reset the holder's sale history.
+Acquiring additional shares pools their `ACTUAL_CASH_PAID` with that of the shares already held and does not reset the holder's cumulative sale result, royalty peak, or unconverted royalty value.
 
 For each permitted voluntary cash sale:
 
@@ -426,7 +426,9 @@ The agreement controls; the history is authoritative unless corrected. Facts mus
 
 The complete event and calculation history and current state must remain directly observable by every shareholder without a request to or discretionary action by the owner. It may use display names, opaque asset identifiers, and aggregate amounts, but may not omit a numerical or logical input needed to reproduce a result. Underlying identities and source documents may remain in the private supporting records.
 
-The owner may publish a redacted public view of that history. The public state ledger must at minimum show every share movement, every `ACTUAL_CASH_PAID` amount, outstanding shares, shares reserved under unvested awards, and available issuance capacity. The owner may make other information public, but may not publicly disclose a shareholder's legal name unless that shareholder uses it as a display name or consents.
+The owner may, but is not required to, make any portion or all of the official history and current state publicly observable. Making only part public does not require the owner to make any other part public. Except as provided below, the owner may not publicly disclose a shareholder's legal name unless the shareholder uses it as a display name or specifically consents in writing, and may not publish a copy of the shareholder's signature, electronic-signing record, private signed document, or private supporting record without the affected shareholder's specific written consent.
+
+These restrictions do not prevent disclosure required by law or reasonably and in good faith necessary to assert, enforce, or defend a right under this agreement or to respond to a public accusation concerning the personal stock or the owner's administration of it. The owner must redact unrelated nonpublic contact, payment, tax, identity-verification, financial-account, and authentication information.
 
 The owner must preserve the history. A correction identifies and supersedes rather than erases the error, and every affected result is recalculated chronologically. It does not automatically reverse a completed transaction or payment; practical consequences must be resolved reasonably and in good faith. Fraud, intentional misrepresentation, and intentional manipulation remain subject to otherwise available remedies.
 
