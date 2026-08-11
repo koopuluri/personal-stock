@@ -1,12 +1,13 @@
 # Personal Stock Agreement
 
 ```
-VERSION      = 0.95
-VERSION_NOTE = Simplified launch agreement
-OWNER        = Karthik Uppuluri (@koopuluri)
+VERSION      = 1.0
+VERSION_NOTE = Published standard agreement
 ```
 
 ## Introduction
+
+This agreement is a published standard that may be adopted for any personal stock. Each personal stock that adopts it is a separate application with its own owner, shareholders, shares, assets, official history, and state.
 
 The personal stock gives its shareholders a contractual right to share in the owner’s lifetime net gains from stakes in companies, other personal stocks, and similar assets with extreme upside potential, after a defined portion of those gains is reserved for the owner.
 
@@ -16,13 +17,15 @@ This agreement establishes which assets and gains are covered, how shareable val
 
 These terms apply throughout this agreement. Other terms are defined in the sections where they are used.
 
-`OWNER` identifies the person whose personal stock is governed by this agreement. That person is the “owner.”
+A person “adopts” this agreement for a personal stock by signing a record that identifies that personal stock and this agreement by its version, blockchain network, authoritative onchain address, and content hash. An adoption applies only to the personal stock it identifies.
+
+The “owner” is the person identified as the owner in the initial signed adoption for a personal stock.
 
 A “share” is one equal unit of contractual participation in the owner's net portfolio gains above the `FLOOR` defined below.
 
 A person who holds one or more shares is a “shareholder.” A “non-owner shareholder” is any shareholder other than the owner.
 
-`COMMENCEMENT_TIME` is the date and time the owner's initial capitalization becomes effective under this agreement.
+`COMMENCEMENT_TIME` is the date and time the applicable personal stock's initial capitalization becomes effective under this agreement.
 
 ## 2. Scope
 
@@ -224,7 +227,7 @@ The shares and this agreement are contractual only. All in-scope assets remain s
 AUTHORIZED_SHARES = 12,000,000
 ```
 
-Immediately before `COMMENCEMENT_TIME`, no shares are outstanding. At `COMMENCEMENT_TIME`, the initial capitalization issues the opening shares recorded in the official history. It must issue a positive whole number of shares to the owner, may issue shares to other persons, and may not cause outstanding shares to exceed `AUTHORIZED_SHARES`. By completing it, the owner adopts this agreement and becomes bound by it.
+Immediately before `COMMENCEMENT_TIME`, no shares are outstanding. The initial capitalization may occur only after the owner has adopted this agreement for the personal stock. At `COMMENCEMENT_TIME`, it issues the opening shares recorded in the official history. It must issue a positive whole number of shares to the owner, may issue shares to other persons, and may not cause outstanding shares to exceed `AUTHORIZED_SHARES`.
 
 An unvested award is only a contractual right and carries no share rights. It reserves the whole number of shares that may issue under it. Shares issue as they vest, reducing the award's unvested reservation by the same number; a cancelled or forfeited unvested amount ceases to be reserved.
 
@@ -242,7 +245,7 @@ Subject to these limits, the owner may issue shares or grant awards whether or n
 
 Money received from issuing personal-stock shares belongs solely to the owner. It is not a `CASH_EVENT`, does not increase `PORTFOLIO_NET_GAIN`, and need not be used for any particular purpose. An in-scope asset later acquired with that money is governed like any other.
 
-Before a person who does not hold shares may receive shares by issuance or voluntary transfer, that person must sign the then-current agreement. Succession by operation of law under §13 is the only exception.
+Before a person who does not hold shares may receive shares by issuance or voluntary transfer, the owner and that person must sign a record by which that person adopts the then-current agreement for this personal stock. The record may also state transaction terms and separate obligations. Succession by operation of law under §13 is the only exception.
 
 An issuance or transfer settles only when all conditions are satisfied and the share movement is irrevocable. Its actual settlement time controls even if it is recorded later.
 
@@ -277,7 +280,7 @@ These amounts exist only for royalties and buyback minimums under this agreement
 ROYALTY_RATE = 0.05
 ```
 
-When a non-owner shareholder voluntarily sells shares for cash, the shares in the sale are split between the buyer and the owner. The owner's share royalty is calculated from the seller's new cumulative gain and `ROYALTY_RATE`; it comes out of the shares being sold and is not added on top or paid in cash.
+When a non-owner shareholder’s voluntary cash sales produce cumulative net profit not previously subject to a royalty, the seller owes the owner `ROYALTY_RATE` of that new profit. The royalty is paid in whole shares taken from the shares being sold; it does not add shares to the sale or require a cash payment.
 
 For each non-owner shareholder, the official history tracks:
 
@@ -330,7 +333,7 @@ Only a non-owner shareholder's permitted voluntary cash sale carries a royalty. 
 
 ## 8. Buybacks
 
-The owner may require a non-owner shareholder to sell any whole number of shares up to all shares held, at any time and for any reason, including material misalignment or conduct the owner believes is harmful to the personal stock or its community.
+The owner may require a non-owner shareholder to sell any whole number of shares up to all shares held if the owner determines, in the owner's sole judgment, that the shareholder's continued ownership creates a material misalignment with the purposes or interests of the personal stock and that the misalignment is, or is reasonably expected to be, detrimental to the personal stock. Such a buyback may be initiated at any time.
 
 ```
 BUYBACK_MINIMUM_NOTICE       = 15 business days
@@ -351,9 +354,9 @@ The owner must give written notice stating the number of shares, settlement date
 
 In determining fairness, the owner must consider all material information reasonably available, including recent bona fide cash transactions in the shares; in-scope assets and reasonably expected distributions; outstanding shares; and material changes in the owner's reputation, audience, opportunities, and prospects. The owner may not use a buyback primarily to capture for the owner a specific distribution the owner then reasonably expects would otherwise accrue to the shareholder. Any such expected distribution must also be reflected in the fair price.
 
-By `HIGHER_OFFER_DEADLINE`, the shareholder may present a bona fide, binding, fully financed, lawful third-party offer to purchase the same shares solely for cash at a higher per-share price and capable of settling by the scheduled buyback. Before the scheduled settlement, the owner must either match that higher price or approve the third-party sale, subject to the buyer signing this agreement and satisfying legal requirements. If the owner matches, the matched price replaces the price stated in the notice for all remaining purposes under this section. If the owner approves the third-party sale and it settles, the buyback ends. The buyback may not settle until the owner responds. Because the third-party sale replaces a required buyback rather than an independently chosen transfer, it carries no royalty and does not enter the seller's cumulative sale result. The seller's `aggregate_actual_cash_paid` is reduced proportionally for the shares sold, and the buyer's `aggregate_actual_cash_paid` increases by the `ACTUAL_CASH_PAID` assigned to those shares.
+By `HIGHER_OFFER_DEADLINE`, the shareholder may present a bona fide, binding, fully financed, lawful third-party offer to purchase the same shares solely for cash at a higher per-share price and capable of settling by the scheduled buyback. Before the scheduled settlement, the owner must either match that higher price or approve the third-party sale, subject to the buyer adopting the then-current agreement for this personal stock under §5 and satisfying legal requirements. If the owner matches, the matched price replaces the price stated in the notice for all remaining purposes under this section. If the owner approves the third-party sale and it settles, the buyback ends. The buyback may not settle until the owner responds. Because the third-party sale replaces a required buyback rather than an independently chosen transfer, it carries no royalty and does not enter the seller's cumulative sale result. The seller's `aggregate_actual_cash_paid` is reduced proportionally for the shares sold, and the buyer's `aggregate_actual_cash_paid` increases by the `ACTUAL_CASH_PAID` assigned to those shares.
 
-By `BUYBACK_DISPUTE_DEADLINE`, the shareholder may give written notice specifically identifying facts that, if established, would show that the price is unfair, material information was omitted, the buyback has a prohibited purpose, or the owner breached an administrative duty in initiating or pricing it. A shareholder's refusal or desire to remain a shareholder, without a claimed violation of this agreement, is not a dispute.
+By `BUYBACK_DISPUTE_DEADLINE`, the shareholder may give written notice specifically identifying facts that, if established, would show that the price is unfair, material information was omitted, the buyback was used primarily to capture a specific expected distribution in violation of this section, or the owner breached an administrative duty in pricing the buyback or carrying out a required procedure. The owner's determination concerning material misalignment and detriment is a matter of owner judgment under §10; a shareholder may not dispute, and the neutral may not review, the merits of that determination or substitute a different judgment. A shareholder's refusal or desire to remain a shareholder, without a claimed violation of this agreement, is not a dispute.
 
 A timely dispute suspends settlement and tolls `BUYBACK_NOTICE_EXPIRATION`. The shares remain held by the shareholder while the dispute is pending, and §4 continues to determine who owns every distribution arising before settlement. The shareholder must proceed promptly and advance any filing or neutral fees required to initiate the process, subject to final cost allocation. If `DISPUTE_RESOLUTION_PROVIDER` closes the matter because the shareholder, without good cause, fails to pay or proceed, the dispute is treated as withdrawn.
 
@@ -402,7 +405,7 @@ The owner's administrative duties do not govern the owner's personal life, caree
 
 The owner will authorize an issuance or award only after determining that it is expected to benefit the personal stock. The expected benefit may be direct or indirect, financial or nonfinancial, immediate or long-term, and may be shared with the recipient or others.
 
-Matters of owner judgment include that determination; whether, when, to whom, and on what terms to issue shares or grant awards within available issuance capacity; whether, when, to whom, and on what terms the owner transfers the owner's shares; whether to approve or refuse a non-owner shareholder's voluntary transfer; whether to propose or withdraw an amendment; the personal and economic decisions described above; and any other decision that this agreement expressly places in the owner's sole discretion or states is not governed by a duty to shareholders.
+Matters of owner judgment include that determination; the determination under §8 whether a shareholder's continued ownership creates a material misalignment with the purposes or interests of the personal stock and whether that misalignment is, or is reasonably expected to be, detrimental to the personal stock; whether, when, to whom, and on what terms to issue shares or grant awards within available issuance capacity; whether, when, to whom, and on what terms the owner transfers the owner's shares; whether to approve or refuse a non-owner shareholder's voluntary transfer; whether to propose or withdraw an amendment; the personal and economic decisions described above; and any other decision that this agreement expressly places in the owner's sole discretion or states is not governed by a duty to shareholders.
 
 A matter of owner judgment, including the owner's purpose, reasons, decision-making process, and assessment of its expected benefit to the personal stock, is final and non-reviewable. A shareholder's different view of the decision, its terms, its expected benefit, or its ultimate result creates no claim or remedy under this agreement. A matter of owner judgment may not be audited or disputed under §11, and a neutral has no authority to review it or grant relief based on it.
 
@@ -435,7 +438,7 @@ Any non-owner shareholder may engage an independent qualified professional to au
 
 The owner must give the reviewer access to the official history and every private supporting record reasonably necessary to conduct the audit. Before receiving access, the reviewer must agree in writing to protect confidential information and may disclose to shareholders only the findings and supporting information reasonably necessary to explain them.
 
-The requesting shareholder initially pays the reasonable audit cost. If the audit identifies a material error or breach and the finding is not disputed in good faith or is sustained under the dispute-resolution process below, the owner must reimburse that cost and correct every affected record, calculation, and payment.
+The requesting shareholder initially pays the reasonable audit cost. If the audit identifies a material error or breach and the finding is not disputed in good faith or is sustained under the dispute-resolution process below, the owner must reimburse that cost solely from amounts that would otherwise belong to the owner under §4 at future `CASH_EVENT`s, as and when those amounts arise, and must correct every affected record, calculation, and payment. Until reimbursed from that source, the unpaid balance bears no interest and creates no default or recourse against the owner personally.
 
 ### Dispute resolution
 
@@ -445,25 +448,27 @@ Any other unresolved dispute concerning an audit, record, classification, valuat
 
 ## 12. Amendments
 
-One agreement version governs the owner, every shareholder, and every share at all times. No person-specific or parallel agreement version may govern this personal stock.
+One published agreement version governs a personal stock, its owner, every shareholder, and every share at all times. No person-specific or parallel agreement version may govern the same personal stock.
+
+An amendment under this section changes only the published agreement version governing this personal stock. It does not modify the shared publication or affect any other personal stock that has adopted it.
 
 ```
 MAX_PENDING_AMENDMENT_PROPOSALS = 1
 AMENDMENT_APPROVAL_THRESHOLD    = 0.75 of NON_OWNER_SHARES at RECORD_TIME
 ```
 
-The owner may not exceed `MAX_PENDING_AMENDMENT_PROPOSALS`. A proposal must include its full replacement text and a plain-language summary of every material change, and must be recorded and delivered to every current shareholder. `RECORD_TIME` is the time that complete proposal is recorded; it may not be backdated. The owner may withdraw the proposal before it becomes effective.
+The owner may not exceed `MAX_PENDING_AMENDMENT_PROPOSALS`. A proposal must identify one replacement published agreement by version, blockchain network, authoritative onchain address, and content hash; include its full text and a plain-language summary of every material change; and be recorded and delivered to every current shareholder. `RECORD_TIME` is the time that complete proposal is recorded; it may not be backdated. The owner may withdraw the proposal before it becomes effective.
 
 An amendment becomes effective for everyone simultaneously when approved in writing by:
 
 - the owner; and
 - record-time holders satisfying `AMENDMENT_APPROVAL_THRESHOLD`.
 
-Owner shares are excluded from both the numerator and denominator. If no non-owner shares are outstanding at `RECORD_TIME`, the owner may amend this agreement alone.
+Owner shares are excluded from both the numerator and denominator. If no non-owner shares are outstanding at `RECORD_TIME`, the owner may approve an amendment alone.
 
 The voters and approval weights are fixed at `RECORD_TIME`; a later ownership change does not alter them, and a later holder takes shares subject to the outcome. The owner may withdraw the proposal and submit a new one using the ownership at a new record time.
 
-An approval is irrevocable for that proposal. When the last required approval is received and recorded, the replacement agreement takes effect for every current and future shareholder and all shares. Until then, the existing agreement remains effective.
+An approval is irrevocable for that proposal. When the last required approval is received and recorded, the replacement published agreement identified in the proposal takes effect for this personal stock, every current and future shareholder, and all shares. Until then, the existing agreement remains effective.
 
 An amendment operates prospectively. It may not retroactively erase or reduce a distribution or payment already accrued, reverse a completed transaction, or impose a new obligation on a completed transaction without the affected person's consent. It must apply equally to all shares of this single class.
 
@@ -496,14 +501,11 @@ The owner may not intentionally create or permit a marital-property, nominee, cr
 
 ## 14. General
 
-Every share transaction is subject to securities law and all other applicable law. The owner may require reasonable compliance information and delay or refuse a transaction until satisfied; permission under this agreement does not itself establish legality.
+Every share transaction is subject to all applicable laws. The owner may require reasonable compliance information and delay or refuse a transaction until satisfied; permission under this agreement does not itself establish legality.
 
-```
-CASH_CURRENCY = USD
-BUSINESS_DAY  = a day other than Saturday, Sunday, or a US federal holiday
-```
+A business day is a day other than Saturday, Sunday, or a US federal holiday.
 
-Unless expressly stated otherwise, cash uses `CASH_CURRENCY` and every monetary calculation is denominated in it.
+Unless expressly stated otherwise, cash uses USD and every monetary calculation is denominated in it.
 
 No tax will be withheld from a payment unless required by law. Tax properly withheld and remitted is treated as paid to the recipient.
 
@@ -511,4 +513,4 @@ If a provision or application is invalid or unenforceable, it is severed only to
 
 The owner and each shareholder must maintain a current electronic notice address in the private supporting records. Electronic notice satisfies a writing requirement and is received when it enters the designated system in retrievable form; known delivery failure requires another reasonable method.
 
-This agreement is the complete statement of the terms governing the personal stock. A separate record, award, transaction document, summary, or communication may establish facts or separate obligations but changes this agreement only through §12.
+This agreement is the complete statement of the terms governing the personal stock. A signed adoption, award, transaction document, summary, or other record may identify the personal stock, the parties, and the applicable published agreement; reproduce this agreement for readability; and establish facts or separate obligations, but it changes this agreement only through §12. If a reproduction differs from the authoritative text identified in the signed adoption, the authoritative text controls.
