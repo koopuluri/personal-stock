@@ -87,7 +87,7 @@ The following do not create a `CASH_EVENT`:
 - unrealized value or value retained inside an entity;
 - a noncash transform, receipt, vesting, exercise, forfeiture, or ending;
 - bona fide borrowed principal; or
-- an issuance, transfer, royalty, buyback, surrender, distribution, or other transaction involving the owner's own personal-stock shares.
+- an issuance, transfer, royalty, buyout, surrender, distribution, or other transaction involving the owner's own personal-stock shares.
 
 A nontransferable personal benefit is not an in-scope asset or `CASH_EVENT`, but the owner may not arrange such a benefit primarily in place of cash, a payment right, or transferable value that would otherwise be governed.
 
@@ -108,7 +108,7 @@ An `ATTRIBUTABLE_TAX` is an incremental income, payroll, capital-gain, net-inves
 Attributable taxes do not include:
 
 - estate, inheritance, gift, or generation-skipping transfer taxes;
-- taxes caused by issuing, transferring, buying back, administering, or distributing value under the personal stock, regardless of whether imposed on the owner, the estate, or a shareholder;
+- taxes caused by issuing, transferring, conducting a buyout, administering, or distributing value under the personal stock, regardless of whether imposed on the owner, the estate, or a shareholder;
 - unrelated personal taxes; or
 - penalties or interest caused by late payment or other avoidable noncompliance by the owner.
 
@@ -207,7 +207,7 @@ SHAREHOLDER_DISTRIBUTION = SHAREABLE_VALUE
 
 The portion attributable to owner shares belongs to the owner. If no non-owner shares are outstanding, no distribution is owed, but `PORTFOLIO_PEAK` still updates.
 
-The holder at the time of the `CASH_EVENT` owns the resulting distribution. That right is fixed at the event and is not transferred or extinguished by a later issuance, transfer, royalty, buyback, surrender, amendment, incapacity, or death.
+The holder at the time of the `CASH_EVENT` owns the resulting distribution. That right is fixed at the event and is not transferred or extinguished by a later issuance, transfer, royalty, buyout, surrender, amendment, incapacity, or death.
 
 ```
 DISTRIBUTION_DEADLINE = 30 calendar days
@@ -270,7 +270,7 @@ ACTUAL_CASH_PAID =
     0
 ```
 
-These amounts exist only for royalties and buyback minimums under this agreement; they are not tax basis, fair market value, or a legal characterization of the transaction.
+These amounts exist only for royalties and buyout minimums under this agreement; they are not tax basis, fair market value, or a legal characterization of the transaction.
 
 `ACTUAL_CASH_PAID` is only the USD cash purchase price that the issuance or transfer expressly makes a condition of settlement and that the acquirer actually and irrevocably pays in full. Nothing else counts toward, substitutes for, reduces, or changes that required payment. A transaction with a required USD cash purchase price does not settle until that price has been paid in full.
 
@@ -329,61 +329,61 @@ The seller's `aggregate_actual_cash_paid` is reduced proportionally for every sh
 
 Losses offset later gain, and gain is charged only once. The carried unconverted royalty value prevents whole-share rounding from being used to avoid royalties.
 
-Only a non-owner shareholder's permitted voluntary cash sale carries a royalty. An issuance, owner sale, buyback, replacement third-party sale under §8, surrender, or legal succession carries no royalty. Royalties and royalty shares do not affect `PORTFOLIO_NET_GAIN` or the number of outstanding shares.
+Only a non-owner shareholder's permitted voluntary cash sale carries a royalty. An issuance, owner sale, buyout, replacement third-party sale under §8, surrender, or legal succession carries no royalty. Royalties and royalty shares do not affect `PORTFOLIO_NET_GAIN` or the number of outstanding shares.
 
-## 8. Buybacks
+## 8. Buyouts
 
-The owner may require a non-owner shareholder to sell any whole number of shares up to all shares held if the owner determines, in the owner's sole judgment, that the shareholder's continued ownership creates a material misalignment with the purposes or interests of the personal stock and that the misalignment is, or is reasonably expected to be, detrimental to the personal stock. Such a buyback may be initiated at any time.
+The owner may require a non-owner shareholder to sell any whole number of shares up to all shares held if the owner determines, in the owner's sole judgment, that the shareholder's continued ownership creates a material misalignment with the purposes or interests of the personal stock and that the misalignment is, or is reasonably expected to be, detrimental to the personal stock. Such a transaction is a buyout and may be initiated at any time. The purchaser in a buyout (`BUYOUT_PURCHASER`) may be the owner or, in the owner's sole discretion, any other person except the shareholder being bought out. A person other than the owner may be designated as `BUYOUT_PURCHASER` only after that person has adopted the then-current agreement for this personal stock under §5.
 
 ```
-BUYBACK_MINIMUM_NOTICE       = 15 business days
-BUYBACK_NOTICE_EXPIRATION    = 20 business days after notice
+BUYOUT_MINIMUM_NOTICE        = 15 business days
+BUYOUT_NOTICE_EXPIRATION     = 20 business days after notice
 HIGHER_OFFER_DEADLINE        = 2 business days before scheduled settlement
-BUYBACK_DISPUTE_DEADLINE     = HIGHER_OFFER_DEADLINE
-BUYBACK_RESUMPTION_NOTICE    = 2 business days
-MINIMUM_BUYBACK_PRICE        = 1 USD per share
+BUYOUT_DISPUTE_DEADLINE      = HIGHER_OFFER_DEADLINE
+BUYOUT_RESUMPTION_NOTICE     = 2 business days
+MINIMUM_BUYOUT_PRICE         = 1 USD per share
 DISPUTE_RESOLUTION_PROVIDER  = American Arbitration Association (AAA)
 
-BUYBACK_PRICE_FLOOR = max(
-  MINIMUM_BUYBACK_PRICE,
+BUYOUT_PRICE_FLOOR = max(
+  MINIMUM_BUYOUT_PRICE,
   shareholder's average_actual_cash_paid immediately before notice
 )
 ```
 
-The owner must give written notice stating the number of shares, settlement date, price per share, and a brief good-faith explanation. The complete notice must be recorded in the official history when given. The settlement date may not precede `BUYBACK_MINIMUM_NOTICE` and the notice expires at `BUYBACK_NOTICE_EXPIRATION`. A later buyback requires a new notice and price. The price is fixed and assessed as of the notice date. It must be fair, determined reasonably and in good faith from the information then available, and no less than `BUYBACK_PRICE_FLOOR`.
+The owner must give written notice stating the `BUYOUT_PURCHASER`, number of shares, settlement date, price per share, and a brief good-faith explanation. The complete notice must be recorded in the official history when given. The settlement date may not precede `BUYOUT_MINIMUM_NOTICE` and the notice expires at `BUYOUT_NOTICE_EXPIRATION`. The `BUYOUT_PURCHASER` identified in the notice may not be changed; a different purchaser requires withdrawal and a new buyout notice. A later buyout requires a new notice and price. The price is fixed and assessed as of the notice date. It must be fair, determined reasonably and in good faith from the information then available, and no less than `BUYOUT_PRICE_FLOOR`.
 
-In determining fairness, the owner must consider all material information reasonably available, including recent bona fide cash transactions in the shares; in-scope assets and reasonably expected distributions; outstanding shares; and material changes in the owner's reputation, audience, opportunities, and prospects. The owner may not use a buyback primarily to capture for the owner a specific distribution the owner then reasonably expects would otherwise accrue to the shareholder. Any such expected distribution must also be reflected in the fair price.
+In determining fairness, the owner must consider all material information reasonably available, including recent bona fide cash transactions in the shares; in-scope assets and reasonably expected distributions; outstanding shares; and material changes in the owner's reputation, audience, opportunities, and prospects. The owner may not use a buyout primarily to capture for the `BUYOUT_PURCHASER` a specific distribution the owner then reasonably expects would otherwise accrue to the shareholder. Any such expected distribution must also be reflected in the fair price.
 
-By `HIGHER_OFFER_DEADLINE`, the shareholder may present a bona fide, binding, fully financed, lawful third-party offer to purchase the same shares solely for cash at a higher per-share price and capable of settling by the scheduled buyback. Before the scheduled settlement, the owner must either match that higher price or approve the third-party sale, subject to the buyer adopting the then-current agreement for this personal stock under §5 and satisfying legal requirements. If the owner matches, the matched price replaces the price stated in the notice for all remaining purposes under this section. If the owner approves the third-party sale and it settles, the buyback ends. The buyback may not settle until the owner responds. Because the third-party sale replaces a required buyback rather than an independently chosen transfer, it carries no royalty and does not enter the seller's cumulative sale result. The seller's `aggregate_actual_cash_paid` is reduced proportionally for the shares sold, and the buyer's `aggregate_actual_cash_paid` increases by the `ACTUAL_CASH_PAID` assigned to those shares.
+By `HIGHER_OFFER_DEADLINE`, the shareholder may present a bona fide, binding, fully financed, lawful third-party offer to purchase the same shares solely for cash at a higher per-share price and capable of settling by the scheduled buyout. Before the scheduled settlement, the owner may withdraw the buyout, the `BUYOUT_PURCHASER` may match that higher price, or the owner may approve the third-party sale, subject to the buyer adopting the then-current agreement for this personal stock under §5 and satisfying legal requirements. If the `BUYOUT_PURCHASER` matches, the matched price replaces the price stated in the notice for all remaining purposes under this section. If the owner approves the third-party sale and it settles, or if the owner withdraws the buyout, the pending buyout ends. Withdrawal does not approve or permit the offered third-party sale. The buyout may not settle until the owner responds. If the approved third-party sale settles, it carries no royalty and does not enter the seller's cumulative sale result because it replaces a required buyout rather than an independently chosen transfer. The seller's `aggregate_actual_cash_paid` is then reduced proportionally for the shares sold, and the buyer's `aggregate_actual_cash_paid` increases by the `ACTUAL_CASH_PAID` assigned to those shares.
 
-By `BUYBACK_DISPUTE_DEADLINE`, the shareholder may give written notice specifically identifying facts that, if established, would show that the price is unfair, material information was omitted, the buyback was used primarily to capture a specific expected distribution in violation of this section, or the owner breached an administrative duty in pricing the buyback or carrying out a required procedure. The owner's determination concerning material misalignment and detriment is a matter of owner judgment under §10; a shareholder may not dispute, and the neutral may not review, the merits of that determination or substitute a different judgment. A shareholder's refusal or desire to remain a shareholder, without a claimed violation of this agreement, is not a dispute.
+By `BUYOUT_DISPUTE_DEADLINE`, the shareholder may give written notice specifically identifying facts that, if established, would show that the price is unfair, material information was omitted, the buyout was used primarily to capture a specific expected distribution in violation of this section, or the owner breached an administrative duty in pricing the buyout or carrying out a required procedure. The owner's determination concerning material misalignment and detriment is a matter of owner judgment under §10; a shareholder may not dispute, and the neutral may not review, the merits of that determination or substitute a different judgment. A shareholder's refusal or desire to remain a shareholder, without a claimed violation of this agreement, is not a dispute.
 
-A timely dispute suspends settlement and tolls `BUYBACK_NOTICE_EXPIRATION`. The shares remain held by the shareholder while the dispute is pending, and §4 continues to determine who owns every distribution arising before settlement. The shareholder must proceed promptly and advance any filing or neutral fees required to initiate the process, subject to final cost allocation. If `DISPUTE_RESOLUTION_PROVIDER` closes the matter because the shareholder, without good cause, fails to pay or proceed, the dispute is treated as withdrawn.
+A timely dispute suspends settlement and tolls `BUYOUT_NOTICE_EXPIRATION`. The shares remain held by the shareholder while the dispute is pending, and §4 continues to determine who owns every distribution arising before settlement. The shareholder must proceed promptly and advance any filing or neutral fees required to initiate the process, subject to final cost allocation. If `DISPUTE_RESOLUTION_PROVIDER` closes the matter because the shareholder, without good cause, fails to pay or proceed, the dispute is treated as withdrawn.
 
 The owner and shareholder may jointly select a single independent neutral with relevant expertise. If they cannot agree promptly, `DISPUTE_RESOLUTION_PROVIDER` appoints the neutral. The owner must provide the neutral every official-history entry and private supporting record reasonably necessary to decide the dispute. Before receiving private information, the neutral must agree in writing to protect it and may disclose only what is reasonably necessary to explain or enforce the decision.
 
 The neutral must resolve the dispute as promptly as reasonably practicable and must assess price and compliance as of the original notice date using information then existing and reasonably knowable. A later development may be considered only as evidence of a condition or reasonable expectation that existed on that date; it does not itself increase the price.
 
-The neutral may uphold the buyback, determine the fair price as of the notice date, or invalidate the notice for violating this section or the owner's administrative duties. The neutral may not reduce the price stated in the notice. The neutral's decision is binding for the pending buyback.
+The neutral may uphold the buyout, determine the fair price as of the notice date, or invalidate the notice for violating this section or the owner's administrative duties. The neutral may not reduce the price stated in the notice. The neutral's decision is binding for the pending buyout.
 
 ```
-FINAL_BUYBACK_PRICE = max(
+FINAL_BUYOUT_PRICE = max(
   price stated in the notice,
   fair price determined by the neutral
 )
 ```
 
-If the buyback remains valid after the decision, the owner may either complete it at `FINAL_BUYBACK_PRICE` under the schedule established by the neutral or withdraw it. The owner has no obligation to complete a buyback at a higher price determined by the neutral. If the owner withdraws or the notice is invalidated, no shares transfer and a later buyback requires a new notice and price. Withdrawal does not prevent the neutral from allocating reasonable audit and dispute costs or deciding an alleged administrative breach arising before withdrawal.
+If the buyout remains valid after the decision, the owner may cause the `BUYOUT_PURCHASER` to complete it at `FINAL_BUYOUT_PRICE` under the schedule established by the neutral or may withdraw it. Neither the owner nor a designated purchaser has any obligation to complete a buyout at a higher price determined by the neutral. If the owner withdraws or the notice is invalidated, no shares transfer and a later buyout requires a new notice and price. Withdrawal does not prevent the neutral from allocating reasonable audit and dispute costs or deciding an alleged administrative breach arising before withdrawal.
 
-The owner may also withdraw a buyback at any time before settlement. If no dispute is pending, withdrawal ends the notice. If a dispute is pending, it ends the proposed transfer but not the neutral's authority described above.
+The owner may also withdraw a buyout at any time before settlement. If no dispute is pending, withdrawal ends the notice. If a dispute is pending, it ends the proposed transfer but not the neutral's authority described above.
 
-If the shareholder's dispute is withdrawn or treated as withdrawn, the tolling of `BUYBACK_NOTICE_EXPIRATION` ends. If the scheduled settlement date has passed, the owner may proceed under the same notice only by giving the shareholder a replacement settlement date at least `BUYBACK_RESUMPTION_NOTICE` in advance and no later than the resumed `BUYBACK_NOTICE_EXPIRATION`. Otherwise, the original settlement date remains effective.
+If the shareholder's dispute is withdrawn or treated as withdrawn, the tolling of `BUYOUT_NOTICE_EXPIRATION` ends. If the scheduled settlement date has passed, the owner may proceed under the same notice only by giving the shareholder a replacement settlement date at least `BUYOUT_RESUMPTION_NOTICE` in advance and no later than the resumed `BUYOUT_NOTICE_EXPIRATION`. Otherwise, the original settlement date remains effective.
 
-A buyback settles when the owner irrevocably deposits the full purchase price calculated using the price then governing under this section, less only tax required to be withheld and remitted, with a payment agent or in a segregated account solely for the shareholder, and records the transfer. The shareholder's consent, signature, cooperation, or payment instructions are not required. Without full funding, no buyback occurs.
+A buyout settles when the `BUYOUT_PURCHASER` irrevocably deposits the full purchase price calculated using the price then governing under this section, less only tax required to be withheld and remitted, with a payment agent or in a segregated account solely for the shareholder, and the owner records the transfer to the `BUYOUT_PURCHASER`. The shareholder's consent, signature, cooperation, or payment instructions are not required. Without full funding, no buyout occurs.
 
-The neutral may allocate reasonable audit and dispute costs based on the outcome and the parties' conduct. Except for fraud or intentional concealment that could not reasonably have been discovered before settlement, a completed buyback has no later price adjustment, true-up, additional payment, or challenge under §11.
+The neutral may allocate reasonable audit and dispute costs based on the outcome and the parties' conduct. Except for fraud or intentional concealment that could not reasonably have been discovered before settlement, a completed buyout has no later price adjustment, true-up, additional payment, or challenge under §11.
 
-A buyback carries no royalty and does not enter the seller's cumulative sale result. The seller's `aggregate_actual_cash_paid` is reduced proportionally for the shares bought back. The shares transfer to the owner and remain outstanding.
+A buyout carries no royalty and does not enter the seller's cumulative sale result. The seller's `aggregate_actual_cash_paid` is reduced proportionally for the shares sold. If the `BUYOUT_PURCHASER` is a non-owner shareholder, that purchaser's `aggregate_actual_cash_paid` increases by the `ACTUAL_CASH_PAID` assigned to the purchased shares. The shares transfer to the `BUYOUT_PURCHASER` and remain outstanding.
 
 ## 9. Surrender and dissolution
 
@@ -405,7 +405,7 @@ The owner's administrative duties do not govern the owner's personal life, caree
 
 The owner will authorize an issuance or award only after determining that it is expected to benefit the personal stock. The expected benefit may be direct or indirect, financial or nonfinancial, immediate or long-term, and may be shared with the recipient or others.
 
-Matters of owner judgment include that determination; the determination under §8 whether a shareholder's continued ownership creates a material misalignment with the purposes or interests of the personal stock and whether that misalignment is, or is reasonably expected to be, detrimental to the personal stock; whether, when, to whom, and on what terms to issue shares or grant awards within available issuance capacity; whether, when, to whom, and on what terms the owner transfers the owner's shares; whether to approve or refuse a non-owner shareholder's voluntary transfer; whether to propose or withdraw an amendment; the personal and economic decisions described above; and any other decision that this agreement expressly places in the owner's sole discretion or states is not governed by a duty to shareholders.
+Matters of owner judgment include that determination; the determination under §8 whether a shareholder's continued ownership creates a material misalignment with the purposes or interests of the personal stock and whether that misalignment is, or is reasonably expected to be, detrimental to the personal stock; whether, when, and whom to buy out under §8 and whom to select as the `BUYOUT_PURCHASER`; whether, when, to whom, and on what terms to issue shares or grant awards within available issuance capacity; whether, when, to whom, and on what terms the owner transfers the owner's shares; whether to approve or refuse a non-owner shareholder's voluntary transfer; whether to propose or withdraw an amendment; the personal and economic decisions described above; and any other decision that this agreement expressly places in the owner's sole discretion or states is not governed by a duty to shareholders.
 
 A matter of owner judgment, including the owner's purpose, reasons, decision-making process, and assessment of its expected benefit to the personal stock, is final and non-reviewable. A shareholder's different view of the decision, its terms, its expected benefit, or its ultimate result creates no claim or remedy under this agreement. A matter of owner judgment may not be audited or disputed under §11, and a neutral has no authority to review it or grant relief based on it.
 
@@ -420,7 +420,7 @@ The owner must maintain one complete chronological official history sufficient t
 - shareholders, share movements, `ACTUAL_CASH_PAID`, awards, vesting, cancellations, reserved shares, and available issuance capacity;
 - amendment proposals, record times, approvals, and effective versions;
 - in-scope assets and every input and result used for eligible costs, cash events, each reserve's recognized amount, paid or unpaid status, increase, payment, release, refund or used benefit, `PORTFOLIO_NET_GAIN`, the floor, portfolio peak, shareable value, and distributions; and
-- transfers, royalty calculations, buybacks, surrenders, successions, dissolution, and corrections.
+- transfers, royalty calculations, buyouts, surrenders, successions, dissolution, and corrections.
 
 The agreement controls; the history is authoritative unless corrected. Facts must be recorded promptly at their actual occurrence, effectiveness, or settlement time and before use in a later calculation or transaction. Every amount is applied once, and every derived view must be reproducible from the history.
 
@@ -444,7 +444,7 @@ The requesting shareholder initially pays the reasonable audit cost. If the audi
 
 ### Dispute resolution
 
-An audit may examine a buyback, but any dispute concerning a buyback is governed exclusively by §8, including its deadlines, remedies, and finality rules.
+An audit may examine a buyout, but any dispute concerning a buyout is governed exclusively by §8, including its deadlines, remedies, and finality rules.
 
 Any other unresolved dispute concerning an audit, record, classification, valuation, calculation, payment, or administrative duty must be decided by a single independent neutral with relevant expertise. The owner and the disputing shareholder or shareholders may select the neutral jointly. If they cannot agree, `DISPUTE_RESOLUTION_PROVIDER` appoints the neutral. The decision is binding, and the neutral may order corrections, payments, and a fair allocation of audit and dispute costs.
 
@@ -478,14 +478,14 @@ The owner may resolve an administrative matter not addressed by this agreement r
 
 ## 13. Incapacity, death, and succession
 
-If the owner or a shareholder becomes incapacitated, a person legally authorized to manage that person's property may exercise ordinary rights and perform ordinary duties under this agreement, subject to the same limits. Only the owner personally may authorize a new issuance, award, buyback, amendment, or voluntary dissolution. A previously authorized award may continue vesting during incapacity under §5.
+If the owner or a shareholder becomes incapacitated, a person legally authorized to manage that person's property may exercise ordinary rights and perform ordinary duties under this agreement, subject to the same limits. Only the owner personally may authorize a new issuance, award, buyout, amendment, or voluntary dissolution. A previously authorized award may continue vesting during incapacity under §5.
 
 If a non-owner shareholder dies or shares otherwise pass by operation of law, the legal successor becomes the shareholder and receives the shares with their associated `ACTUAL_CASH_PAID`, cumulative sale result, royalty peak, unconverted royalty value, and accrued distributions. If more than one successor receives shares, all holder-level amounts are allocated among them in proportion to the shares received and then combined with any existing state of a successor who already holds shares. The succession requires neither prior owner approval nor a prior signature and carries no royalty. The successor is bound by this agreement and must provide information reasonably needed to record the succession and comply with law.
 
 On the owner's death:
 
 - the owner's personal representative administers the personal stock;
-- no amendment, issuance, new award, vesting, or buyback may occur;
+- no amendment, issuance, new award, vesting, or buyout may occur;
 - the `FLOOR` is permanently fixed using the CPI most recently published at death;
 - shares held by the owner's estate remain owner shares;
 - the same portfolio-net-gain, peak, cash-event, reserve, and distribution rules continue; and
