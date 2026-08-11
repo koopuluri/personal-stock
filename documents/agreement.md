@@ -252,24 +252,24 @@ Before or simultaneously with the initial capitalization, the owner must record 
 
 The owner may transfer the owner's existing shares for cash or no cash. Such a transfer is not an issuance and does not change outstanding shares or available issuance capacity.
 
-Except for surrender under §9 or succession under §13, a non-owner shareholder may voluntarily transfer shares only through a bona fide sale for actual USD cash that the owner has approved in writing and that complies with applicable law. The owner may grant or withhold approval in the owner's sole discretion. Approval must remain effective at settlement.
+Except for surrender under §9 or succession under §13, a non-owner shareholder may voluntarily transfer shares only through a bona fide sale solely for actual cash that the owner has approved and that complies with applicable law. The owner may grant or withhold approval in the owner's sole discretion. Approval must remain effective at settlement.
 
 For a permitted sale, the cash payment, buyer-share transfer, and any royalty-share transfer required by §7 must occur as one settlement. A transfer does not carry a distribution that accrued to the seller before settlement.
 
-The official history assigns actual cash paid as follows:
+The official history assigns `ACTUAL_CASH_PAID` as follows:
 
 ```
 ACTUAL_CASH_PAID =
-  issuance or bona fide transfer involving actual USD cash:
-    actual net USD cash paid
+  issuance or transfer with a required USD cash purchase price:
+    required USD cash purchase price actually and irrevocably paid in full
 
-  issuance or transfer involving no actual USD cash:
+  issuance or transfer with no required USD cash purchase price:
     0
 ```
 
 These amounts exist only for royalties and buyback minimums under this agreement; they are not tax basis, fair market value, or a legal characterization of the transaction.
 
-“Actual USD cash paid” means the transaction's net effective cash economics after combining every linked payment, rebate, refund, reimbursement, credit, offset, debt forgiveness, or indirect arrangement. No person may structure or record related arrangements primarily to inflate actual cash paid, reduce a royalty, increase a buyback minimum, or otherwise manipulate a calculation under this agreement. A violating record must be corrected under §11 without invalidating an otherwise completed transaction.
+`ACTUAL_CASH_PAID` is only the USD cash purchase price that the issuance or transfer expressly makes a condition of settlement and that the acquirer actually and irrevocably pays in full. Nothing else counts toward, substitutes for, reduces, or changes that required payment. A transaction with a required USD cash purchase price does not settle until that price has been paid in full.
 
 ## 7. Royalties
 
@@ -277,12 +277,12 @@ These amounts exist only for royalties and buyback minimums under this agreement
 ROYALTY_RATE = 0.05
 ```
 
-When a non-owner shareholder voluntarily sells shares for cash, the seller transfers additional whole shares to the owner based on the seller's new cumulative gain from voluntary cash sales and `ROYALTY_RATE`. The royalty is paid in shares, not cash.
+When a non-owner shareholder voluntarily sells shares for cash, the shares in the sale are split between the buyer and the owner. The owner's share royalty is calculated from the seller's new cumulative gain and `ROYALTY_RATE`; it comes out of the shares being sold and is not added on top or paid in cash.
 
 For each non-owner shareholder, the official history tracks:
 
 ```
-aggregate_actual_cash_paid = total actual USD cash paid for shares currently held
+aggregate_actual_cash_paid = total ACTUAL_CASH_PAID assigned to shares currently held
 average_actual_cash_paid   = aggregate_actual_cash_paid / shares currently held
 cumulative_sale_result     = sum of results from prior voluntary cash sales
 royalty_peak               = greatest cumulative_sale_result on which royalty
@@ -295,35 +295,38 @@ for a new non-owner shareholder other than by legal succession:
   unconverted_royalty_value = 0
 ```
 
-Shares received by legal succession carry their associated actual-cash-paid history and the predecessor's sale history. When shares acquired at different prices are combined, their actual cash paid is pooled and averaged. A later acquisition does not reset the holder's sale history.
+Shares received by legal succession carry their associated `ACTUAL_CASH_PAID` history and the predecessor's sale history. When shares acquired at different prices are combined, their `ACTUAL_CASH_PAID` is pooled and averaged. A later acquisition does not reset the holder's sale history.
 
 For each permitted voluntary cash sale:
 
 ```
-buyer_shares        = whole shares the buyer will receive
-sale_price          = actual USD cash price per buyer share
-sale_proceeds       = buyer_shares × sale_price
-allocated_cost      = average_actual_cash_paid × buyer_shares
-sale_result         = sale_proceeds - allocated_cost
+sale_shares         = total whole shares the seller will transfer
+sale_price          = required USD cash purchase price per share transferred to the buyer
+pre_royalty_value   = sale_shares × sale_price
+allocated_cost      = average_actual_cash_paid × sale_shares
+sale_result         = pre_royalty_value - allocated_cost
 
 cumulative_after    = cumulative_sale_result + sale_result
 new_royalty_gain    = max(0, cumulative_after - royalty_peak)
 royalty_value       = new_royalty_gain × ROYALTY_RATE
 total_royalty_value = royalty_value + unconverted_royalty_value
 royalty_shares      = round down(total_royalty_value / sale_price)
+buyer_shares        = sale_shares - royalty_shares
+sale_proceeds       = buyer_shares × sale_price = ACTUAL_CASH_PAID
 unconverted_after   = total_royalty_value - (royalty_shares × sale_price)
 royalty_peak_after  = max(royalty_peak, cumulative_after)
 
 sale_price > 0
+buyer_shares > 0
 ```
 
-The buyer pays for and receives `buyer_shares`. The seller must also own and simultaneously transfer `royalty_shares` to the owner. A seller wishing to exit completely must reduce the buyer-share quantity as needed to retain enough shares for the royalty. `unconverted_after` carries forward in USD and is applied at the next royalty-bearing sale; it is not independently payable in cash.
+The seller transfers exactly `sale_shares`: `buyer_shares` to the buyer and `royalty_shares` to the owner. The buyer pays `sale_proceeds`. A seller may therefore include every share held in a sale without retaining extra shares for the royalty. If the calculation would leave the buyer with no shares, the sale cannot settle on those terms. `unconverted_after` carries forward in USD and is applied at the next royalty-bearing sale; it is not independently payable in cash.
 
-The seller's total actual cash paid is reduced proportionally for every share leaving the seller in the settlement, including royalty shares. The buyer's shares receive actual cash paid equal to the cash the buyer paid. Seller expenses and taxes do not reduce the contractual sale result.
+The seller's `aggregate_actual_cash_paid` is reduced proportionally for every share leaving the seller in the settlement, including royalty shares. If the buyer is a non-owner shareholder, the buyer's `aggregate_actual_cash_paid` increases by `sale_proceeds`. Seller expenses and taxes do not reduce the contractual sale result.
 
 Losses offset later gain, and gain is charged only once. The carried unconverted royalty value prevents whole-share rounding from being used to avoid royalties.
 
-An owner sale, issuance, buyback, surrender, legal succession, or other movement involving no actual cash carries no royalty. Royalties and royalty shares do not affect `PORTFOLIO_NET_GAIN` or the number of outstanding shares.
+Only a non-owner shareholder's permitted voluntary cash sale carries a royalty. An issuance, owner sale, buyback, replacement third-party sale under §8, surrender, or legal succession carries no royalty. Royalties and royalty shares do not affect `PORTFOLIO_NET_GAIN` or the number of outstanding shares.
 
 ## 8. Buybacks
 
@@ -348,7 +351,7 @@ The owner must give written notice stating the number of shares, settlement date
 
 In determining fairness, the owner must consider all material information reasonably available, including recent bona fide cash transactions in the shares; in-scope assets and reasonably expected distributions; outstanding shares; and material changes in the owner's reputation, audience, opportunities, and prospects. The owner may not use a buyback primarily to capture for the owner a specific distribution the owner then reasonably expects would otherwise accrue to the shareholder. Any such expected distribution must also be reflected in the fair price.
 
-By `HIGHER_OFFER_DEADLINE`, the shareholder may present a bona fide, binding, fully financed, lawful third-party offer to purchase the same shares solely for cash at a higher per-share price and capable of settling by the scheduled buyback. Before the scheduled settlement, the owner must either match that higher price or approve the third-party sale, subject to the buyer signing this agreement and satisfying legal requirements. If the owner matches, the matched price replaces the price stated in the notice for all remaining purposes under this section. If the owner approves the third-party sale and it settles, the buyback ends. The buyback may not settle until the owner responds. Because the third-party sale replaces a required buyback rather than an independently chosen transfer, it carries no royalty and does not enter the seller's cumulative sale result.
+By `HIGHER_OFFER_DEADLINE`, the shareholder may present a bona fide, binding, fully financed, lawful third-party offer to purchase the same shares solely for cash at a higher per-share price and capable of settling by the scheduled buyback. Before the scheduled settlement, the owner must either match that higher price or approve the third-party sale, subject to the buyer signing this agreement and satisfying legal requirements. If the owner matches, the matched price replaces the price stated in the notice for all remaining purposes under this section. If the owner approves the third-party sale and it settles, the buyback ends. The buyback may not settle until the owner responds. Because the third-party sale replaces a required buyback rather than an independently chosen transfer, it carries no royalty and does not enter the seller's cumulative sale result. The seller's `aggregate_actual_cash_paid` is reduced proportionally for the shares sold, and the buyer's `aggregate_actual_cash_paid` increases by the `ACTUAL_CASH_PAID` assigned to those shares.
 
 By `BUYBACK_DISPUTE_DEADLINE`, the shareholder may give written notice specifically identifying facts that, if established, would show that the price is unfair, material information was omitted, the buyback has a prohibited purpose, or the owner breached an administrative duty in initiating or pricing it. A shareholder's refusal or desire to remain a shareholder, without a claimed violation of this agreement, is not a dispute.
 
@@ -377,7 +380,7 @@ A buyback settles when the owner irrevocably deposits the full purchase price ca
 
 The neutral may allocate reasonable audit and dispute costs based on the outcome and the parties' conduct. Except for fraud or intentional concealment that could not reasonably have been discovered before settlement, a completed buyback has no later price adjustment, true-up, additional payment, or challenge under §11.
 
-A buyback carries no royalty and does not enter the seller's cumulative sale result. The seller's total actual cash paid is reduced proportionally for the shares bought back. The shares transfer to the owner and remain outstanding.
+A buyback carries no royalty and does not enter the seller's cumulative sale result. The seller's `aggregate_actual_cash_paid` is reduced proportionally for the shares bought back. The shares transfer to the owner and remain outstanding.
 
 ## 9. Surrender and dissolution
 
@@ -387,11 +390,11 @@ A non-owner shareholder may surrender all shares held by written notice to the o
 
 During the owner's life, only the owner acting personally may cause dissolution, and only when no shares are held by another person and no obligation to another person remains. After the owner's death, dissolution occurs under §13.
 
-## 10. Duties and owner judgment
-
-### Owner duties
+## 10. Duties
 
 Solely in administering this agreement, the owner owes every non-owner shareholder fiduciary duties of loyalty, reasonable care, candor, and impartiality. The owner must administer this agreement honestly and in good faith; must not manipulate or omit a classification, estimate, valuation, calculation, record, timing, or process to improperly benefit the owner or another person; must use reasonable care in maintaining records and performing calculations; must disclose the material information required to verify the administration of this agreement; and must apply this agreement consistently and treat equal shares equally except where it expressly permits holder-specific action.
+
+A shareholder must hold and act with respect to shares solely for that shareholder's own benefit. Except for a legal representative under §13, no shareholder may use a nominee, agent, proxy, or other arrangement to give a non-shareholder the beneficial ownership or control of shares or to act on a non-shareholder's instructions.
 
 ### Owner judgment
 
@@ -405,17 +408,13 @@ A matter of owner judgment, including the owner's purpose, reasons, decision-mak
 
 This protection does not excuse noncompliance with an express limit, condition, procedure, recording requirement, calculation, or payment obligation. The decision itself is a matter of owner judgment; its implementation and administration remain subject to the applicable terms of this agreement.
 
-### Shareholder duties
-
-A shareholder must hold and act with respect to shares solely for that shareholder's own benefit. Except for a legal representative under §13, no shareholder may use a nominee, agent, proxy, or other arrangement to give a non-shareholder the beneficial ownership or control of shares or to act on a non-shareholder's instructions.
-
 ## 11. Records, audits, and disputes
 
 ### Official history and supporting records
 
 The owner must maintain one complete chronological official history sufficient to determine the current state, reproduce every calculation, and verify this agreement. It must record or identify:
 
-- shareholders, share movements, actual cash paid, awards, vesting, cancellations, reserved shares, and available issuance capacity;
+- shareholders, share movements, `ACTUAL_CASH_PAID`, awards, vesting, cancellations, reserved shares, and available issuance capacity;
 - amendment proposals, record times, approvals, and effective versions;
 - in-scope assets and every input and result used for eligible costs, cash events, each reserve's recognized amount, paid or unpaid status, increase, payment, release, refund or used benefit, `PORTFOLIO_NET_GAIN`, the floor, portfolio peak, shareable value, and distributions; and
 - transfers, royalty calculations, buybacks, surrenders, successions, dissolution, and corrections.
@@ -424,7 +423,7 @@ The agreement controls; the history is authoritative unless corrected. Facts mus
 
 The complete event and calculation history and current state must remain directly observable by every shareholder without a request to or discretionary action by the owner. It may use display names, opaque asset identifiers, and aggregate amounts, but may not omit a numerical or logical input needed to reproduce a result. Underlying identities and source documents may remain in the private supporting records.
 
-The owner may publish a redacted public view of that history. The public state ledger must at minimum show every share movement, every actual cash price used by this agreement, outstanding shares, shares reserved under unvested awards, and available issuance capacity. The owner may make other information public, but may not publicly disclose a shareholder's legal name unless that shareholder uses it as a display name or consents.
+The owner may publish a redacted public view of that history. The public state ledger must at minimum show every share movement, every `ACTUAL_CASH_PAID` amount, outstanding shares, shares reserved under unvested awards, and available issuance capacity. The owner may make other information public, but may not publicly disclose a shareholder's legal name unless that shareholder uses it as a display name or consents.
 
 The owner must preserve the history. A correction identifies and supersedes rather than erases the error, and every affected result is recalculated chronologically. It does not automatically reverse a completed transaction or payment; practical consequences must be resolved reasonably and in good faith. Fraud, intentional misrepresentation, and intentional manipulation remain subject to otherwise available remedies.
 
@@ -474,7 +473,7 @@ The owner may resolve an administrative matter not addressed by this agreement r
 
 If the owner or a shareholder becomes incapacitated, a person legally authorized to manage that person's property may exercise ordinary rights and perform ordinary duties under this agreement, subject to the same limits. Only the owner personally may authorize a new issuance, award, buyback, amendment, or voluntary dissolution. A previously authorized award may continue vesting during incapacity under §5.
 
-If a non-owner shareholder dies or shares otherwise pass by operation of law, the legal successor becomes the shareholder and receives the shares with their associated actual cash paid, cumulative sale result, royalty peak, unconverted royalty value, and accrued distributions. If more than one successor receives shares, all holder-level amounts are allocated among them in proportion to the shares received and then combined with any existing state of a successor who already holds shares. The succession requires neither prior owner approval nor a prior signature and carries no royalty. The successor is bound by this agreement and must provide information reasonably needed to record the succession and comply with law.
+If a non-owner shareholder dies or shares otherwise pass by operation of law, the legal successor becomes the shareholder and receives the shares with their associated `ACTUAL_CASH_PAID`, cumulative sale result, royalty peak, unconverted royalty value, and accrued distributions. If more than one successor receives shares, all holder-level amounts are allocated among them in proportion to the shares received and then combined with any existing state of a successor who already holds shares. The succession requires neither prior owner approval nor a prior signature and carries no royalty. The successor is bound by this agreement and must provide information reasonably needed to record the succession and comply with law.
 
 On the owner's death:
 
@@ -513,5 +512,3 @@ If a provision or application is invalid or unenforceable, it is severed only to
 The owner and each shareholder must maintain a current electronic notice address in the private supporting records. Electronic notice satisfies a writing requirement and is received when it enters the designated system in retrievable form; known delivery failure requires another reasonable method.
 
 This agreement is the complete statement of the terms governing the personal stock. A separate record, award, transaction document, summary, or communication may establish facts or separate obligations but changes this agreement only through §12.
-
-This agreement may be signed electronically. A signature packet must contain or identify the complete agreement then in effect, which governs over any summary or explanatory copy.
