@@ -18,8 +18,7 @@ Stock contract: {{STOCK_CONTRACT_ADDRESS}}
 Agreement version: {{AGREEMENT_VERSION}}
 Keccak-256 hash: {{AGREEMENT_CONTENT_HASH}}
 
-The shares are speculative and illiquid, may have no value or distributions, may
-be diluted, and are subject to the restrictions and risks in the Agreement.
+The shares are speculative and illiquid, may have no value or distributions, may be diluted, and are subject to the restrictions and risks in the Agreement.
 
 I, {{OWNER_LEGAL_NAME}}, approve this adoption and intend this email to be my
 electronic signature as owner.
@@ -29,8 +28,7 @@ To adopt the attached Agreement for this personal stock, reply:
 I agree
 
 By replying "I agree," you adopt and agree to be bound by the attached Agreement,
-confirm that you received it and had the opportunity to review it, consent to sign
-electronically, and intend your reply to be your electronic signature. This
+confirm that you received it and had the opportunity to review it, consent to sign electronically, and intend your reply to be your electronic signature. This
 adoption does not itself issue or promise you any shares.
 ```
 
