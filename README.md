@@ -1,22 +1,22 @@
-# Karthik Uppuluri Stock
+# Personal Stock Ledger
 
-This repository contains the public agreement and implementation for Karthik
-Uppuluri Stock.
+This repository contains the public ledger implementation and event history for
+Karthik Uppuluri Stock.
 
-- [`documents/agreement.md`](documents/agreement.md) is the published standard
-  agreement. Each released version is identified by its version and Keccak-256
-  content hash; the exact agreement bytes remain in the public source repository.
-- [`ledger/schema.md`](ledger/schema.md) describes the public event formats used
-  by the stock ledger.
-- [`ledger/`](ledger/) contains the append-only Base ledger contract, event tooling,
-  deterministic resolver, replay code, and tests.
-- [`documents/signing/`](documents/signing/) contains email templates for agreement
-  adoption and immediate share issuance. Private identities, correspondence,
-  signatures, and supporting records do not belong in this public repository.
+The governing [Personal Stock agreement](https://github.com/onrootnet/personal-stock) is published separately by Rootnet. Agreement adoption events identify an exact published agreement by its version and Keccak-256 content hash; agreement source and signing materials are not duplicated here.
 
-There is no onchain agreement document and no replaceable stock-state document. The
-authoritative stock history is the immutable event journal at the deployed ledger
-contract. Current state is derived by resolving overlays and replaying that history.
+- [`ledger/schema.md`](ledger/schema.md) defines the public event formats.
+- [`ledger/src/StockLedger.sol`](ledger/src/StockLedger.sol) implements the
+  append-only Base ledger contract.
+- [`ledger/script/`](ledger/script/) contains validation, replay, deployment, and
+  publication tooling.
+- [`ledger/test/`](ledger/test/) contains Solidity and Python tests.
+- [`ledger/README.md`](ledger/README.md) documents the ledger model and operations.
+
+The authoritative stock history is the immutable event journal at the deployed
+ledger contract. Current state is derived by resolving overlays and replaying that
+history; repository copies of event batches and receipts are operational evidence,
+not an alternative ledger.
 
 The ledger address will be recorded here after deployment.
 

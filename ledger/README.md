@@ -4,9 +4,10 @@ This directory implements the onchain official history for one personal stock. T
 chain stores an immutable journal of small events. It does **not** store or repeatedly
 publish a complete state document.
 
-The governing agreement is separate. Its exact source bytes live in a public source
-repository and are identified in adoption and amendment events by version plus
-`AGREEMENT_CONTENT_HASH`. There is no agreement contract.
+The governing [Personal Stock agreement](https://github.com/onrootnet/personal-stock)
+is published separately by Rootnet. Its exact source bytes are identified in adoption
+and amendment events by version plus `AGREEMENT_CONTENT_HASH`. There is no agreement
+contract.
 
 ## Model
 

@@ -1,5 +1,4 @@
-# Published bytes are hashed and referenced in signed documents. Line endings are
-# part of the hash, so they are never left to the platform.
+# Canonical ledger source and event files use stable line endings across platforms.
 *.md text eol=lf
 *.sol text eol=lf
 *.sh text eol=lf

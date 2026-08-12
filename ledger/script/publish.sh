@@ -30,7 +30,7 @@ if [[ "$BATCH_PATH" != /* ]]; then
   BATCH_PATH="$REPO_ROOT/$BATCH_PATH"
 fi
 
-PUBLISHED_DIR="${PUBLISHED_DIR:-$REPO_ROOT/documents/published/events}"
+PUBLISHED_DIR="${PUBLISHED_DIR:-$REPO_ROOT/published/events}"
 if [[ "$PUBLISHED_DIR" != /* ]]; then
   PUBLISHED_DIR="$REPO_ROOT/$PUBLISHED_DIR"
 fi
