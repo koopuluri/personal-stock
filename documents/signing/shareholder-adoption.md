@@ -1,73 +1,99 @@
-# Shareholder Agreement Adoption
+# Shareholder Agreement Adoption by Email
 
-**{{DOCUMENT_STATUS}}**
+Under [§14 of the Personal Stock Agreement](../agreement.md#14-general), this email exchange is itself the adoption record and contains the parties' electronic signatures; no separately signed PDF is required. The owner sends the request below with a retainable copy of the exact complete Agreement attached, the shareholder replies **I agree**, and the owner sends the confirmation. The request defines that exact reply as the shareholder's unambiguous assent and electronic signature and associates it with the identified adoption record and Agreement. Use the stated electronic notice addresses, keep the subject line and thread intact, and retain the raw messages with full headers, the attachment, and reasonably available delivery and timestamp evidence in the private supporting records. Do not treat another abbreviated response, including a bare "yes," as execution without obtaining the exact **I agree** response. After confirmation, record the corresponding `AGREEMENT_ADOPTION` event before relying on the adoption for a share transaction.
 
-Adoption document ID: `{{ADOPTION_DOCUMENT_ID}}`
+### 1. Request to adopt
 
-This Shareholder Agreement Adoption identifies the personal stock, the prospective shareholder, and the exact published Personal Stock Agreement being adopted. It does not issue, transfer, reserve, or promise any shares.
+```text
+Subject: Adoption request — {{PERSONAL_STOCK_NAME}} — {{ADOPTION_DOCUMENT_ID}}
+From: {{OWNER_LEGAL_NAME}} <{{OWNER_ELECTRONIC_NOTICE_ADDRESS}}>
+To: {{SHAREHOLDER_LEGAL_NAME}} <{{SHAREHOLDER_ELECTRONIC_NOTICE_ADDRESS}}>
 
-## 1. Personal stock and agreement identification
+Hi {{SHAREHOLDER_LEGAL_NAME}},
 
-| Personal stock | Identification |
-| --- | --- |
-| Name | {{PERSONAL_STOCK_NAME}} |
-| Unique identifier | `{{PERSONAL_STOCK_IDENTIFIER}}` |
-| Blockchain network | {{STOCK_BLOCKCHAIN_NETWORK}} |
-| Chain ID | `{{STOCK_CHAIN_ID}}` |
-| Authoritative stock contract | `{{STOCK_CONTRACT_ADDRESS}}` |
+I am asking you to adopt the attached Personal Stock Agreement for
+{{PERSONAL_STOCK_NAME}}. Please review and retain this email and the attachment
+before deciding whether to agree.
 
-| Agreement | Identification |
-| --- | --- |
-| Title | Personal Stock Agreement |
-| Version | `{{AGREEMENT_VERSION}}` |
-| Blockchain network | {{AGREEMENT_BLOCKCHAIN_NETWORK}} |
-| Chain ID | `{{AGREEMENT_CHAIN_ID}}` |
-| Authoritative agreement contract | `{{AGREEMENT_CONTRACT_ADDRESS}}` |
-| Content-hash algorithm | Keccak-256 |
-| Agreement content hash | `{{AGREEMENT_CONTENT_HASH}}` |
-| Hashed content | Exact {{AGREEMENT_BYTE_LENGTH}} bytes of the authoritative agreement content |
+Adoption record
+  Status: {{DOCUMENT_STATUS}}
+  Adoption ID: {{ADOPTION_DOCUMENT_ID}}
+  Shareholder: {{SHAREHOLDER_LEGAL_NAME}} ({{SHAREHOLDER_ID}})
+  Shareholder email: {{SHAREHOLDER_ELECTRONIC_NOTICE_ADDRESS}}
+  Owner: {{OWNER_LEGAL_NAME}} ({{OWNER_SHAREHOLDER_ID}})
+  Owner email: {{OWNER_ELECTRONIC_NOTICE_ADDRESS}}
+  Chain ID: {{CHAIN_ID}}
+  Personal stock: {{PERSONAL_STOCK_NAME}}
+  Stock contract: {{STOCK_CONTRACT_ADDRESS}}
+  Agreement version: {{AGREEMENT_VERSION}}
+  Agreement content hash (Keccak-256): {{AGREEMENT_CONTENT_HASH}}
+  Authoritative content: Exact {{AGREEMENT_BYTE_LENGTH}} UTF-8 source bytes
 
-The complete agreement content identified above is reproduced as Exhibit A for review. As provided in the Agreement, the authoritative text identified by the version, blockchain network, authoritative onchain address, and content hash controls if a reproduction differs from it.
+The attached Agreement is the complete Agreement identified above and is provided
+in retainable form as Exhibit A. This released version is also made available in a
+public source repository. Repository URLs, commits, tags, filenames, and rendered
+copies help locate and read it but do not identify the authoritative text. The
+exact source bytes matching the version and content hash above control if any
+source reference or reproduction differs from them.
 
-## 2. Adoption
+These shares are unusual, speculative, and illiquid contractual interests. They
+may have no value, may never produce a distribution, provide no ownership or
+control of the underlying assets, may be diluted, are subject to transfer and
+buyout restrictions, and may create tax, legal, and operational risks. The
+Agreement contains the complete terms and controls this summary.
 
-I, **{{SHAREHOLDER_LEGAL_NAME}}**, identified in the personal stock's records as `{{SHAREHOLDER_ID}}`, adopt the Agreement identified in Section 1 solely for this personal stock and agree to be bound by it.
+If you choose to adopt the Agreement, reply from
+{{SHAREHOLDER_ELECTRONIC_NOTICE_ADDRESS}} in this same thread with exactly:
 
-This adoption becomes effective when the shareholder and owner have both electronically signed this record. It may be used to support a share transaction only after an `AGREEMENT_ADOPTION` event identifying this shareholder, agreement version, and agreement content hash has been recorded in the official history.
+I agree
 
-This adoption does not itself create a right to receive shares or require the owner to authorize any issuance, award, or transfer. Every share transaction requires its own authorization, terms, conditions, settlement, and official-history entry.
+By replying "I agree," you:
 
-## 3. Risk disclosure
+- adopt the Agreement identified above solely for this personal stock and agree
+  to be bound by it;
+- confirm that you received and could retain this request and the complete
+  Agreement, had the opportunity to review them, and are acting voluntarily with
+  legal capacity;
+- acknowledge the risks summarized above and the complete terms in the Agreement;
+- understand that this adoption does not itself give you shares or require any
+  issuance, award, or transfer;
+- understand that amendments effective under §12 govern as provided in the
+  Agreement;
+- confirm that {{SHAREHOLDER_ELECTRONIC_NOTICE_ADDRESS}} is your electronic
+  notice address; and
+- consent to conduct this adoption electronically and intend your reply to be your
+  writing and electronic signature under §14 of the Agreement.
 
-The shares are unusual, speculative, illiquid contractual interests involving substantial risk. This disclosure summarizes material risks but does not replace or modify the Agreement.
+The adoption becomes effective after the owner sends the confirmation below. It
+may support a share transaction only after the corresponding AGREEMENT_ADOPTION
+event is recorded in the official history.
+```
 
-- **No assured value or return.** Shares may have no realizable value. No distribution, recurring payment, market price, resale opportunity, or return of any amount paid or value contributed is promised.
-- **Distributions may never occur.** Distributions depend on realized USD cash, portfolio-wide net gain, the inflation-adjusted `FLOOR`, the prior `PORTFOLIO_PEAK`, outstanding shares, eligible costs, taxes, reserves, and the other requirements of the Agreement.
-- **No ownership or control of assets.** A share does not give its holder ownership of, a lien on, or control over any in-scope asset, its unrealized value, or issuance proceeds. Subject to the Agreement's limited good-faith use and reporting duties for issuance proceeds, the owner controls the owner's life, work, investments, spending, and other matters reserved to owner judgment.
-- **Use of issuance proceeds.** Cash paid for an issuance belongs solely to the owner but must be used in good faith for activities the owner determines are expected to benefit the personal stock's long-term value. Shareholders receive annual reports, and reasonably requested updates, showing receipts, uses grouped into meaningful high-level categories, and the unused balance. Reports need not identify individual transactions, and shareholders have no approval or consultation right. The uses may not succeed or increase value.
-- **Dilution.** Additional shares and awards may be issued within the Agreement's limits without a shareholder's consent or participation, reducing that shareholder's percentage interest in later shareable value.
-- **Illiquidity, transfer restrictions, and buyouts.** There may be no market for the shares. Voluntary transfers are restricted, and the owner may require a non-owner shareholder to sell shares through the buyout process in Section 8.
-- **Share-issuance adoption condition.** The separate Share Issuance Agreement requires the recipient to have a recorded adoption of the exact agreement version governing at settlement. If a later amendment becomes effective before settlement, that issuance requires adoption of the new governing version.
-- **Limited review of owner judgment.** Matters designated as owner judgment, including the merits and outcome of issuance-proceeds uses, are final and non-reviewable. Compliance with the express good-faith use, reporting, recordkeeping, and other administrative requirements remains subject only to the duties, records, audits, disputes, deadlines, and remedies stated in the Agreement.
-- **Tax, legal, and regulatory uncertainty.** A shareholder may incur taxes or other legal consequences, and the availability or enforceability of rights may be affected by applicable law. Each shareholder is responsible for obtaining advice appropriate to that shareholder's circumstances.
-- **Operational and personal dependency.** Performance depends on accurate records, estimates, classifications, administration, and payment. Incapacity, death, succession, insolvency, disputes, mistakes, misconduct, or changes in law or circumstances may delay, impair, or prevent expected outcomes.
+### 2. Shareholder response
 
-## 4. Acknowledgments and execution terms
+```text
+Subject: Re: Adoption request — {{PERSONAL_STOCK_NAME}} — {{ADOPTION_DOCUMENT_ID}}
+From: {{SHAREHOLDER_LEGAL_NAME}} <{{SHAREHOLDER_ELECTRONIC_NOTICE_ADDRESS}}>
+To: {{OWNER_LEGAL_NAME}} <{{OWNER_ELECTRONIC_NOTICE_ADDRESS}}>
 
-By signing this record, the prospective shareholder acknowledges and agrees that:
+I agree
+```
 
-- the shareholder received this record, the foregoing risk disclosure, and the complete Agreement reproduced as Exhibit A before signing;
-- the shareholder had the opportunity to review those materials and is signing voluntarily with legal capacity to do so;
-- amendments that become effective under Section 12 of the Agreement govern all shareholders and shares as provided there; a later transaction document may separately require a fresh adoption as a condition of that transaction;
-- the risk disclosure is informational, does not expand or reduce the Agreement's rights or obligations, and does not waive any express right under the Agreement or any right that cannot lawfully be waived;
-- this record adopts but does not amend the Agreement;
-- electronic signatures and the electronic record of this transaction have the same intended effect as original signatures and records on paper; and
-- the shareholder's electronic notice address for the private supporting records is **{{SHAREHOLDER_ELECTRONIC_NOTICE_ADDRESS}}**.
+### 3. Owner confirmation
 
-By signing this record, the owner confirms the shareholder's identity for this adoption and joins in the adoption record as required by the Agreement. The owner's signature does not authorize or promise a share transaction.
+```text
+Subject: Re: Adoption request — {{PERSONAL_STOCK_NAME}} — {{ADOPTION_DOCUMENT_ID}}
+From: {{OWNER_LEGAL_NAME}} <{{OWNER_ELECTRONIC_NOTICE_ADDRESS}}>
+To: {{SHAREHOLDER_LEGAL_NAME}} <{{SHAREHOLDER_ELECTRONIC_NOTICE_ADDRESS}}>
 
-The Agreement and this record state their respective terms. No summary, presentation, discussion, or other communication changes them.
+Confirmed. I, {{OWNER_LEGAL_NAME}} ({{OWNER_SHAREHOLDER_ID}}), confirm your
+identity, join in adoption record {{ADOPTION_DOCUMENT_ID}}, and electronically
+sign your adoption of Personal Stock Agreement version {{AGREEMENT_VERSION}},
+content hash {{AGREEMENT_CONTENT_HASH}}, for {{PERSONAL_STOCK_NAME}}. I intend
+this reply to be my writing and electronic signature under §14 of the Agreement.
 
-## 5. Signatures
-
-[[ADOPTION_SIGNATURE_BLOCK]]
+The adoption is effective upon receipt of this confirmation. It may support a
+share transaction only after the corresponding AGREEMENT_ADOPTION event is
+recorded in the official history. This adoption does not itself issue, transfer,
+reserve, or promise any shares.
+```

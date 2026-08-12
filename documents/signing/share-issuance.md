@@ -1,83 +1,105 @@
-# Share Issuance Agreement
+# Share Issuance by Email
 
-**{{DOCUMENT_STATUS}}**
+Under [§14 of the Personal Stock Agreement](../agreement.md#14-general), this email exchange is itself the signed Share Issuance Agreement; no separately signed PDF is required. The owner sends the complete issuance request below, the recipient replies **I agree**, and the owner sends the confirmation personally authorizing the issuance. Use the stated electronic notice addresses, keep the subject line and thread intact, and retain the raw messages with full headers and reasonably available delivery and timestamp evidence in the private supporting records. The exchange establishes and signs the issuance terms but does not itself issue shares or complete settlement. Settlement occurs only after every stated condition is satisfied and the issuance becomes irrevocable and is recorded in the official history.
 
-Issuance document ID: `{{ISSUANCE_DOCUMENT_ID}}`
+### 1. Issuance request
 
-This Share Issuance Agreement states the terms on which the personal stock will issue new shares to the recipient. It is separate from the recipient's adoption of the Personal Stock Agreement and covers an immediate issuance, not an unvested award or a transfer of existing shares.
+```text
+Subject: Share issuance request — {{PERSONAL_STOCK_NAME}} — {{ISSUANCE_DOCUMENT_ID}}
+From: {{OWNER_LEGAL_NAME}} <{{OWNER_ELECTRONIC_NOTICE_ADDRESS}}>
+To: {{RECIPIENT_LEGAL_NAME}} <{{RECIPIENT_ELECTRONIC_NOTICE_ADDRESS}}>
 
-## 1. Personal stock and governing agreement
+Hi {{RECIPIENT_LEGAL_NAME}},
 
-| Personal stock | Identification |
-| --- | --- |
-| Name | {{PERSONAL_STOCK_NAME}} |
-| Unique identifier | `{{PERSONAL_STOCK_IDENTIFIER}}` |
-| Blockchain network | {{STOCK_BLOCKCHAIN_NETWORK}} |
-| Chain ID | `{{STOCK_CHAIN_ID}}` |
-| Authoritative stock contract | `{{STOCK_CONTRACT_ADDRESS}}` |
+I am offering to issue you {{ISSUED_SHARES}} new shares of
+{{PERSONAL_STOCK_NAME}} for a total USD cash purchase price of
+{{REQUIRED_CASH_PURCHASE_PRICE_DISPLAY}} on the terms below. Please review and
+retain this email before deciding whether to agree.
 
-| Agreement governing when this record was signed | Identification |
-| --- | --- |
-| Version | `{{AGREEMENT_VERSION}}` |
-| Authoritative agreement contract | `{{AGREEMENT_CONTRACT_ADDRESS}}` |
-| Agreement content hash | `{{AGREEMENT_CONTENT_HASH}}` |
+Issuance record
+  Status: {{DOCUMENT_STATUS}}
+  Issuance ID: {{ISSUANCE_DOCUMENT_ID}}
+  Owner and issuer: {{OWNER_LEGAL_NAME}} ({{OWNER_SHAREHOLDER_ID}})
+  Owner email: {{OWNER_ELECTRONIC_NOTICE_ADDRESS}}
+  Recipient: {{RECIPIENT_LEGAL_NAME}} ({{RECIPIENT_SHAREHOLDER_ID}})
+  Recipient email: {{RECIPIENT_ELECTRONIC_NOTICE_ADDRESS}}
+  Personal stock: {{PERSONAL_STOCK_NAME}}
+  Personal stock ID: {{PERSONAL_STOCK_IDENTIFIER}}
+  Stock network: {{STOCK_BLOCKCHAIN_NETWORK}}
+  Stock chain ID: {{STOCK_CHAIN_ID}}
+  Stock contract: {{STOCK_CONTRACT_ADDRESS}}
+  Agreement version: {{AGREEMENT_VERSION}}
+  Agreement content hash (Keccak-256): {{AGREEMENT_CONTENT_HASH}}
+  Adoption document: {{RECIPIENT_ADOPTION_DOCUMENT_ID}}
+  AGREEMENT_ADOPTION sequence: {{RECIPIENT_ADOPTION_SEQUENCE}}
+  New shares: {{ISSUED_SHARES}}
+  Total USD cash purchase price: {{REQUIRED_CASH_PURCHASE_PRICE_DISPLAY}}
 
-The agreement version governing the personal stock at actual settlement controls. If an amendment becomes effective after this record is signed but before settlement, the amended version controls as provided by the Agreement.
+This is an immediate issuance of new shares, not a transfer, unvested award,
+promise, or reservation. It creates new outstanding shares, reduces available
+issuance capacity by the same number, and carries no royalty. Any cash paid is
+ISSUANCE_PROCEEDS under the Agreement, belongs solely to the owner, is not a
+CASH_EVENT, and remains subject to the Agreement's good-faith use and reporting
+requirements.
 
-## 2. Parties and adoption prerequisite
+The issuance may settle only if, at settlement:
 
-| Party | Identification |
-| --- | --- |
-| Owner and issuer | {{OWNER_LEGAL_NAME}} (`{{OWNER_SHAREHOLDER_ID}}`) |
-| Recipient | {{RECIPIENT_LEGAL_NAME}} (`{{RECIPIENT_SHAREHOLDER_ID}}`) |
-| Recipient adoption document | `{{RECIPIENT_ADOPTION_DOCUMENT_ID}}` |
-| Recipient `AGREEMENT_ADOPTION` event | `{{RECIPIENT_ADOPTION_EVENT_ID}}` |
+- you are registered in the official history;
+- you have a recorded adoption of the exact Agreement version then governing;
+- sufficient issuance capacity exists;
+- the total cash purchase price, if any, has been paid fully and irrevocably;
+- all applicable legal and compliance requirements have been satisfied; and
+- the issuance has become irrevocable and is recorded in the official history.
 
-**MANDATORY ADOPTION CONDITION.** As a separate transaction-specific condition under this record, this issuance is permitted and may settle only if, at settlement, the recipient has a recorded adoption of the exact agreement version then governing the personal stock. The adoption event identified above must record the governing version and its content hash. This condition applies even if the recipient already holds shares or adopted an earlier version.
+If the governing Agreement changes before settlement, the version then governing
+controls and you and the owner must complete and record a new adoption of that
+version before this issuance may settle. Signing this record does not itself issue shares, complete settlement, or give you any distribution or other right that accrued before settlement. Each party is responsible for that party's own taxes and professional advice.
 
-If an amendment becomes effective before settlement, the adoption identified above no longer satisfies this condition unless it identifies the newly governing version and content hash. The recipient and owner must complete and record a new adoption before the issuance may settle. A purported issuance that does not satisfy this condition is not permitted and does not settle.
+If you accept these terms, reply from {{RECIPIENT_ELECTRONIC_NOTICE_ADDRESS}} in
+this same thread with exactly:
 
-## 3. Issuance terms
+I agree
 
-| Term | Agreed value |
-| --- | --- |
-| Whole new shares to be issued | **{{ISSUED_SHARES}} shares** |
-| Required USD cash purchase price | **{{REQUIRED_CASH_PURCHASE_PRICE_DISPLAY}}** |
+By replying "I agree," you:
 
-The owner personally authorizes the personal stock to issue the stated whole shares, and the recipient agrees to accept them, subject to every condition in this record and the Agreement.
+- accept the issuance described above subject to every stated condition and the
+  governing Agreement;
+- confirm that your identity and adoption references above are accurate;
+- acknowledge that the issuance may dilute every existing shareholder and that
+  you receive no right accruing before settlement;
+- understand the payment and settlement requirements and that no shares issue
+  merely because you sign; and
+- consent to conduct this transaction electronically and intend your reply to be
+  your writing and electronic signature under §14 of the Agreement.
 
-This is an issuance, not a transfer. It creates new outstanding shares, reduces `AVAILABLE_ISSUANCE_CAPACITY` by the same number, and does not reduce or move the owner's existing share balance. It carries no royalty. Money paid for the issuance is `ISSUANCE_PROCEEDS` under the Agreement. It belongs solely to the owner and is not a `CASH_EVENT`, subject to the Agreement's good-faith use and categorized-reporting requirements.
+The owner must send the confirmation below before this issuance is authorized.
+```
 
-The required USD cash purchase price is the total amount the recipient must actually and irrevocably pay for the issuance to settle. If no USD cash purchase price is required, the issuance may settle without a cash payment. Upon settlement, the official history records `ACTUAL_CASH_PAID` equal to the required USD cash purchase price paid in full, or `0` if no cash purchase price was required. `ACTUAL_CASH_PAID` exists only for the Agreement's royalty and buyout calculations; it is not tax basis, fair market value, compensation value, or a legal characterization of the transaction.
+### 2. Recipient response
 
-This record does not create an unvested award, vesting condition, service obligation, repurchase right, or reservation of shares. Any such terms require a separate signed award record and corresponding official-history support.
+```text
+Subject: Re: Share issuance request — {{PERSONAL_STOCK_NAME}} — {{ISSUANCE_DOCUMENT_ID}}
+From: {{RECIPIENT_LEGAL_NAME}} <{{RECIPIENT_ELECTRONIC_NOTICE_ADDRESS}}>
+To: {{OWNER_LEGAL_NAME}} <{{OWNER_ELECTRONIC_NOTICE_ADDRESS}}>
 
-## 4. Settlement
+I agree
+```
 
-Signing this record authorizes and establishes terms for the proposed issuance but does not itself issue shares or complete settlement.
+### 3. Owner confirmation
 
-The issuance settles only when all of the following are true:
+```text
+Subject: Re: Share issuance request — {{PERSONAL_STOCK_NAME}} — {{ISSUANCE_DOCUMENT_ID}}
+From: {{OWNER_LEGAL_NAME}} <{{OWNER_ELECTRONIC_NOTICE_ADDRESS}}>
+To: {{RECIPIENT_LEGAL_NAME}} <{{RECIPIENT_ELECTRONIC_NOTICE_ADDRESS}}>
 
-1. both parties have signed this record;
-2. the recipient is registered in the official history;
-3. the mandatory adoption condition in Section 2 is satisfied at settlement;
-4. the personal stock has at least the stated number of shares of `AVAILABLE_ISSUANCE_CAPACITY`;
-5. if a USD cash purchase price is required, the recipient has actually and irrevocably paid it in full;
-6. every legal and compliance requirement applicable to the issuance has been satisfied; and
-7. the issuance has become irrevocable and has been recorded in the official history.
+Confirmed. I, {{OWNER_LEGAL_NAME}} ({{OWNER_SHAREHOLDER_ID}}), acting personally,
+authorize the issuance described in issuance record {{ISSUANCE_DOCUMENT_ID}} and
+electronically sign it as owner and issuer. I represent that sufficient available
+issuance capacity will exist at settlement and intend this reply to be my writing
+and electronic signature under §14 of the Agreement.
 
-The actual settlement time controls even if a supporting record is entered later. The resulting `SHARE_ISSUANCE` event must record the recipient, issued shares, and `actual_cash_paid_usd` equal to the amount determined above.
-
-## 5. Representations and execution terms
-
-The owner represents that the owner is acting personally and that sufficient `AVAILABLE_ISSUANCE_CAPACITY` will exist at settlement. The recipient represents that the recipient information and adoption references in this record are accurate.
-
-The recipient acknowledges that this issuance may dilute every existing shareholder's percentage interest in later shareable value and that no distribution or other right accruing before settlement belongs to the recipient by reason of this issuance.
-
-Each party is responsible for that party's own taxes and professional advice. Authorization under the Agreement and this record does not itself establish that the issuance complies with applicable law.
-
-Electronic signatures and the electronic record of this transaction have the same intended effect as original signatures and records on paper. This record establishes transaction-specific terms but does not amend the Agreement.
-
-## 6. Signatures
-
-[[ISSUANCE_SIGNATURE_BLOCK]]
+This confirmation signs and authorizes the issuance terms but does not itself
+issue shares or complete settlement. The issuance will settle only after every
+condition stated in the request is satisfied and the irrevocable SHARE_ISSUANCE
+event records the recipient, issued shares, and actual_cash_paid_usd.
+```

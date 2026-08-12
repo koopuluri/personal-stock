@@ -1,13 +1,11 @@
 # Documents
 
-Only two files in this directory are primary documents:
+- [`agreement.md`](agreement.md) is the published standard agreement.
+- [`signing/`](signing/) contains email execution templates.
+- [`notes.md`](notes.md) records the agreement content-hash model.
+- [`research.md`](research.md) contains nonoperative areas for future investigation.
 
-- [`agreement.md`](agreement.md) is the agreement governing the stock.
-- [`stock.md`](stock.md) is the current record of the stock.
-
-The other files are supporting material only:
-
-- [`schema.md`](schema.md) is a nonbinding description of the stock document's
-  structure. It can evolve independently and does not control either primary document.
-- [`notes.md`](notes.md) contains informal clarifications for readers. It is not part of
-  the agreement in any way and does not add to, amend, or control the agreement.
+Only `agreement.md` states the contractual terms. The templates, notes, and research
+are supporting materials. The stock's authoritative history is emitted by the
+deployed ledger contract rather than stored in a repository snapshot. Its technical
+schema lives in [`../ledger/schema.md`](../ledger/schema.md).

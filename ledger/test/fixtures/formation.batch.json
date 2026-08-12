@@ -1,0 +1,20 @@
+{
+  "format": "personal-stock-ledger-batch",
+  "format_version": 1,
+  "chain_id": 31337,
+  "stock_contract": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "expected_event_count": 0,
+  "expected_head": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "events": [
+    {
+      "event_type": "FORMATION",
+      "schema_version": 1,
+      "effective_at": "2026-08-01T00:00:00Z",
+      "data": {
+        "owner_shareholder_id": "holder_000000",
+        "owner_display_name": "Karthik Uppuluri",
+        "owner_handle": "@koopuluri"
+      }
+    }
+  ]
+}
