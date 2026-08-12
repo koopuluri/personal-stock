@@ -247,6 +247,8 @@ Only the owner acting personally may authorize an issuance or award. The owner m
 
 Subject to these limits, the owner may issue shares or grant awards whether or not the recipient pays cash. The owner may choose the non-owner recipient, number of shares, cash price, vesting, and other award terms without shareholder approval. No shareholder has a preemptive, pro rata, participation, anti-dilution, or other right to acquire newly issued shares. A transaction-specific invitation creates no right or precedent for a later issuance.
 
+An amendment does not change an award authorized before the amendment becomes effective. The award continues to vest and issue shares under its existing terms whether or not the recipient approves a pending amendment proposal. The award may be changed only as its existing terms permit or the recipient agrees in writing.
+
 ### Use and reporting of issuance proceeds
 
 `ISSUANCE_PROCEEDS` are the `ACTUAL_CASH_PAID` assigned under §6 to an issuance of personal-stock shares. Money received from a transfer of the owner's existing shares is not `ISSUANCE_PROCEEDS`.
@@ -261,7 +263,9 @@ On a non-owner shareholder's reasonable request, the owner must provide that sha
 
 When `ISSUANCE_PROCEEDS` are used in accordance with this subsection to acquire or increase an in-scope asset, that use satisfies this subsection, and the asset and value later arising from it are governed under §§2–4 without separate continuing tracing of the original `ISSUANCE_PROCEEDS`.
 
-Before a person who does not hold shares may receive shares by issuance or voluntary transfer, the owner and that person must sign a record by which that person adopts the then-current agreement for this personal stock. The record may also state transaction terms and separate obligations. Succession by operation of law under §13 is the only exception.
+Before a person who does not hold shares may first receive shares by issuance or voluntary transfer, the owner and that person must sign a record by which that person adopts the agreement then governing this personal stock. The record may also state transaction terms and separate obligations. Succession by operation of law under §13 is the only exception.
+
+While an amendment proposal is pending, no person other than the owner may receive shares by issuance, voluntary transfer, or buyout unless that person has approved the pending proposal under §12 before settlement. This requirement applies whether or not the recipient already holds shares. It does not apply to shares issued as they vest under an award already authorized or to succession by operation of law under §13.
 
 An issuance or transfer settles only when all conditions are satisfied and the share movement is irrevocable. Its actual settlement time controls even if it is recorded later.
 
@@ -297,7 +301,7 @@ TRANSFER_DECISION_EXTENSION          = 10 business days
 REFUSAL_RECORDING_DEADLINE           = 2 business days
 ```
 
-A non-owner shareholder may request approval of a proposed voluntary cash sale by giving the owner written notice identifying the proposed buyer, number of shares, price per share, proposed settlement date, and every other material transaction term. The request must include information reasonably sufficient to show that the proposed sale is bona fide, solely for actual cash, and capable of complying with this agreement and applicable law, including the proposed buyer's legal identity in the private supporting records and written confirmation that the proposed buyer is willing to adopt the then-current agreement before settlement.
+A non-owner shareholder may request approval of a proposed voluntary cash sale by giving the owner written notice identifying the proposed buyer, number of shares, price per share, proposed settlement date, and every other material transaction term. The request must include information reasonably sufficient to show that the proposed sale is bona fide, solely for actual cash, and capable of complying with this agreement and applicable law, including the proposed buyer's legal identity in the private supporting records and written confirmation that the proposed buyer is willing to satisfy the adoption and pending-proposal approval requirements of §5 before settlement.
 
 Within `TRANSFER_INFORMATION_NOTICE_DEADLINE` after receiving the request, the owner must identify any additional information then reasonably required to evaluate it. If the owner does not do so, the request is complete at the end of that period. If the owner timely requests additional information, the request becomes complete when that information is received. The owner may later request further information only when reasonably required by facts not previously known or apparent, and the decision period is suspended until that information is received.
 
@@ -368,7 +372,7 @@ Only a non-owner shareholder's permitted voluntary cash sale carries a royalty. 
 
 ## 8. Buyouts
 
-The owner may require a non-owner shareholder to sell any whole number of shares up to all shares held if the owner determines, in the owner's sole judgment, that the shareholder's continued ownership creates a material misalignment with the purposes or interests of the personal stock and that the misalignment is, or is reasonably expected to be, detrimental to the personal stock. Such a transaction is a buyout and may be initiated at any time. The purchaser in a buyout (`BUYOUT_PURCHASER`) may be the owner or, in the owner's sole discretion, any other person except the shareholder being bought out. A person other than the owner may be designated as `BUYOUT_PURCHASER` only after that person has adopted the then-current agreement for this personal stock under §5.
+The owner may require a non-owner shareholder to sell any whole number of shares up to all shares held if the owner determines, in the owner's sole judgment, that the shareholder's continued ownership creates a material misalignment with the purposes or interests of the personal stock and that the misalignment is, or is reasonably expected to be, detrimental to the personal stock. Such a transaction is a buyout and may be initiated at any time. The purchaser in a buyout (`BUYOUT_PURCHASER`) may be the owner or, in the owner's sole discretion, any other person except the shareholder being bought out. A person other than the owner may be designated as `BUYOUT_PURCHASER` only after satisfying the applicable adoption and pending-proposal approval requirements of §5.
 
 ```
 BUYOUT_MINIMUM_NOTICE        = 15 business days
@@ -391,7 +395,7 @@ In determining fairness, the owner must consider all material information reason
 
 The fair price may reflect all risks, uncertainties, restrictions, contingencies, and other factors affecting the value of the personal stock as a whole, but after that overall value is determined, each share must be valued at its pro rata portion without any additional discount for the size of the holding, minority status, lack of control, lack of marketability, or transfer restrictions.
 
-By `HIGHER_OFFER_DEADLINE`, the shareholder may present a bona fide, binding, fully financed, lawful third-party offer to purchase the same shares solely for cash at a higher per-share price and capable of settling by the scheduled buyout. Before the scheduled settlement, the owner may withdraw the buyout, the `BUYOUT_PURCHASER` may match that higher price, or the owner may approve the third-party sale, subject to the buyer adopting the then-current agreement for this personal stock under §5 and satisfying legal requirements. If the `BUYOUT_PURCHASER` matches, the matched price replaces the price stated in the notice for all remaining purposes under this section. If the owner approves the third-party sale and it settles, or if the owner withdraws the buyout, the pending buyout ends. Withdrawal does not approve or permit the offered third-party sale. If the shareholder timely presents such a higher offer, the buyout may settle only if the `BUYOUT_PURCHASER` matches that higher price; otherwise, the owner must withdraw the buyout or approve the third-party sale. If the approved third-party sale settles, it carries no royalty and does not enter the seller's cumulative sale result because it replaces a required buyout rather than an independently chosen transfer. The seller's `aggregate_actual_cash_paid` is then reduced proportionally for the shares sold, and the buyer's `aggregate_actual_cash_paid` increases by the `ACTUAL_CASH_PAID` assigned to those shares.
+By `HIGHER_OFFER_DEADLINE`, the shareholder may present a bona fide, binding, fully financed, lawful third-party offer to purchase the same shares solely for cash at a higher per-share price and capable of settling by the scheduled buyout. Before the scheduled settlement, the owner may withdraw the buyout, the `BUYOUT_PURCHASER` may match that higher price, or the owner may approve the third-party sale, subject to the buyer satisfying the applicable adoption and pending-proposal approval requirements of §5 and all legal requirements. If the `BUYOUT_PURCHASER` matches, the matched price replaces the price stated in the notice for all remaining purposes under this section. If the owner approves the third-party sale and it settles, or if the owner withdraws the buyout, the pending buyout ends. Withdrawal does not approve or permit the offered third-party sale. If the shareholder timely presents such a higher offer, the buyout may settle only if the `BUYOUT_PURCHASER` matches that higher price; otherwise, the owner must withdraw the buyout or approve the third-party sale. If the approved third-party sale settles, it carries no royalty and does not enter the seller's cumulative sale result because it replaces a required buyout rather than an independently chosen transfer. The seller's `aggregate_actual_cash_paid` is then reduced proportionally for the shares sold, and the buyer's `aggregate_actual_cash_paid` increases by the `ACTUAL_CASH_PAID` assigned to those shares.
 
 By `BUYOUT_DISPUTE_DEADLINE`, the shareholder may give written notice specifically identifying facts that, if established, would show that the price is unfair, material information was omitted, the buyout was used primarily to capture a specific expected distribution in violation of this section, or the owner breached an administrative duty in pricing the buyout or carrying out a required procedure. The owner's determination concerning material misalignment and detriment is a matter of owner judgment under §10; a shareholder may not dispute, and the neutral may not review, the merits of that determination or substitute a different judgment. A shareholder's refusal or desire to remain a shareholder, without a claimed violation of this agreement, is not a dispute.
 
@@ -455,7 +459,7 @@ This protection does not excuse noncompliance with an express limit, condition, 
 The owner must maintain one complete chronological official history sufficient to determine the current state, reproduce every calculation, and verify this agreement. It must record or identify:
 
 - shareholders, share movements, `ACTUAL_CASH_PAID`, awards, vesting, cancellations, reserved shares, and available issuance capacity;
-- amendment proposals, record times, approvals, and effective versions;
+- amendment proposals, withdrawals, approvals, current-ownership support calculations, and effective versions;
 - in-scope assets and every input and result used for eligible costs, cash events, each reserve's recognized amount, paid or unpaid status, increase, payment, release, refund or used benefit, `PORTFOLIO_NET_GAIN`, the floor, portfolio peak, shareable value, and distributions; and
 - transfer approval requests required to be recorded under §6, refusals, refusal explanations, completed transfers, royalty calculations, buyouts, surrenders, successions, dissolution, and corrections.
 
@@ -497,21 +501,30 @@ An amendment under this section changes only the published agreement version gov
 
 ```
 MAX_PENDING_AMENDMENT_PROPOSALS = 1
-AMENDMENT_APPROVAL_THRESHOLD    = 0.75 of NON_OWNER_SHARES at RECORD_TIME
+AMENDMENT_APPROVAL_THRESHOLD    = 0.75 of current NON_OWNER_SHARES
 ```
 
-The owner may not exceed `MAX_PENDING_AMENDMENT_PROPOSALS`. A proposal must identify one replacement published agreement version by its version and `AGREEMENT_CONTENT_HASH`; provide the available source references; include the complete agreement content identified by that hash and a plain-language summary of every material change; and be recorded and delivered to every current shareholder. `RECORD_TIME` is the time that complete proposal is recorded; it may not be backdated. The owner may withdraw the proposal before it becomes effective.
+The owner may not exceed `MAX_PENDING_AMENDMENT_PROPOSALS`. A proposal must identify one replacement published agreement version by its version and `AGREEMENT_CONTENT_HASH`; provide the available source references; include the complete agreement content identified by that hash and a plain-language summary of every material change; and be recorded and delivered to every current shareholder. The proposal becomes pending when that complete proposal is recorded and may not be backdated. The owner's signed proposal constitutes the owner's approval of the proposed replacement.
 
-An amendment becomes effective for everyone simultaneously when approved in writing under §14 by:
+Any current or prospective shareholder may approve the pending proposal in writing under §14. The approval must identify the proposed replacement by its version and `AGREEMENT_CONTENT_HASH`. It is effective when received, is irrevocable while that proposal remains pending, may not be limited to particular shares, and applies to all non-owner shares the approving person holds whenever amendment support is calculated.
 
-- the owner; and
-- record-time holders satisfying `AMENDMENT_APPROVAL_THRESHOLD`.
+Approval of a pending proposal is a presently binding consent to the identified replacement becoming effective under this section. It does not cause the replacement agreement to govern the approving person separately before the approval threshold is satisfied. Until then, the existing agreement remains the single agreement governing the personal stock, the owner, every shareholder, and every share.
 
-Owner shares are excluded from both the numerator and denominator. If no non-owner shares are outstanding at `RECORD_TIME`, the owner may approve an amendment alone.
+While a proposal is pending, amendment support is calculated using current share ownership:
 
-The voters and approval weights are fixed at `RECORD_TIME`; a later ownership change does not alter them, and a later holder takes shares subject to the outcome. The owner may withdraw the proposal and submit a new one using the ownership at a new record time.
+```
+AMENDMENT_SUPPORT =
+  current non-owner shares held by persons who approved the pending proposal
+  / all current non-owner shares
+```
 
-An approval is irrevocable for that proposal. When the last required approval is received and recorded, the replacement published agreement identified in the proposal takes effect for this personal stock, every current and future shareholder, and all shares. Until then, the existing agreement remains effective.
+Owner shares are excluded from both the numerator and denominator. Amendment support must be recalculated after the proposal becomes pending, after each approval becomes effective, and after each issuance, transfer, buyout, surrender, succession, or other change in current share ownership while the proposal remains pending. When shares leave a person's ownership, they cease to be counted according to that person's approval. When a person acquires shares, they are counted according to whether that person has approved the pending proposal.
+
+When `AMENDMENT_SUPPORT` reaches `AMENDMENT_APPROVAL_THRESHOLD`, the identified replacement agreement immediately becomes the single agreement governing the personal stock, the owner, every current and future shareholder, and every share. Its effectiveness is not reversed if later ownership changes would have reduced amendment support below the threshold while the proposal was pending. If no non-owner shares are outstanding when the complete signed proposal is recorded, the replacement agreement becomes effective immediately.
+
+A share movement that causes `AMENDMENT_SUPPORT` to reach `AMENDMENT_APPROVAL_THRESHOLD` settles under the agreement governing immediately before settlement. The resulting ownership is then applied, amendment support is recalculated, and the replacement agreement becomes effective immediately after that share movement.
+
+The owner may withdraw the pending proposal before it becomes effective. Withdrawal terminates the proposal and every approval of it. A later proposal requires new approval even if it identifies the same published agreement version.
 
 An amendment operates prospectively. It may not retroactively erase or reduce a distribution or payment already accrued, reverse a completed transaction, or impose a new obligation on a completed transaction without the affected person's consent. It must apply equally to all shares of this single class.
 
@@ -523,7 +536,9 @@ If the owner or a shareholder becomes incapacitated, a person legally authorized
 
 If a non-owner shareholder dies or shares otherwise pass by operation of law, the legal successor becomes the shareholder and receives the shares with their associated `ACTUAL_CASH_PAID`, cumulative sale result, royalty peak, unconverted royalty value, and accrued distributions. If more than one successor receives shares, all holder-level amounts are allocated among them in proportion to the shares received and then combined with any existing state of a successor who already holds shares. The succession requires neither prior owner approval nor a prior signature and carries no royalty. The successor is bound by this agreement and must provide information reasonably needed to record the succession and comply with law.
 
-On the owner's death:
+Approval of a pending amendment proposal does not pass with shares by operation of law, and succession is not conditioned on such approval. After succession, the shares are counted under §12 according to whether the successor has personally approved the pending proposal.
+
+On the owner's death, any pending amendment proposal terminates and every approval of it ceases to have effect. In addition:
 
 - the owner's personal representative administers the personal stock;
 - no amendment, issuance, new award, vesting, or buyout may occur;
