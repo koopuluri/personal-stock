@@ -1,13 +1,7 @@
-# Signing Process
+### Agreement content hashes
 
-Maintain one canonical, unpersonalized version of the Personal Stock Agreement. Do not add a shareholder's name or signature field to the agreement header or create a separate version of the agreement for each shareholder.
+A cryptographic content hash is a compact fingerprint of the agreement's exact bytes; it does not contain the agreement and cannot be used to reconstruct it. Keccak-256 always produces the same 32-byte hash for the same input, while any change to the text, whitespace, encoding, or line endings produces a different hash. Although collisions exist mathematically, finding different content with the same Keccak-256 hash is computationally infeasible.
 
-When a person is going to receive shares, send that person a DocuSign packet containing a short Shareholder Adoption and Award, Issuance, or Transfer Agreement together with the complete, then-current Personal Stock Agreement as an immutable attachment.
+In this model, the complete agreement lives in a public source repository and each released version is identified by its version label and content hash. Every adoption, amendment approval, and other signing record that depends on the agreement references that hash and provides the signer the complete agreement in retainable form. Repository URLs, commits, tags, and rendered copies help people find and read the agreement, but the hash identifies the authoritative source bytes.
 
-The adoption document should identify the prospective shareholder, the exact version of the Personal Stock Agreement being adopted, the number of shares or award involved, and any applicable purchase price, vesting terms, notice address, or other transaction-specific terms.
-
-The prospective shareholder should sign an express statement agreeing to be bound by the attached Personal Stock Agreement. A friendly cover letter or explanatory summary may accompany the packet, but it should not serve as the operative adoption document.
-
-The owner should countersign the transaction document or separately record the owner's authorization, as appropriate for the issuance, award, or transfer. Any other conditions required for the transaction should also be satisfied before the shares are delivered.
-
-After the documents have been signed and all settlement conditions have been satisfied, complete and record the issuance or transfer in the official history. Retain the executed documents, the complete agreement that was attached to the packet, and the electronic-signature completion record with the private supporting records.
+Verification requires both the claimed agreement file and the trusted hash recorded in a signed document or official ledger event. A verifier hashes the candidate file and compares the result: a match establishes that it is exactly the referenced agreement, while a mismatch exposes any substitution or alteration. The repository may continue to host drafts and later releases without changing an earlier signed agreement, because only content matching the previously recorded hash can satisfy that reference.
