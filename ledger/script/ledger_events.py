@@ -25,6 +25,7 @@ HOLDER_RE = re.compile(r"^holder_[0-9]{6}$")
 EVENT_TYPE_RE = re.compile(r"^[A-Z][A-Z0-9_]{0,31}$")
 TIMESTAMP_RE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$")
 DECIMAL_RE = re.compile(r"^(0|[1-9][0-9]*)(\.[0-9]+)?$")
+AGREEMENT_VERSION_RE = re.compile(r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$")
 
 OVERLAY_TYPES = {
     "EVENT_SUPPLEMENT",
@@ -292,7 +293,11 @@ def validate_event_data(
             path,
         )
         expect_holder(data["shareholder_id"], f"{path}.shareholder_id")
-        expect_string(data["agreement_version"], f"{path}.agreement_version")
+        expect_pattern(
+            data["agreement_version"],
+            AGREEMENT_VERSION_RE,
+            f"{path}.agreement_version",
+        )
         expect_hash(data["agreement_content_hash"], f"{path}.agreement_content_hash")
     elif event_type in {"SHARE_ISSUANCE", "OWNER_TRANSFER"}:
         data_keys(data, {"recipient_shareholder_id", "shares", "actual_cash_paid_usd"}, set(), path)

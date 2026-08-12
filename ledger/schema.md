@@ -64,8 +64,8 @@ remain in supporting records.
 
 ```text
 shareholder_id          existing SHAREHOLDER_ID
-agreement_version       nonempty string
-agreement_content_hash  HASH
+agreement_version       MAJOR.MINOR.PATCH version without leading zeroes
+agreement_content_hash  HASH (SHA-256 agreement digest)
 ```
 
 This records adoption of the exact agreement bytes identified by version and content

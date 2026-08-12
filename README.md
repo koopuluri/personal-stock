@@ -3,7 +3,7 @@
 This repository contains the public ledger implementation and event history for
 Karthik Uppuluri Stock.
 
-The governing [Personal Stock agreement](https://github.com/onrootnet/personal-stock) is published separately by Rootnet. Agreement adoption events identify an exact published agreement by its version and Keccak-256 content hash; agreement source and signing materials are not duplicated here.
+The governing [Personal Stock agreement](https://github.com/onrootnet/personal-stock) is published separately by Rootnet. Agreement adoption events identify an exact published agreement by its version and SHA-256 content hash; agreement source and signing materials are not duplicated here.
 
 - [`ledger/schema.md`](ledger/schema.md) defines the public event formats.
 - [`ledger/src/StockLedger.sol`](ledger/src/StockLedger.sol) implements the

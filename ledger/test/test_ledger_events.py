@@ -41,7 +41,7 @@ def base_events(shares=100):
             "2026-08-01T00:01:00Z",
             {
                 "shareholder_id": "holder_000000",
-                "agreement_version": "1.0",
+                "agreement_version": "1.0.0",
                 "agreement_content_hash": AGREEMENT_HASH,
             },
         ),
@@ -107,6 +107,12 @@ class LedgerEventsTest(unittest.TestCase):
         events = base_events()
         events[-1]["data"]["actual_cash_paid_usd"] = 1.5
         with self.assertRaisesRegex(ledger.ValidationError, "binary floating-point"):
+            self.load(batch(events))
+
+    def test_agreement_version_requires_three_numeric_parts(self):
+        events = base_events()
+        events[1]["data"]["agreement_version"] = "1.0"
+        with self.assertRaisesRegex(ledger.ValidationError, "agreement_version"):
             self.load(batch(events))
 
     def test_additive_supplement_enriches_without_replacing(self):
