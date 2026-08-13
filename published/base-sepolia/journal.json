@@ -1,0 +1,11 @@
+{
+  "format": "personal-stock-ledger-journal",
+  "format_version": 1,
+  "chain_id": 84532,
+  "stock_contract": "0xa2c7d149fd50a277313f2349a558fdd59fcc6bca",
+  "deployment_block": 45406046,
+  "last_event_block": 45406046,
+  "event_count": 0,
+  "head": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "events": []
+}

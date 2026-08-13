@@ -85,7 +85,7 @@ mkdir -p "$PUBLISHED_NETWORK_DIR/batches"
   ONCHAIN_COUNT=$(cast to-dec "$(cast call "$ADDRESS" 'eventCount()(uint256)' --rpc-url "$NETWORK")")
   ONCHAIN_HEAD=$(cast call "$ADDRESS" 'head()(bytes32)' --rpc-url "$NETWORK")
   RUNTIME_CODE_HASH=$(cast keccak "$(cast code "$ADDRESS" --rpc-url "$NETWORK")")
-  if [ "$ONCHAIN_NAME" != "$STOCK_NAME" ] || [ "${ONCHAIN_CONTROLLER,,}" != "${CONTROLLER,,}" ]; then
+  if [ "$ONCHAIN_NAME" != "$STOCK_NAME" ] || [ "$(printf '%s' "$ONCHAIN_CONTROLLER" | tr '[:upper:]' '[:lower:]')" != "$(printf '%s' "$CONTROLLER" | tr '[:upper:]' '[:lower:]')" ]; then
     echo "deployed contract configuration mismatch" >&2
     exit 1
   fi
@@ -111,19 +111,9 @@ mkdir -p "$PUBLISHED_NETWORK_DIR/batches"
 )
 
 "$SCRIPT_DIR/sync.sh" "$PUBLISHED_NETWORK_DIR" "$NETWORK"
-ADDRESS=$(jq -r '.stock_contract' "$DEPLOYMENT_PATH")
-TX_HASH=$(jq -r '.transaction_hash' "$DEPLOYMENT_PATH")
-if (
-  cd "$LEDGER_DIR"
-  forge verify-contract "$ADDRESS" src/StockLedger.sol:StockLedger \
-    --chain "$CHAIN_ID" \
-    --rpc-url "$NETWORK" \
-    --verifier sourcify \
-    --creation-transaction-hash "$TX_HASH" \
-    --watch
-); then
-  echo "source verification: submitted to Sourcify"
+if python3 "$SCRIPT_DIR/verify_source.py" "$DEPLOYMENT_PATH"; then
+  :
 else
-  echo "warning: deployment is recorded and verified locally, but Sourcify submission failed" >&2
+  echo "warning: deployment is recorded and verified locally, but source verification failed" >&2
 fi
 echo "deployment: $DEPLOYMENT_PATH"

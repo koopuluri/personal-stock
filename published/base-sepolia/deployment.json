@@ -1,0 +1,25 @@
+{
+  "format": "personal-stock-ledger-deployment",
+  "format_version": 1,
+  "chain_id": 84532,
+  "network": "base_sepolia",
+  "stock_contract": "0xa2c7d149fd50a277313f2349a558fdd59fcc6bca",
+  "stock_name": "Karthik Uppuluri Stock [BASE SEPOLIA TEST - NO LEGAL EFFECT]",
+  "controller": "0x2ed4b75cF48ab073A972362310d10fb9E70c91Db",
+  "deployer": "0x2ed4b75cf48ab073a972362310d10fb9e70c91db",
+  "transaction_hash": "0x7dd34aa31789eb6e51b5c9901f7745bd093a5de9530e51bcaa4b97d19bfafa4d",
+  "deployment_block": 45406046,
+  "block_hash": "0xc3841235e33331e943b0643453a187a6f32bfa394cacb173f90c8640e43c7aff",
+  "deployed_at_unix": 1786580380,
+  "source_commit": "97f3fd4d36a2f27068fcd8320c8d3b1ba4a55f35",
+  "runtime_code_hash": "0x525ea0a36e06c2865271c7caae8cb7c75934c5d4c9c9dcb69c867cb85be80db6",
+  "source_verification": {
+    "provider": "sourcify-v2",
+    "match": "exact_match",
+    "creation_match": "exact_match",
+    "runtime_match": "exact_match",
+    "verified_at": "2026-08-13T00:23:47Z",
+    "match_id": "43582562",
+    "url": "https://repo.sourcify.dev/84532/0xA2C7d149fD50A277313F2349A558fdD59FCC6bCA"
+  }
+}

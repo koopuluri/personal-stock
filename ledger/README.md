@@ -294,9 +294,10 @@ Only one contract is deployed. There is no `Document` contract and no agreement
 contract. Deployment records the address required by the owner's signed adoption but
 does not form the stock, adopt the agreement, commence the portfolio, or issue shares.
 The deployment script refuses to replace existing deployment metadata and submits the
-exact source for public verification through Sourcify. A verifier outage does not
+exact source for public verification through Sourcify's v2 API. A verifier outage does not
 discard the already-mined deployment or its locally verified metadata; retry source
-verification later if the script reports a warning. If deployment is mined but a
+verification with `ledger/script/verify_source.py <deployment.json>` if the script
+reports a warning. If deployment is mined but a
 later metadata step fails, do not blindly rerun: the script preserves and detects the
 Foundry broadcast record so the first deployment can be recovered without creating a
 second contract.

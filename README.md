@@ -20,9 +20,7 @@ ledger contract. Current state is derived by resolving overlays and replaying th
 history; repository copies of event batches and receipts are operational evidence,
 not an alternative ledger.
 
-The ledger address will be recorded here after deployment.
-
 | Network | Ledger address |
 | --- | --- |
 | Base mainnet | _not deployed_ |
-| Base Sepolia | _not deployed_ |
+| Base Sepolia | [`0xA2C7…6bCA`](https://sepolia.basescan.org/address/0xA2C7d149fD50A277313F2349A558fdD59FCC6bCA) — test only, no legal effect |

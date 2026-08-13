@@ -112,7 +112,7 @@ SOURCE_COMMIT=$(git -C "$REPO_ROOT" rev-parse HEAD)
 
 LEDGER_COUNT=$(cast to-dec "$(cast_in_ledger call "$LEDGER_ADDRESS" 'eventCount()(uint256)' --rpc-url "$NETWORK")")
 LEDGER_HEAD=$(cast_in_ledger call "$LEDGER_ADDRESS" 'head()(bytes32)' --rpc-url "$NETWORK")
-if [ "$LEDGER_COUNT" -ne "$LAST_SEQUENCE" ] || [ "${LEDGER_HEAD,,}" != "${PREDICTED_HEAD,,}" ]; then
+if [ "$LEDGER_COUNT" -ne "$LAST_SEQUENCE" ] || [ "$(printf '%s' "$LEDGER_HEAD" | tr '[:upper:]' '[:lower:]')" != "$(printf '%s' "$PREDICTED_HEAD" | tr '[:upper:]' '[:lower:]')" ]; then
   echo "post-publish contract state does not match preview" >&2
   exit 1
 fi
