@@ -1,0 +1,12 @@
+{
+  "first_sequence": 1,
+  "last_sequence": 6,
+  "head": "0x6e157e8a9d7da23bf5be68b64758125fde307fbb57ea8322076ea564a6bcb256",
+  "transaction_hash": "0x454bd21c66718a52b1cf81654eafbd3f43fb0681e29dd22a70053211341a7fd7",
+  "block_number": 45406411,
+  "published_at_unix": 1786581110,
+  "stock_contract": "0xa2c7d149fd50a277313f2349a558fdd59fcc6bca",
+  "chain_id": 84532,
+  "gas_used": 143825,
+  "source_commit": "a26b84c348b875cb60659d2415a29b5e61ade957"
+}

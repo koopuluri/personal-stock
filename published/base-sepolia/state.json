@@ -1,1 +1,43 @@
-null
+{
+  "owner_id": "holder_000000",
+  "profiles": {
+    "holder_000000": {
+      "display_name": "BASE SEPOLIA REHEARSAL OWNER — NOT A REAL PERSON",
+      "handle": null
+    }
+  },
+  "adoptions": {
+    "holder_000000": {
+      "agreement_version": "1.0.0",
+      "agreement_content_hash": "0x584bc54e4b1d2220dac1ad17c6ab55ca93ae763e43e0e692ec502f675016287c"
+    }
+  },
+  "governing_agreement": {
+    "agreement_version": "1.0.0",
+    "agreement_content_hash": "0x584bc54e4b1d2220dac1ad17c6ab55ca93ae763e43e0e692ec502f675016287c"
+  },
+  "assets": {
+    "asset_000001": {
+      "asset_category": "test fixture",
+      "description": "FICTIONAL ASSET — Base Sepolia rehearsal only",
+      "acquired_at": "2025-01-01T00:00:00Z",
+      "opening_asset": true
+    }
+  },
+  "opening_items": [
+    {
+      "asset_id": "asset_000001",
+      "item_type": "ELIGIBLE_COST",
+      "amount_usd": "100",
+      "occurred_at": "2025-01-02T00:00:00Z"
+    }
+  ],
+  "commencement_time": "2026-08-13T00:30:04Z",
+  "portfolio_net_gain_usd": "-100",
+  "portfolio_peak_usd": "0",
+  "cpi_2026_06": "1",
+  "balances": {
+    "holder_000000": 12000000
+  },
+  "outstanding": 12000000
+}

@@ -1,0 +1,79 @@
+{
+  "format": "personal-stock-ledger-batch",
+  "format_version": 1,
+  "chain_id": 84532,
+  "stock_contract": "0xa2c7d149fd50a277313f2349a558fdd59fcc6bca",
+  "expected_event_count": 0,
+  "expected_head": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "events": [
+    {
+      "event_type": "FORMATION",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:00Z",
+      "data": {
+        "owner_shareholder_id": "holder_000000",
+        "owner_display_name": "BASE SEPOLIA REHEARSAL OWNER — NOT A REAL PERSON",
+        "owner_handle": null,
+        "public_note": "TEST ONLY — Fictitious Base Sepolia rehearsal with no legal effect."
+      }
+    },
+    {
+      "event_type": "AGREEMENT_ADOPTION",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:01Z",
+      "data": {
+        "shareholder_id": "holder_000000",
+        "agreement_version": "1.0.0",
+        "agreement_content_hash": "0x584bc54e4b1d2220dac1ad17c6ab55ca93ae763e43e0e692ec502f675016287c",
+        "public_note": "TEST ONLY — Simulated adoption for a fictitious owner; no signature or legal adoption is represented."
+      }
+    },
+    {
+      "event_type": "ASSET_REGISTERED",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:02Z",
+      "data": {
+        "asset_id": "asset_000001",
+        "asset_category": "test fixture",
+        "description": "FICTIONAL ASSET — Base Sepolia rehearsal only",
+        "acquired_at": "2025-01-01T00:00:00Z",
+        "opening_asset": true,
+        "public_note": "TEST ONLY — This asset does not exist."
+      }
+    },
+    {
+      "event_type": "OPENING_PORTFOLIO_ITEM",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:03Z",
+      "data": {
+        "asset_id": "asset_000001",
+        "item_type": "ELIGIBLE_COST",
+        "amount_usd": "100",
+        "occurred_at": "2025-01-02T00:00:00Z",
+        "public_note": "TEST ONLY — Fictitious USD amount for reducer rehearsal."
+      }
+    },
+    {
+      "event_type": "PORTFOLIO_COMMENCEMENT",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:04Z",
+      "data": {
+        "opening_portfolio_net_gain_usd": "-100",
+        "opening_item_count": 1,
+        "cpi_2026_06": "1",
+        "public_note": "TEST ONLY — CPI and opening balance are explicit fictitious fixtures with no legal effect."
+      }
+    },
+    {
+      "event_type": "SHARE_ISSUANCE",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:04Z",
+      "data": {
+        "recipient_shareholder_id": "holder_000000",
+        "shares": 12000000,
+        "actual_cash_paid_usd": "0",
+        "public_note": "TEST ONLY — Fictitious testnet shares; no real security or ownership interest."
+      }
+    }
+  ]
+}

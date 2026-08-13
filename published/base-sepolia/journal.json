@@ -4,8 +4,132 @@
   "chain_id": 84532,
   "stock_contract": "0xa2c7d149fd50a277313f2349a558fdd59fcc6bca",
   "deployment_block": 45406046,
-  "last_event_block": 45406046,
-  "event_count": 0,
-  "head": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "events": []
+  "last_event_block": 45406411,
+  "event_count": 6,
+  "head": "0x6e157e8a9d7da23bf5be68b64758125fde307fbb57ea8322076ea564a6bcb256",
+  "events": [
+    {
+      "sequence": 1,
+      "event_type": "FORMATION",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:00Z",
+      "data": {
+        "owner_display_name": "BASE SEPOLIA REHEARSAL OWNER — NOT A REAL PERSON",
+        "owner_handle": null,
+        "owner_shareholder_id": "holder_000000",
+        "public_note": "TEST ONLY — Fictitious Base Sepolia rehearsal with no legal effect."
+      },
+      "previous_head": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "event_hash": "0x67243b16508c4528560d6b935ce4d7bcbcdb6aa64a2d9d7426e6231a6f7944b5",
+      "payload_hash": "0x29eb606261ca6738ddb0f69bba676e46febf9561dc2f7743daf5c5c0b25def91",
+      "transaction_hash": "0x454bd21c66718a52b1cf81654eafbd3f43fb0681e29dd22a70053211341a7fd7",
+      "block_number": 45406411,
+      "block_hash": "0x6417f3e9662cca078c35d3b2155e7636e9e84108e1e0fafb14a257602459002b",
+      "log_index": 139,
+      "published_at": "2026-08-13T00:31:50Z"
+    },
+    {
+      "sequence": 2,
+      "event_type": "AGREEMENT_ADOPTION",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:01Z",
+      "data": {
+        "agreement_content_hash": "0x584bc54e4b1d2220dac1ad17c6ab55ca93ae763e43e0e692ec502f675016287c",
+        "agreement_version": "1.0.0",
+        "public_note": "TEST ONLY — Simulated adoption for a fictitious owner; no signature or legal adoption is represented.",
+        "shareholder_id": "holder_000000"
+      },
+      "previous_head": "0x67243b16508c4528560d6b935ce4d7bcbcdb6aa64a2d9d7426e6231a6f7944b5",
+      "event_hash": "0xd7b8567242e4a6157a1f43299d1b6556bcdcbef8f3171e002fed23c2d2d5785c",
+      "payload_hash": "0x17a1e05cfa59141a84b6bc307ac4ffc405771057189d2661c7a51cc029b2ff3e",
+      "transaction_hash": "0x454bd21c66718a52b1cf81654eafbd3f43fb0681e29dd22a70053211341a7fd7",
+      "block_number": 45406411,
+      "block_hash": "0x6417f3e9662cca078c35d3b2155e7636e9e84108e1e0fafb14a257602459002b",
+      "log_index": 140,
+      "published_at": "2026-08-13T00:31:50Z"
+    },
+    {
+      "sequence": 3,
+      "event_type": "ASSET_REGISTERED",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:02Z",
+      "data": {
+        "acquired_at": "2025-01-01T00:00:00Z",
+        "asset_category": "test fixture",
+        "asset_id": "asset_000001",
+        "description": "FICTIONAL ASSET — Base Sepolia rehearsal only",
+        "opening_asset": true,
+        "public_note": "TEST ONLY — This asset does not exist."
+      },
+      "previous_head": "0xd7b8567242e4a6157a1f43299d1b6556bcdcbef8f3171e002fed23c2d2d5785c",
+      "event_hash": "0x4e36a064636bae37a7e8e0b6c20112e4e85cd52425d7ca32834527b7194c2c16",
+      "payload_hash": "0xb884e80ca00a77710a09641a241675a55e16b7d548c78eb407145236641f0e38",
+      "transaction_hash": "0x454bd21c66718a52b1cf81654eafbd3f43fb0681e29dd22a70053211341a7fd7",
+      "block_number": 45406411,
+      "block_hash": "0x6417f3e9662cca078c35d3b2155e7636e9e84108e1e0fafb14a257602459002b",
+      "log_index": 141,
+      "published_at": "2026-08-13T00:31:50Z"
+    },
+    {
+      "sequence": 4,
+      "event_type": "OPENING_PORTFOLIO_ITEM",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:03Z",
+      "data": {
+        "amount_usd": "100",
+        "asset_id": "asset_000001",
+        "item_type": "ELIGIBLE_COST",
+        "occurred_at": "2025-01-02T00:00:00Z",
+        "public_note": "TEST ONLY — Fictitious USD amount for reducer rehearsal."
+      },
+      "previous_head": "0x4e36a064636bae37a7e8e0b6c20112e4e85cd52425d7ca32834527b7194c2c16",
+      "event_hash": "0xe348c6eb4e48ad5b2b9dd7c8b9f3029a14caeffb353c77a214fcc50f72624698",
+      "payload_hash": "0x2fa272b7028d08abb6bb499c47136549614f006da5a06869b0ee2733ed184632",
+      "transaction_hash": "0x454bd21c66718a52b1cf81654eafbd3f43fb0681e29dd22a70053211341a7fd7",
+      "block_number": 45406411,
+      "block_hash": "0x6417f3e9662cca078c35d3b2155e7636e9e84108e1e0fafb14a257602459002b",
+      "log_index": 142,
+      "published_at": "2026-08-13T00:31:50Z"
+    },
+    {
+      "sequence": 5,
+      "event_type": "PORTFOLIO_COMMENCEMENT",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:04Z",
+      "data": {
+        "cpi_2026_06": "1",
+        "opening_item_count": 1,
+        "opening_portfolio_net_gain_usd": "-100",
+        "public_note": "TEST ONLY — CPI and opening balance are explicit fictitious fixtures with no legal effect."
+      },
+      "previous_head": "0xe348c6eb4e48ad5b2b9dd7c8b9f3029a14caeffb353c77a214fcc50f72624698",
+      "event_hash": "0x3a68acf7718e76a06731d5a0f46d0877d8d8942444d5f381ea4b3148dae65744",
+      "payload_hash": "0x7cd3c7d2452499b9c1ce79b67a4769f7135d002423f7f4f20be1ce99b83a5f04",
+      "transaction_hash": "0x454bd21c66718a52b1cf81654eafbd3f43fb0681e29dd22a70053211341a7fd7",
+      "block_number": 45406411,
+      "block_hash": "0x6417f3e9662cca078c35d3b2155e7636e9e84108e1e0fafb14a257602459002b",
+      "log_index": 143,
+      "published_at": "2026-08-13T00:31:50Z"
+    },
+    {
+      "sequence": 6,
+      "event_type": "SHARE_ISSUANCE",
+      "schema_version": 1,
+      "effective_at": "2026-08-13T00:30:04Z",
+      "data": {
+        "actual_cash_paid_usd": "0",
+        "public_note": "TEST ONLY — Fictitious testnet shares; no real security or ownership interest.",
+        "recipient_shareholder_id": "holder_000000",
+        "shares": 12000000
+      },
+      "previous_head": "0x3a68acf7718e76a06731d5a0f46d0877d8d8942444d5f381ea4b3148dae65744",
+      "event_hash": "0x6e157e8a9d7da23bf5be68b64758125fde307fbb57ea8322076ea564a6bcb256",
+      "payload_hash": "0x301478f156b2b49674328b3de1b5dea909de580da51170b1e9f0e5d2953f34b8",
+      "transaction_hash": "0x454bd21c66718a52b1cf81654eafbd3f43fb0681e29dd22a70053211341a7fd7",
+      "block_number": 45406411,
+      "block_hash": "0x6417f3e9662cca078c35d3b2155e7636e9e84108e1e0fafb14a257602459002b",
+      "log_index": 144,
+      "published_at": "2026-08-13T00:31:50Z"
+    }
+  ]
 }
