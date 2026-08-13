@@ -1,6 +1,0 @@
-# Canonical ledger source and event files use stable line endings across platforms.
-*.md text eol=lf
-*.sol text eol=lf
-*.sh text eol=lf
-*.toml text eol=lf
-*.json text eol=lf

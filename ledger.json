@@ -1,0 +1,16 @@
+{
+  "format": "personal-stock-ledger",
+  "format_version": 1,
+  "personal_stock": {
+    "id": "karthik-uppuluri-stock",
+    "name": "Karthik Uppuluri Stock",
+    "official_history_url": "https://github.com/koopuluri/personal-stock-ledger/blob/main/ledger.json"
+  },
+  "schema_version": "1.0.0",
+  "current_state": {
+    "as_of_sequence": 0,
+    "status": "not_formed",
+    "summary": "No formation or other legally effective event has been recorded."
+  },
+  "events": []
+}
