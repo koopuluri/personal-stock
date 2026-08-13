@@ -23,6 +23,12 @@ StockLedger logs
 The raw journal is authoritative. A cap table, balance, obligation, or other current
 value is a materialized view and can always be discarded and rebuilt.
 
+The repository nevertheless commits a complete verified mirror for readability and
+auditability. Each `published/<network>/` directory contains deployment metadata, the
+full raw journal reconstructed from logs, the resolved effective history, replayed
+state, and every exact append batch with its preview and receipt. Generated views are
+never edited by hand and never outrank the chain.
+
 The old state-document schema was useful as a catalogue of domain events, but its
 publication layer does not fit this model:
 
@@ -32,10 +38,10 @@ publication layer does not fit this model:
 - the owner formerly stored in the document header belongs in `FORMATION`; and
 - corrections and schema backfills are ordinary append-only ledger events.
 
-The initial validator intentionally supports only formation and the seed-round domain
-events, matching the current scope of [`schema.md`](schema.md), plus the four generic
-overlay types below. Add later agreement events as new `(event_type, schema_version)`
-decoders and reducer cases; the contract does not need to change.
+The initial validator supports formation, opening portfolio state, and the seed-round
+domain events described in [`schema.md`](schema.md), plus the four generic overlay
+types below. Add later agreement events as new `(event_type, schema_version)` decoders
+and reducer cases; the contract does not need to change.
 
 ## Contract
 
@@ -183,8 +189,34 @@ cast call <ledger> 'eventCount()(uint256)' --rpc-url base_sepolia
 cast call <ledger> 'head()(bytes32)' --rpc-url base_sepolia
 ```
 
-The exact source batch and receipt are retained after publication, but they are mirrors
-and operational evidence—not another authoritative ledger.
+The exact source batch, pre-publication preview, and receipt are retained after
+publication, but they are mirrors and operational evidence—not another authoritative
+ledger.
+
+## Complete public mirror
+
+After deployment, synchronize the selected chain before drafting or publishing:
+
+```sh
+ledger/script/sync.sh published/base-sepolia base_sepolia
+```
+
+The synchronizer fetches `EventAppended` logs from the recorded deployment block and
+verifies their order, canonical payload bytes, schema, `previous_head`, event hashes,
+and final agreement with the contract's `eventCount()` and `head()`. It regenerates:
+
+```text
+published/base-sepolia/
+  deployment.json
+  journal.json
+  effective.json
+  state.json
+  batches/
+```
+
+`journal.json` contains the complete raw onchain history and publication provenance.
+`effective.json` resolves overlays. `state.json` is the current replay result. Git
+history versions these files; the ledger itself has no separate release version.
 
 ## Validation and replay
 
@@ -201,12 +233,39 @@ python3 ledger/script/ledger_events.py complete-ledger.json --print-effective
 python3 ledger/script/ledger_events.py complete-ledger.json --print-state
 ```
 
+Create the next local draft from the verified chain position:
+
+```sh
+python3 ledger/script/new_batch.py \
+  published/base-sepolia/journal.json next.batch.json
+```
+
+Add one or more related events to `events`, then validate the complete candidate and
+inspect predicted event hashes and state changes:
+
+```sh
+ledger/script/check.sh next.batch.json
+python3 ledger/script/preview_batch.py \
+  published/base-sepolia/journal.json next.batch.json
+```
+
+`next.batch.json` is ignored until publication. A batch is an atomic transaction
+boundary, not a combined domain event: each element receives its own sequence and
+hash. Use a batch whenever related facts, such as formation, should publish together.
+
 The current reducer covers `FORMATION`, `SHAREHOLDER_REGISTERED`,
-`AGREEMENT_ADOPTION`, `SHARE_ISSUANCE`, `OWNER_TRANSFER`, and `BUYOUT`. Incremental
+`AGREEMENT_ADOPTION`, `ASSET_REGISTERED`, `OPENING_PORTFOLIO_ITEM`,
+`PORTFOLIO_COMMENCEMENT`, `SHARE_ISSUANCE`, `OWNER_TRANSFER`, and `BUYOUT`. Incremental
 batches can structurally reference events already onchain, but complete semantic
 validation requires fetching the preceding journal and replaying from sequence 1. A
 production frontend and publishing service should always do that full replay before
 display or publication.
+
+`AGREEMENT_ADOPTION` records a person's first adoption; it is not an agreement-version
+upgrade mechanism. A later version becomes governing only through the proposal,
+delivery, approval, support-calculation, and effectiveness events required by §12.
+Those event schemas and reducer transitions must be implemented and tested before the
+first real amendment is proposed.
 
 ## Setup and deployment
 
@@ -224,37 +283,75 @@ cast wallet import <name> --interactive
 cast wallet list
 ```
 
-Deploy to Base Sepolia first:
+Deploy an empty ledger to Base Sepolia first:
 
 ```sh
-source ledger/.env
-forge script ledger/script/Deploy.s.sol:Deploy \
-  --root ledger \
-  --rpc-url base_sepolia \
-  --account "$ACCOUNT" \
-  --broadcast \
-  --verify
+CONFIRM_DEPLOY=YES ledger/script/deploy.sh \
+  published/base-sepolia base_sepolia
 ```
 
 Only one contract is deployed. There is no `Document` contract and no agreement
-contract.
+contract. Deployment records the address required by the owner's signed adoption but
+does not form the stock, adopt the agreement, commence the portfolio, or issue shares.
+The deployment script refuses to replace existing deployment metadata and submits the
+exact source for public verification through Sourcify. A verifier outage does not
+discard the already-mined deployment or its locally verified metadata; retry source
+verification later if the script reports a warning. If deployment is mined but a
+later metadata step fails, do not blindly rerun: the script preserves and detects the
+Foundry broadcast record so the first deployment can be recovered without creating a
+second contract.
+
+## Formation batch
+
+After the empty contract exists, execute the owner's adoption using the deployed chain
+ID and contract address. The reviewed formation batch then records, in order:
+
+1. `FORMATION`;
+2. the owner's `AGREEMENT_ADOPTION`;
+3. one `ASSET_REGISTERED` for every opening in-scope asset;
+4. chronological `OPENING_PORTFOLIO_ITEM` events needed to calculate the opening
+   portfolio balance;
+5. one `PORTFOLIO_COMMENCEMENT` declaring the replay-verified balance and CPI base;
+6. opening `SHARE_ISSUANCE` events; and
+7. any seed shareholder registrations, adoptions, and issuances that legally settle at
+   formation.
+
+Events with no corresponding real fact are omitted. If there are no opening assets or
+historical opening items, the commencement records an item count of zero and an opening
+balance of zero. Formation is normally one atomic batch, but every fact remains an
+independent sequenced event. Base Sepolia rehearsals must use conspicuously fictitious
+data and have no legal effect.
 
 ## Publishing
 
 ```sh
-ledger/script/publish.sh path/to/batch.json <ledger-address> base_sepolia
+CONFIRM_PUBLISH=YES ledger/script/publish.sh \
+  next.batch.json published/base-sepolia base_sepolia
 ```
 
 The script:
 
-1. validates the source batch;
-2. compiles every data object to canonical payload bytes;
-3. verifies chain ID, contract address, expected count, and expected head;
-4. appends the batch atomically;
-5. verifies the resulting count and head; and
-6. records the exact source batch and transaction receipt.
+1. synchronizes and verifies the complete live journal;
+2. validates the proposed batch against that full history;
+3. compiles every data object to canonical payload bytes;
+4. predicts every event hash and displays the complete state diff;
+5. requires the explicit `CONFIRM_PUBLISH=YES` irreversible-action gate;
+6. verifies chain ID, contract address, expected count, and expected head;
+7. appends the batch atomically;
+8. verifies the resulting count and head against the preview;
+9. waits for the configured confirmation count;
+10. records the exact source batch, preview, and transaction receipt; and
+11. resynchronizes the full mirror and checks every observed event hash.
 
-Publication is irreversible. Review the batch and its diff before signing.
+Publication is irreversible. Review the complete preview before unlocking the
+encrypted Foundry account and signing. Never put a private key in the environment,
+command line, repository, or logs.
+
+Base mainnet has an additional independent safety rail. Deployment requires
+`CONFIRM_MAINNET_DEPLOY=YES`; event publication requires
+`CONFIRM_MAINNET_PUBLISH=YES`. Never set either until the exact network, controller,
+contract metadata, source commit, event payloads, agreement version/hash, calculated
+opening state, predicted hashes, and state diff have been reviewed together.
 
 ## Frontend reads
 

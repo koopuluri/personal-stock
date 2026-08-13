@@ -46,6 +46,15 @@ def base_events(shares=100):
             },
         ),
         event(
+            "PORTFOLIO_COMMENCEMENT",
+            "2026-08-01T00:02:00Z",
+            {
+                "opening_portfolio_net_gain_usd": "0",
+                "opening_item_count": 0,
+                "cpi_2026_06": "1",
+            },
+        ),
+        event(
             "SHARE_ISSUANCE",
             "2026-08-01T00:02:00Z",
             {
@@ -86,10 +95,16 @@ class LedgerEventsTest(unittest.TestCase):
         self.assertEqual(state.outstanding, 100)
         self.assertEqual(state.balances["holder_000000"], 100)
 
+    def test_owner_opening_issuance_is_effective_at_commencement(self):
+        events = base_events()
+        events[-1]["effective_at"] = "2026-08-01T00:03:00Z"
+        with self.assertRaisesRegex(ledger.ValidationError, "effective at commencement"):
+            self.full_state(events)
+
     def test_compile_uses_event_envelopes_and_canonical_payloads(self):
         parsed = self.load(batch(base_events()))
         compiled = ledger.compile_batch(parsed)
-        self.assertEqual(compiled["event_count"], 3)
+        self.assertEqual(compiled["event_count"], 4)
         self.assertEqual(
             compiled["events"][0]["event_type"],
             "0x" + b"FORMATION".hex().ljust(64, "0"),
@@ -115,6 +130,80 @@ class LedgerEventsTest(unittest.TestCase):
         with self.assertRaisesRegex(ledger.ValidationError, "agreement_version"):
             self.load(batch(events))
 
+    def test_opening_items_determine_commencement_balance(self):
+        events = base_events()
+        opening = [
+            event(
+                "ASSET_REGISTERED",
+                "2026-08-01T00:01:10Z",
+                {
+                    "asset_id": "asset_000001",
+                    "asset_category": "private equity",
+                    "description": None,
+                    "acquired_at": "2024-01-01T00:00:00Z",
+                    "opening_asset": True,
+                },
+            ),
+            event(
+                "OPENING_PORTFOLIO_ITEM",
+                "2026-08-01T00:01:20Z",
+                {
+                    "asset_id": "asset_000001",
+                    "item_type": "ELIGIBLE_COST",
+                    "amount_usd": "100",
+                    "occurred_at": "2024-01-01T00:00:00Z",
+                },
+            ),
+            event(
+                "OPENING_PORTFOLIO_ITEM",
+                "2026-08-01T00:01:30Z",
+                {
+                    "asset_id": "asset_000001",
+                    "item_type": "CASH_EVENT",
+                    "amount_usd": "40",
+                    "occurred_at": "2025-01-01T00:00:00Z",
+                },
+            ),
+        ]
+        events[2:2] = opening
+        events[5]["data"]["opening_portfolio_net_gain_usd"] = "-60"
+        events[5]["data"]["opening_item_count"] = 2
+        state = self.full_state(events)
+        self.assertEqual(state.portfolio_net_gain_usd, "-60")
+        self.assertEqual(state.portfolio_peak_usd, "0")
+        self.assertEqual(len(state.assets), 1)
+
+    def test_commencement_rejects_incorrect_opening_balance(self):
+        events = base_events()
+        events[2]["data"]["opening_portfolio_net_gain_usd"] = "-1"
+        with self.assertRaisesRegex(ledger.ValidationError, "does not match items"):
+            self.full_state(events)
+
+    def test_shareholder_must_adopt_the_governing_agreement(self):
+        events = base_events()
+        events[2:2] = [
+            event(
+                "SHAREHOLDER_REGISTERED",
+                "2026-08-01T00:01:10Z",
+                {
+                    "shareholder_id": "holder_000001",
+                    "display_name": "Second Holder",
+                    "handle": None,
+                },
+            ),
+            event(
+                "AGREEMENT_ADOPTION",
+                "2026-08-01T00:01:20Z",
+                {
+                    "shareholder_id": "holder_000001",
+                    "agreement_version": "1.0.1",
+                    "agreement_content_hash": "0x" + "bb" * 32,
+                },
+            ),
+        ]
+        with self.assertRaisesRegex(ledger.ValidationError, "did not adopt the governing agreement"):
+            self.full_state(events)
+
     def test_additive_supplement_enriches_without_replacing(self):
         events = base_events()
         events.append(
@@ -122,7 +211,7 @@ class LedgerEventsTest(unittest.TestCase):
                 "EVENT_SUPPLEMENT",
                 "2026-08-02T00:00:00Z",
                 {
-                    "target_sequence": 3,
+                    "target_sequence": 4,
                     "extension_type": "ISSUANCE_PROVENANCE",
                     "extension_schema_version": 1,
                     "extension_data": {
@@ -135,7 +224,7 @@ class LedgerEventsTest(unittest.TestCase):
         )
         parsed = self.load(batch(events))
         effective = ledger.resolve_events(parsed.events)
-        issuance = next(item for item in effective if item.logical_sequence == 3)
+        issuance = next(item for item in effective if item.logical_sequence == 4)
         self.assertEqual(issuance.data["shares"], 100)
         self.assertEqual(
             issuance.supplements["ISSUANCE_PROVENANCE"]["data"]["authorization_record"],
@@ -149,7 +238,7 @@ class LedgerEventsTest(unittest.TestCase):
                 "EVENT_REVISION",
                 "2026-08-02T00:00:00Z",
                 {
-                    "target_sequence": 3,
+                    "target_sequence": 4,
                     "replacement": event(
                         "SHARE_ISSUANCE",
                         "2026-08-01T00:02:00Z",
@@ -181,20 +270,20 @@ class LedgerEventsTest(unittest.TestCase):
             event(
                 "EVENT_REVISION",
                 "2026-08-02T00:00:00Z",
-                {"target_sequence": 3, "replacement": replacement, "reason": "First correction."},
+                {"target_sequence": 4, "replacement": replacement, "reason": "First correction."},
             )
         )
         events.append(
             event(
                 "EVENT_REVISION",
                 "2026-08-03T00:00:00Z",
-                {"target_sequence": 3, "replacement": replacement, "reason": "Second correction."},
+                {"target_sequence": 4, "replacement": replacement, "reason": "Second correction."},
             )
         )
         with self.assertRaisesRegex(ledger.ValidationError, "must supersede"):
             self.load(batch(events))
 
-        events[-1]["data"]["supersedes_sequence"] = 4
+        events[-1]["data"]["supersedes_sequence"] = 5
         self.assertEqual(self.full_state(events).outstanding, 90)
 
     def test_revision_can_correct_an_events_chronological_position(self):
@@ -215,8 +304,8 @@ class LedgerEventsTest(unittest.TestCase):
                     "EVENT_REVISION",
                     "2026-08-02T00:00:00Z",
                     {
-                        "target_sequence": 5,
-                        "after_sequence": 3,
+                        "target_sequence": 6,
+                        "after_sequence": 4,
                         "replacement": event(
                             "SHAREHOLDER_REGISTERED",
                             "2026-08-01T00:03:00Z",
@@ -233,7 +322,7 @@ class LedgerEventsTest(unittest.TestCase):
         )
         parsed = self.load(batch(events))
         effective = ledger.resolve_events(parsed.events)
-        self.assertEqual([item.logical_sequence for item in effective], [1, 2, 3, 5, 4])
+        self.assertEqual([item.logical_sequence for item in effective], [1, 2, 3, 4, 6, 5])
         state = ledger.replay(effective)
         self.assertIn("holder_000001", state.profiles)
         self.assertIn("holder_000002", state.profiles)
@@ -242,15 +331,26 @@ class LedgerEventsTest(unittest.TestCase):
         events = base_events()
         events.append(
             event(
+                "SHAREHOLDER_REGISTERED",
+                "2026-08-01T00:03:00Z",
+                {
+                    "shareholder_id": "holder_000001",
+                    "display_name": "Registration That Never Occurred",
+                    "handle": None,
+                },
+            )
+        )
+        events.append(
+            event(
                 "EVENT_VOID",
                 "2026-08-02T00:00:00Z",
-                {"target_sequence": 3, "reason": "Issuance never settled."},
+                {"target_sequence": 5, "reason": "Registration never occurred."},
             )
         )
         parsed = self.load(batch(events))
         effective = ledger.resolve_events(parsed.events)
-        self.assertNotIn(3, [item.logical_sequence for item in effective])
-        self.assertEqual(ledger.replay(effective).outstanding, 0)
+        self.assertNotIn(5, [item.logical_sequence for item in effective])
+        self.assertNotIn("holder_000001", ledger.replay(effective).profiles)
 
     def test_insertion_places_an_omitted_event_in_historical_order(self):
         events = base_events()
@@ -275,7 +375,7 @@ class LedgerEventsTest(unittest.TestCase):
         )
         parsed = self.load(batch(events))
         effective = ledger.resolve_events(parsed.events)
-        self.assertEqual([item.logical_sequence for item in effective], [1, 4, 2, 3])
+        self.assertEqual([item.logical_sequence for item in effective], [1, 5, 2, 3, 4])
         self.assertIn("holder_000001", ledger.replay(effective).profiles)
 
     def test_incremental_batch_accepts_references_to_prior_chain_events(self):
@@ -285,7 +385,7 @@ class LedgerEventsTest(unittest.TestCase):
                     "EVENT_SUPPLEMENT",
                     "2026-08-02T00:00:00Z",
                     {
-                        "target_sequence": 3,
+                        "target_sequence": 4,
                         "extension_type": "ISSUANCE_PROVENANCE",
                         "extension_schema_version": 1,
                         "extension_data": {"private_record": "record-1"},
@@ -293,11 +393,11 @@ class LedgerEventsTest(unittest.TestCase):
                     },
                 )
             ],
-            expected_count=3,
+            expected_count=4,
             expected_head="0x" + "bb" * 32,
         )
         parsed = self.load(source)
-        self.assertEqual(parsed.events[0].sequence, 4)
+        self.assertEqual(parsed.events[0].sequence, 5)
 
     def test_initial_batch_requires_formation(self):
         with self.assertRaisesRegex(ledger.ValidationError, "first ledger event"):

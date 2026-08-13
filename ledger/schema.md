@@ -72,6 +72,49 @@ This records adoption of the exact agreement bytes identified by version and con
 hash. The agreement content is maintained in the public source repository, not copied
 into this event or a separate agreement contract.
 
+## `ASSET_REGISTERED@1`
+
+```text
+asset_id        new ASSET_ID such as asset_000001
+asset_category  nonempty public category
+description     nonempty public string or null
+acquired_at     RFC 3339 UTC timestamp
+opening_asset   boolean
+```
+
+This assigns an opaque public identifier and classification to an in-scope asset.
+`description` must not expose private issuer, account, grant, or security information.
+An asset recorded before `PORTFOLIO_COMMENCEMENT` must be an opening asset. A later
+asset must not be marked as opening.
+
+## `OPENING_PORTFOLIO_ITEM@1`
+
+```text
+asset_id     existing opening ASSET_ID
+item_type    ELIGIBLE_COST or CASH_EVENT
+amount_usd   USD_POSITIVE
+occurred_at  RFC 3339 UTC timestamp
+```
+
+These events record, in chronological order, every pre-commencement input required to
+calculate the opening `PORTFOLIO_NET_GAIN` for assets still in scope. The envelope
+time is the recording time during formation; `occurred_at` is the historical time of
+the input. The agreement's opening-balance algorithm is applied in event order.
+
+## `PORTFOLIO_COMMENCEMENT@1`
+
+```text
+opening_portfolio_net_gain_usd  signed, nonpositive exact USD amount
+opening_item_count              nonnegative integer
+cpi_2026_06                     positive exact index value
+```
+
+This occurs once, after the owner's agreement adoption and all opening assets and
+opening portfolio items, and establishes `COMMENCEMENT_TIME` from its envelope time.
+The declared opening balance must exactly match replay of the recorded opening items.
+`PORTFOLIO_PEAK` begins at zero. Opening share issuances follow at the same timestamp
+or later.
+
 ## `SHARE_ISSUANCE@1`
 
 ```text
@@ -83,7 +126,8 @@ actual_cash_paid_usd       USD_NONNEGATIVE
 The event creates new outstanding shares. The recipient must be registered and must
 have adopted the governing agreement. `actual_cash_paid_usd` is the total
 `ACTUAL_CASH_PAID` assigned under the agreement and is `"0"` when no USD cash purchase
-price was required.
+price was required. The owner's one opening issuance must be effective exactly at
+`COMMENCEMENT_TIME`; the owner cannot receive a later issuance.
 
 ## `OWNER_TRANSFER@1`
 

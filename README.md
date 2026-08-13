@@ -12,6 +12,8 @@ The governing [Personal Stock agreement](https://github.com/onrootnet/personal-s
   publication tooling.
 - [`ledger/test/`](ledger/test/) contains Solidity and Python tests.
 - [`ledger/README.md`](ledger/README.md) documents the ledger model and operations.
+- [`published/`](published/) contains chain-specific verified mirrors, exact append
+  batches, previews, and receipts after deployment.
 
 The authoritative stock history is the immutable event journal at the deployed
 ledger contract. Current state is derived by resolving overlays and replaying that

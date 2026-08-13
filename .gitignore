@@ -56,3 +56,6 @@ venv/
 # Logs and temporary files
 *.log
 *.tmp
+
+# Unpublished append drafts stay local until their transaction succeeds.
+/next.batch.json
