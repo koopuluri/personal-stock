@@ -2,15 +2,113 @@
   "format": "personal-stock-ledger",
   "format_version": 1,
   "personal_stock": {
-    "id": "karthik-uppuluri-stock",
+    "id": "@koopuluri",
     "name": "Karthik Uppuluri Stock",
     "official_history_url": "https://github.com/koopuluri/personal-stock-ledger/blob/main/ledger.json"
   },
   "schema_version": "1.0.0",
   "current_state": {
-    "as_of_sequence": 0,
-    "status": "not_formed",
-    "summary": "No formation or other legally effective event has been recorded."
+    "as_of_sequence": 5,
+    "status": "active",
+    "summary": "Karthik Uppuluri Stock was formed and commenced under Personal Stock Agreement v1.0.1. The stock has 12,000,000 authorized shares: 9,000,000 are outstanding, all held by Karthik Uppuluri, and 0 are reserved under unvested awards. No opening assets or opening portfolio items were recorded. Portfolio net gain and portfolio peak are both $0.",
+    "owner": {
+      "shareholder_id": "holder_000000",
+      "name": "Karthik Uppuluri",
+      "username": "@koopuluri"
+    },
+    "governing_agreement": {
+      "version": "1.0.1",
+      "content_hash": "0x916c948d432bc1d1cac8279b78fe10ae7a04b281e9458b241cfc17396f4152c9",
+      "release_url": "https://github.com/onrootnet/personal-stock/releases/tag/agreement-v1.0.1"
+    },
+    "commencement_time": "2026-08-13T14:15:00-07:00",
+    "shares": {
+      "authorized": 12000000,
+      "outstanding": 9000000,
+      "reserved_under_unvested_awards": 0,
+      "balances": {
+        "holder_000000": 9000000
+      }
+    },
+    "configuration": {
+      "floor": {
+        "base_amount_usd": "10000000",
+        "cpi_series": "CUUR0000SA0",
+        "cpi_base_period": "2026-06",
+        "cpi_base_value": "333.952"
+      },
+      "royalty_rate": "0.05",
+      "amendment_approval_threshold": "0.75"
+    },
+    "portfolio": {
+      "assets": {},
+      "opening_item_count": 0,
+      "net_gain_usd": "0",
+      "peak_usd": "0"
+    },
+    "pending_amendment_proposals": []
   },
-  "events": []
+  "events": [
+    {
+      "sequence": 1,
+      "event_type": "FORMATION",
+      "effective_at": "2026-08-13T14:15:00-07:00",
+      "recorded_at": "2026-08-13T14:15:00-07:00",
+      "data": {
+        "owner": {
+          "shareholder_id": "holder_000000",
+          "name": "Karthik Uppuluri",
+          "username": "@koopuluri"
+        }
+      }
+    },
+    {
+      "sequence": 2,
+      "event_type": "AGREEMENT_ADOPTION",
+      "effective_at": "2026-08-13T14:15:00-07:00",
+      "recorded_at": "2026-08-13T14:15:00-07:00",
+      "data": {
+        "shareholder_id": "holder_000000",
+        "agreement_version": "1.0.1",
+        "agreement_content_hash": "0x916c948d432bc1d1cac8279b78fe10ae7a04b281e9458b241cfc17396f4152c9",
+        "agreement_release_url": "https://github.com/onrootnet/personal-stock/releases/tag/agreement-v1.0.1"
+      }
+    },
+    {
+      "sequence": 3,
+      "event_type": "AGREEMENT_CONFIGURATION",
+      "effective_at": "2026-08-13T14:15:00-07:00",
+      "recorded_at": "2026-08-13T14:15:00-07:00",
+      "data": {
+        "floor_base_amount_usd": "10000000",
+        "floor_cpi_series": "CUUR0000SA0",
+        "floor_cpi_base_period": "2026-06",
+        "floor_cpi_base_value": "333.952",
+        "authorized_shares": 12000000,
+        "royalty_rate": "0.05",
+        "amendment_approval_threshold": "0.75"
+      }
+    },
+    {
+      "sequence": 4,
+      "event_type": "PORTFOLIO_COMMENCEMENT",
+      "effective_at": "2026-08-13T14:15:00-07:00",
+      "recorded_at": "2026-08-13T14:15:00-07:00",
+      "data": {
+        "opening_portfolio_net_gain_usd": "0",
+        "opening_item_count": 0
+      }
+    },
+    {
+      "sequence": 5,
+      "event_type": "SHARE_ISSUANCE",
+      "effective_at": "2026-08-13T14:15:00-07:00",
+      "recorded_at": "2026-08-13T14:15:00-07:00",
+      "data": {
+        "recipient_shareholder_id": "holder_000000",
+        "shares": 9000000,
+        "actual_cash_paid_usd": "0"
+      }
+    }
+  ]
 }
