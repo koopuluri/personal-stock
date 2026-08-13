@@ -5,6 +5,9 @@ Karthik Uppuluri Stock.
 
 The governing [Personal Stock agreement](https://github.com/onrootnet/personal-stock) is published separately by Rootnet. Agreement adoption events identify an exact published agreement by its version and SHA-256 content hash; agreement source and signing materials are not duplicated here.
 
+Ledger schema `1.0.0` is the exact bytes of [`ledger/schema.md`](ledger/schema.md),
+SHA-256 `0x32db52ba4c53b9811bcf335e0845159b54ab408e772048eada28f04c282c1d24`.
+
 - [`ledger/schema.md`](ledger/schema.md) defines the public event formats.
 - [`ledger/src/StockLedger.sol`](ledger/src/StockLedger.sol) implements the
   append-only Base ledger contract.
@@ -23,4 +26,5 @@ not an alternative ledger.
 | Network | Ledger address |
 | --- | --- |
 | Base mainnet | _not deployed_ |
-| Base Sepolia | [`0xA2C7…6bCA`](https://sepolia.basescan.org/address/0xA2C7d149fD50A277313F2349A558fdD59FCC6bCA) — test only, no legal effect |
+| Base Sepolia | _fresh schema-1.0.0 rehearsal pending_ |
+| Base Sepolia legacy | [`0xA2C7…6bCA`](https://sepolia.basescan.org/address/0xA2C7d149fD50A277313F2349A558fdD59FCC6bCA) — superseded test only, no legal effect |

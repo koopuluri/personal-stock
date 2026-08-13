@@ -7,28 +7,49 @@ import argparse
 import json
 import re
 import sys
+import tempfile
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime
 from fractions import Fraction
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 
 FORMAT = "personal-stock-ledger-batch"
 FORMAT_VERSION = 1
 MAX_BATCH_SIZE = 100
-AUTHORIZED_SHARES = 12_000_000
-EVENT_HASH_DOMAIN = "0xb4b4c34e394a16f0dafa17a0c4668fdee150079904c696f0bcbdfab3d443eb2e"
+INITIAL_SCHEMA_VERSION = "1.0.0"
+SCHEMA_HASHES = {
+    INITIAL_SCHEMA_VERSION: "0x32db52ba4c53b9811bcf335e0845159b54ab408e772048eada28f04c282c1d24"
+}
+EVENT_HASH_DOMAIN = "0xd2ecb45dbb0fe0de5331a918299801ffda4aec2d6e1d7e183f68b522d1079df6"
+SAN_FRANCISCO = ZoneInfo("America/Los_Angeles")
+
+FLOOR_CONFIGURATION_FIELDS = {
+    "floor_base_amount_usd",
+    "floor_cpi_series",
+    "floor_cpi_base_period",
+    "floor_cpi_base_value",
+}
+CONFIGURATION_FIELDS = FLOOR_CONFIGURATION_FIELDS | {
+    "authorized_shares",
+    "royalty_rate",
+    "amendment_approval_threshold",
+}
 
 ADDRESS_RE = re.compile(r"^0x[0-9a-fA-F]{40}$")
 HASH_RE = re.compile(r"^0x[0-9a-fA-F]{64}$")
 HOLDER_RE = re.compile(r"^holder_[0-9]{6}$")
 ASSET_RE = re.compile(r"^asset_[0-9]{6}$")
 EVENT_TYPE_RE = re.compile(r"^[A-Z][A-Z0-9_]{0,31}$")
-TIMESTAMP_RE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$")
+TIMESTAMP_RE = re.compile(
+    r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}-(07|08):00$"
+)
 DECIMAL_RE = re.compile(r"^(0|[1-9][0-9]*)(\.[0-9]+)?$")
 SIGNED_DECIMAL_RE = re.compile(r"^-?(0|[1-9][0-9]*)(\.[0-9]+)?$")
-AGREEMENT_VERSION_RE = re.compile(r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$")
+SEMVER_RE = re.compile(r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$")
+PERIOD_RE = re.compile(r"^[0-9]{4}-(0[1-9]|1[0-2])$")
 
 OVERLAY_TYPES = {
     "EVENT_SUPPLEMENT",
@@ -101,9 +122,15 @@ def expect_pattern(value: Any, pattern: re.Pattern[str], path: str) -> str:
 def expect_timestamp(value: Any, path: str) -> tuple[str, int]:
     text = expect_pattern(value, TIMESTAMP_RE, path)
     try:
-        parsed = datetime.strptime(text, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        parsed = datetime.fromisoformat(text)
     except ValueError as error:
         raise ValidationError(f"invalid {path}: {text}") from error
+    local = parsed.astimezone(SAN_FRANCISCO)
+    require(
+        parsed.replace(tzinfo=None) == local.replace(tzinfo=None)
+        and parsed.utcoffset() == local.utcoffset(),
+        f"{path} is not a valid San Francisco local timestamp",
+    )
     seconds = int(parsed.timestamp())
     require(0 < seconds <= (2**64 - 1), f"{path} is outside the uint64 range")
     return text, seconds
@@ -151,7 +178,8 @@ def reject_floats(value: Any, path: str = "data") -> None:
 class RawEvent:
     sequence: int
     event_type: str
-    schema_version: int
+    schema_version: str
+    schema_content_hash: str | None
     effective_at: str
     effective_at_unix: int
     data: dict[str, Any]
@@ -172,7 +200,8 @@ class EffectiveEvent:
     logical_sequence: int
     source_sequence: int
     event_type: str
-    schema_version: int
+    schema_version: str
+    schema_content_hash: str | None
     effective_at: str
     data: dict[str, Any]
     supplements: dict[str, dict[str, Any]] = field(default_factory=dict)
@@ -180,6 +209,8 @@ class EffectiveEvent:
 
 @dataclass
 class State:
+    schema_version: str | None = None
+    schema_content_hash: str | None = None
     owner_id: str | None = None
     profiles: dict[str, dict[str, Any]] = field(default_factory=dict)
     adoptions: dict[str, tuple[str, str]] = field(default_factory=dict)
@@ -189,13 +220,19 @@ class State:
     commencement_time: str | None = None
     portfolio_net_gain_usd: str | None = None
     portfolio_peak_usd: str | None = None
-    cpi_2026_06: str | None = None
+    agreement_configuration: dict[str, Any] | None = None
+    agreement_configuration_for: tuple[str, str] | None = None
     balances: dict[str, int] = field(default_factory=dict)
     outstanding: int = 0
     owner_opening_issuance_recorded: bool = False
 
     def as_json(self) -> dict[str, Any]:
         return {
+            "schema": (
+                {"version": self.schema_version, "content_hash": self.schema_content_hash}
+                if self.schema_version is not None
+                else None
+            ),
             "owner_id": self.owner_id,
             "profiles": self.profiles,
             "adoptions": {
@@ -215,13 +252,26 @@ class State:
             "commencement_time": self.commencement_time,
             "portfolio_net_gain_usd": self.portfolio_net_gain_usd,
             "portfolio_peak_usd": self.portfolio_peak_usd,
-            "cpi_2026_06": self.cpi_2026_06,
+            "agreement_configuration": self.agreement_configuration,
+            "agreement_configuration_for": (
+                {
+                    "agreement_version": self.agreement_configuration_for[0],
+                    "agreement_content_hash": self.agreement_configuration_for[1],
+                }
+                if self.agreement_configuration_for is not None
+                else None
+            ),
             "balances": dict(sorted(self.balances.items())),
             "outstanding": self.outstanding,
         }
 
 
-def load_batch(path: Path, *, allow_large_journal: bool = False) -> Batch:
+def load_batch(
+    path: Path,
+    *,
+    allow_large_journal: bool = False,
+    initial_schema: tuple[str, str | None] | None = None,
+) -> Batch:
     try:
         text = path.read_text(encoding="utf-8")
     except UnicodeDecodeError as error:
@@ -261,33 +311,89 @@ def load_batch(path: Path, *, allow_large_journal: bool = False) -> Batch:
     source_events = expect_array(source["events"], "batch.events", nonempty=True)
     if not allow_large_journal:
         require(len(source_events) <= MAX_BATCH_SIZE, f"a batch may contain at most {MAX_BATCH_SIZE} events")
+    if expected_count == 0:
+        first = expect_object(source_events[0], "batch.events[0]")
+        require(first.get("event_type") == "SCHEMA", "the first ledger event must be SCHEMA")
+        require(
+            len(source_events) > 1
+            and expect_object(source_events[1], "batch.events[1]").get("event_type") == "FORMATION",
+            "FORMATION must immediately follow the initial SCHEMA event",
+        )
     events: list[RawEvent] = []
+    active_schema = initial_schema
     for index, source_event in enumerate(source_events):
         sequence = expected_count + index + 1
-        events.append(validate_event(source_event, sequence, f"batch.events[{index}]"))
+        event, active_schema = validate_event(
+            source_event,
+            sequence,
+            f"batch.events[{index}]",
+            active_schema=active_schema,
+        )
+        events.append(event)
 
-    if expected_count == 0:
-        require(events[0].event_type == "FORMATION", "the first ledger event must be FORMATION")
     for event in events:
         if event.event_type == "FORMATION":
-            require(event.sequence == 1, "FORMATION must be sequence 1")
+            require(event.sequence == 2, "FORMATION must be sequence 2")
     validate_overlay_references(events, expected_count)
     return Batch(path, chain_id, stock_contract, expected_count, expected_head, events)
 
 
-def validate_event(value: Any, sequence: int, path: str, *, embedded: bool = False) -> RawEvent:
+def validate_event(
+    value: Any,
+    sequence: int,
+    path: str,
+    *,
+    active_schema: tuple[str, str | None] | None,
+    embedded: bool = False,
+) -> tuple[RawEvent, tuple[str, str | None]]:
     event = expect_object(value, path)
-    exact_keys(event, {"event_type", "schema_version", "effective_at", "data"}, set(), path)
+    exact_keys(event, {"event_type", "effective_at", "data"}, set(), path)
     event_type = expect_pattern(event["event_type"], EVENT_TYPE_RE, f"{path}.event_type")
-    schema_version = expect_int(
-        event["schema_version"], f"{path}.schema_version", minimum=1, maximum=2**32 - 1
-    )
     effective_at, effective_at_unix = expect_timestamp(event["effective_at"], f"{path}.effective_at")
     data = expect_object(event["data"], f"{path}.data")
     reject_floats(data, f"{path}.data")
-    require(not embedded or event_type not in OVERLAY_TYPES, f"{path} may not embed an overlay event")
-    validate_event_data(event_type, schema_version, data, sequence, f"{path}.data")
-    return RawEvent(sequence, event_type, schema_version, effective_at, effective_at_unix, data)
+    require(
+        not embedded or event_type not in OVERLAY_TYPES | {"SCHEMA"},
+        f"{path} may not embed an overlay or schema event",
+    )
+    if event_type == "SCHEMA":
+        require(not embedded, f"{path} may not embed a schema event")
+        exact_keys(data, {"version", "content_hash"}, set(), f"{path}.data")
+        version = expect_pattern(data["version"], SEMVER_RE, f"{path}.data.version")
+        content_hash = expect_hash(data["content_hash"], f"{path}.data.content_hash")
+        require(version in SCHEMA_HASHES, f"unsupported global schema version {version}")
+        require(
+            content_hash.lower() == SCHEMA_HASHES[version],
+            f"{path}.data.content_hash does not identify schema {version}",
+        )
+        require(
+            active_schema is None or version != active_schema[0] or content_hash != active_schema[1],
+            f"{path} repeats the active schema",
+        )
+        active_schema = (version, content_hash)
+    else:
+        require(active_schema is not None, f"{path} has no active schema")
+        validate_event_data(
+            event_type,
+            active_schema[0],
+            active_schema[1],
+            data,
+            sequence,
+            f"{path}.data",
+        )
+    assert active_schema is not None
+    return (
+        RawEvent(
+            sequence,
+            event_type,
+            active_schema[0],
+            active_schema[1],
+            effective_at,
+            effective_at_unix,
+            data,
+        ),
+        active_schema,
+    )
 
 
 def data_keys(
@@ -299,9 +405,17 @@ def data_keys(
 
 
 def validate_event_data(
-    event_type: str, schema_version: int, data: dict[str, Any], sequence: int, path: str
+    event_type: str,
+    schema_version: str,
+    schema_content_hash: str | None,
+    data: dict[str, Any],
+    sequence: int,
+    path: str,
 ) -> None:
-    require(schema_version == 1, f"unsupported {event_type} schema version {schema_version}")
+    require(
+        schema_version == INITIAL_SCHEMA_VERSION,
+        f"unsupported global schema version {schema_version}",
+    )
 
     if event_type == "FORMATION":
         data_keys(
@@ -330,10 +444,48 @@ def validate_event_data(
         expect_holder(data["shareholder_id"], f"{path}.shareholder_id")
         expect_pattern(
             data["agreement_version"],
-            AGREEMENT_VERSION_RE,
+            SEMVER_RE,
             f"{path}.agreement_version",
         )
         expect_hash(data["agreement_content_hash"], f"{path}.agreement_content_hash")
+    elif event_type == "AGREEMENT_CONFIGURATION":
+        data_keys(data, set(), CONFIGURATION_FIELDS, path)
+        supplied = data.keys() & CONFIGURATION_FIELDS
+        require(bool(supplied), f"{path} must set at least one configuration field")
+        if supplied & FLOOR_CONFIGURATION_FIELDS:
+            require(
+                FLOOR_CONFIGURATION_FIELDS <= supplied,
+                f"{path} must set the complete floor configuration together",
+            )
+        if "floor_base_amount_usd" in data:
+            expect_amount(
+                data["floor_base_amount_usd"],
+                f"{path}.floor_base_amount_usd",
+                positive=True,
+            )
+            expect_string(data["floor_cpi_series"], f"{path}.floor_cpi_series")
+            expect_pattern(
+                data["floor_cpi_base_period"],
+                PERIOD_RE,
+                f"{path}.floor_cpi_base_period",
+            )
+            expect_amount(
+                data["floor_cpi_base_value"],
+                f"{path}.floor_cpi_base_value",
+                positive=True,
+            )
+        if "authorized_shares" in data:
+            expect_int(data["authorized_shares"], f"{path}.authorized_shares", minimum=1)
+        if "royalty_rate" in data:
+            royalty_rate = expect_amount(data["royalty_rate"], f"{path}.royalty_rate")
+            require(royalty_rate <= 1, f"{path}.royalty_rate must not exceed 1")
+        if "amendment_approval_threshold" in data:
+            threshold = expect_amount(
+                data["amendment_approval_threshold"],
+                f"{path}.amendment_approval_threshold",
+                positive=True,
+            )
+            require(threshold <= 1, f"{path}.amendment_approval_threshold must not exceed 1")
     elif event_type == "ASSET_REGISTERED":
         data_keys(
             data,
@@ -359,7 +511,7 @@ def validate_event_data(
     elif event_type == "PORTFOLIO_COMMENCEMENT":
         data_keys(
             data,
-            {"opening_portfolio_net_gain_usd", "opening_item_count", "cpi_2026_06"},
+            {"opening_portfolio_net_gain_usd", "opening_item_count"},
             set(),
             path,
         )
@@ -369,7 +521,6 @@ def validate_event_data(
         )
         require(opening_balance <= 0, f"{path}.opening_portfolio_net_gain_usd must not be positive")
         expect_int(data["opening_item_count"], f"{path}.opening_item_count")
-        expect_amount(data["cpi_2026_06"], f"{path}.cpi_2026_06", positive=True)
     elif event_type in {"SHARE_ISSUANCE", "OWNER_TRANSFER"}:
         data_keys(data, {"recipient_shareholder_id", "shares", "actual_cash_paid_usd"}, set(), path)
         expect_holder(data["recipient_shareholder_id"], f"{path}.recipient_shareholder_id")
@@ -401,7 +552,6 @@ def validate_event_data(
             {
                 "target_sequence",
                 "extension_type",
-                "extension_schema_version",
                 "extension_data",
                 "reason",
             },
@@ -410,12 +560,6 @@ def validate_event_data(
         )
         expect_prior_sequence(data["target_sequence"], sequence, f"{path}.target_sequence")
         expect_pattern(data["extension_type"], EVENT_TYPE_RE, f"{path}.extension_type")
-        expect_int(
-            data["extension_schema_version"],
-            f"{path}.extension_schema_version",
-            minimum=1,
-            maximum=2**32 - 1,
-        )
         extension = expect_object(data["extension_data"], f"{path}.extension_data")
         require(bool(extension), f"{path}.extension_data must not be empty")
         expect_string(data["reason"], f"{path}.reason")
@@ -428,7 +572,13 @@ def validate_event_data(
             path,
         )
         expect_prior_sequence(data["target_sequence"], sequence, f"{path}.target_sequence")
-        validate_event(data["replacement"], sequence, f"{path}.replacement", embedded=True)
+        validate_event(
+            data["replacement"],
+            sequence,
+            f"{path}.replacement",
+            active_schema=(schema_version, schema_content_hash),
+            embedded=True,
+        )
         expect_string(data["reason"], f"{path}.reason")
         validate_optional_supersedes(data, sequence, path)
         if "after_sequence" in data:
@@ -442,7 +592,13 @@ def validate_event_data(
     elif event_type == "EVENT_INSERTION":
         data_keys(data, {"after_sequence", "inserted", "reason"}, set(), path)
         expect_prior_sequence(data["after_sequence"], sequence, f"{path}.after_sequence")
-        validate_event(data["inserted"], sequence, f"{path}.inserted", embedded=True)
+        validate_event(
+            data["inserted"],
+            sequence,
+            f"{path}.inserted",
+            active_schema=(schema_version, schema_content_hash),
+            embedded=True,
+        )
         expect_string(data["reason"], f"{path}.reason")
     else:
         raise ValidationError(f"unsupported event type: {event_type}")
@@ -461,6 +617,7 @@ def validate_optional_supersedes(data: dict[str, Any], sequence: int, path: str)
 
 def validate_overlay_references(events: list[RawEvent], expected_count: int) -> None:
     available_nodes: set[int] = set(range(1, expected_count + 1))
+    node_types: dict[int, str] = {}
     mutation_heads: dict[int, int] = {}
     supplement_heads: dict[tuple[int, str], int] = {}
 
@@ -468,17 +625,27 @@ def validate_overlay_references(events: list[RawEvent], expected_count: int) -> 
         data = event.data
         if event.event_type not in OVERLAY_TYPES:
             available_nodes.add(event.sequence)
+            node_types[event.sequence] = event.event_type
             continue
         if event.event_type == "EVENT_INSERTION":
             require(
                 data["after_sequence"] in available_nodes,
                 f"event {event.sequence} insertion anchor does not identify an effective event",
             )
+            require(
+                node_types.get(data["after_sequence"]) != "SCHEMA",
+                f"event {event.sequence} may not use a SCHEMA event as its insertion anchor",
+            )
             available_nodes.add(event.sequence)
+            node_types[event.sequence] = data["inserted"]["event_type"]
             continue
 
         target = data["target_sequence"]
         require(target in available_nodes, f"event {event.sequence} target does not identify an effective event")
+        require(
+            node_types.get(target) != "SCHEMA",
+            f"event {event.sequence} may not modify or supplement a SCHEMA event",
+        )
         supplied = data.get("supersedes_sequence")
         if event.event_type == "EVENT_SUPPLEMENT":
             key = (target, data["extension_type"])
@@ -520,7 +687,6 @@ def event_hash_preimage(
     stock_contract: str,
     sequence: int,
     event_type: str,
-    schema_version: int,
     effective_at_unix: int,
     payload_hash: str,
     previous_head: str,
@@ -533,7 +699,6 @@ def event_hash_preimage(
         stock_contract[2:].lower().rjust(64, "0"),
         format(sequence, "064x"),
         event_type_bytes32(event_type)[2:],
-        format(schema_version, "064x"),
         format(effective_at_unix, "064x"),
         payload_hash[2:].lower(),
         previous_head[2:].lower(),
@@ -554,7 +719,6 @@ def compile_batch(batch: Batch) -> dict[str, Any]:
         "events": [
             {
                 "event_type": event_type_bytes32(event.event_type),
-                "schema_version": event.schema_version,
                 "effective_at": event.effective_at_unix,
                 "payload": "0x" + canonical_payload(event.data).hex(),
             }
@@ -563,13 +727,20 @@ def compile_batch(batch: Batch) -> dict[str, Any]:
     }
 
 
-def embedded_event(value: dict[str, Any], logical_sequence: int, source_sequence: int) -> EffectiveEvent:
+def embedded_event(
+    value: dict[str, Any],
+    logical_sequence: int,
+    source_sequence: int,
+    schema_version: str,
+    schema_content_hash: str | None,
+) -> EffectiveEvent:
     timestamp, _ = expect_timestamp(value["effective_at"], "embedded.effective_at")
     return EffectiveEvent(
         logical_sequence,
         source_sequence,
         value["event_type"],
-        value["schema_version"],
+        schema_version,
+        schema_content_hash,
         timestamp,
         value["data"],
     )
@@ -592,12 +763,19 @@ def resolve_events(events: list[RawEvent]) -> list[EffectiveEvent]:
                 raw.sequence,
                 raw.event_type,
                 raw.schema_version,
+                raw.schema_content_hash,
                 raw.effective_at,
                 raw.data,
             )
             base_sequences.append(raw.sequence)
         elif raw.event_type == "EVENT_INSERTION":
-            nodes[raw.sequence] = embedded_event(raw.data["inserted"], raw.sequence, raw.sequence)
+            nodes[raw.sequence] = embedded_event(
+                raw.data["inserted"],
+                raw.sequence,
+                raw.sequence,
+                raw.schema_version,
+                raw.schema_content_hash,
+            )
             anchor = raw.data["after_sequence"]
             children.setdefault(anchor, []).append(raw.sequence)
             parent[raw.sequence] = anchor
@@ -612,7 +790,13 @@ def resolve_events(events: list[RawEvent]) -> list[EffectiveEvent]:
             nodes[target].source_sequence = mutation.sequence
             nodes[target].event_type = ""
         else:
-            replacement = embedded_event(mutation.data["replacement"], target, mutation.sequence)
+            replacement = embedded_event(
+                mutation.data["replacement"],
+                target,
+                mutation.sequence,
+                mutation.schema_version,
+                mutation.schema_content_hash,
+            )
             nodes[target] = replacement
             if "after_sequence" in mutation.data:
                 if target in base_sequences:
@@ -626,7 +810,8 @@ def resolve_events(events: list[RawEvent]) -> list[EffectiveEvent]:
 
     for (target, extension_type), supplement in supplements.items():
         nodes[target].supplements[extension_type] = {
-            "schema_version": supplement.data["extension_schema_version"],
+            "schema_version": supplement.schema_version,
+            "schema_content_hash": supplement.schema_content_hash,
             "data": supplement.data["extension_data"],
             "source_sequence": supplement.sequence,
         }
@@ -666,7 +851,10 @@ def replay(events: list[EffectiveEvent]) -> State:
     for event in events:
         data = event.data
         path = f"effective event {event.logical_sequence}"
-        if event.event_type == "FORMATION":
+        if event.event_type == "SCHEMA":
+            state.schema_version = data["version"]
+            state.schema_content_hash = data["content_hash"]
+        elif event.event_type == "FORMATION":
             require(state.owner_id is None, f"{path}: duplicate formation")
             owner_id = data["owner_shareholder_id"]
             state.owner_id = owner_id
@@ -697,6 +885,23 @@ def replay(events: list[EffectiveEvent]) -> State:
                     adoption == state.governing_agreement,
                     f"{path}: shareholder did not adopt the governing agreement",
                 )
+        elif event.event_type == "AGREEMENT_CONFIGURATION":
+            require(state.governing_agreement is not None, f"{path}: no governing agreement")
+            if state.agreement_configuration is None:
+                require(
+                    CONFIGURATION_FIELDS <= data.keys(),
+                    f"{path}: initial configuration must set every executable field",
+                )
+                state.agreement_configuration = {}
+            else:
+                require(
+                    state.agreement_configuration_for != state.governing_agreement,
+                    f"{path}: governing agreement is already configured",
+                )
+            state.agreement_configuration.update(
+                {key: value for key, value in data.items() if key in CONFIGURATION_FIELDS}
+            )
+            state.agreement_configuration_for = state.governing_agreement
         elif event.event_type == "ASSET_REGISTERED":
             asset_id = data["asset_id"]
             require(asset_id not in state.assets, f"{path}: asset is already registered")
@@ -716,8 +921,12 @@ def replay(events: list[EffectiveEvent]) -> State:
             require(asset_id in state.assets, f"{path}: opening item references an unknown asset")
             require(state.assets[asset_id]["opening_asset"], f"{path}: item asset is not an opening asset")
             if state.opening_items:
-                prior_time = state.opening_items[-1]["occurred_at"]
-                require(data["occurred_at"] >= prior_time, f"{path}: opening items are not chronological")
+                prior_time = expect_timestamp(
+                    state.opening_items[-1]["occurred_at"],
+                    f"{path}.prior_occurred_at",
+                )[1]
+                current_time = expect_timestamp(data["occurred_at"], f"{path}.occurred_at")[1]
+                require(current_time >= prior_time, f"{path}: opening items are not chronological")
             state.opening_items.append(
                 {
                     "asset_id": asset_id,
@@ -730,18 +939,24 @@ def replay(events: list[EffectiveEvent]) -> State:
             require(state.commencement_time is None, f"{path}: duplicate portfolio commencement")
             require(state.governing_agreement is not None, f"{path}: owner has not adopted an agreement")
             require(
+                state.agreement_configuration is not None,
+                f"{path}: governing agreement has no executable configuration",
+            )
+            require(
                 data["opening_item_count"] == len(state.opening_items),
                 f"{path}: opening_item_count does not match recorded items",
             )
             for asset_id, asset in state.assets.items():
                 if asset["opening_asset"]:
                     require(
-                        asset["acquired_at"] <= event.effective_at,
+                        expect_timestamp(asset["acquired_at"], f"{path}.{asset_id}.acquired_at")[1]
+                        <= expect_timestamp(event.effective_at, f"{path}.effective_at")[1],
                         f"{path}: opening asset {asset_id} was acquired after commencement",
                     )
             for item in state.opening_items:
                 require(
-                    item["occurred_at"] <= event.effective_at,
+                    expect_timestamp(item["occurred_at"], f"{path}.opening_item.occurred_at")[1]
+                    <= expect_timestamp(event.effective_at, f"{path}.effective_at")[1],
                     f"{path}: opening item occurred after commencement",
                 )
             calculated = Fraction(0)
@@ -756,7 +971,6 @@ def replay(events: list[EffectiveEvent]) -> State:
             state.commencement_time = event.effective_at
             state.portfolio_net_gain_usd = data["opening_portfolio_net_gain_usd"]
             state.portfolio_peak_usd = "0"
-            state.cpi_2026_06 = data["cpi_2026_06"]
         elif event.event_type == "SHARE_ISSUANCE":
             recipient = data["recipient_shareholder_id"]
             require(recipient in state.profiles, f"{path}: recipient is not registered")
@@ -775,7 +989,14 @@ def replay(events: list[EffectiveEvent]) -> State:
                 state.owner_opening_issuance_recorded = True
             state.balances[recipient] += data["shares"]
             state.outstanding += data["shares"]
-            require(state.outstanding <= AUTHORIZED_SHARES, f"{path}: authorized share count exceeded")
+            require(
+                state.agreement_configuration is not None,
+                f"{path}: missing agreement configuration",
+            )
+            require(
+                state.outstanding <= state.agreement_configuration["authorized_shares"],
+                f"{path}: authorized share count exceeded",
+            )
         elif event.event_type == "OWNER_TRANSFER":
             recipient = data["recipient_shareholder_id"]
             require(recipient in state.profiles, f"{path}: recipient is not registered")
@@ -803,6 +1024,7 @@ def replay(events: list[EffectiveEvent]) -> State:
             state.balances[purchaser] += data["shares"]
         else:
             raise ValidationError(f"{path}: reducer does not support {event.event_type}")
+    require(state.schema_version is not None, "effective history has no schema activation")
     require(state.owner_id is not None, "effective history has no formation event")
     require(state.governing_agreement is not None, "effective history has no owner agreement adoption")
     require(state.commencement_time is not None, "effective history has no portfolio commencement")
@@ -817,24 +1039,70 @@ def effective_json(event: EffectiveEvent) -> dict[str, Any]:
         "source_sequence": event.source_sequence,
         "event_type": event.event_type,
         "schema_version": event.schema_version,
+        "schema_content_hash": event.schema_content_hash,
         "effective_at": event.effective_at,
         "data": event.data,
         "supplements": event.supplements,
     }
 
 
+def active_schema_from_journal(path: Path) -> tuple[str, str | None] | None:
+    """Validate a published journal and return the schema active at its head."""
+
+    source = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=reject_duplicate_keys)
+    source = expect_object(source, "journal")
+    require(
+        source.get("format") == "personal-stock-ledger-journal",
+        "journal has an unsupported format",
+    )
+    events = expect_array(source.get("events"), "journal.events")
+    event_count = expect_int(source.get("event_count"), "journal.event_count")
+    require(event_count == len(events), "journal event_count does not match its events")
+    if not events:
+        return None
+    complete = {
+        "format": FORMAT,
+        "format_version": FORMAT_VERSION,
+        "chain_id": source["chain_id"],
+        "stock_contract": source["stock_contract"],
+        "expected_event_count": 0,
+        "expected_head": "0x" + "00" * 32,
+        "events": [
+            {
+                "event_type": item["event_type"],
+                "effective_at": item["effective_at"],
+                "data": item["data"],
+            }
+            for item in events
+        ],
+    }
+    with tempfile.TemporaryDirectory() as directory:
+        complete_path = Path(directory) / "complete.json"
+        complete_path.write_text(json.dumps(complete, ensure_ascii=False), encoding="utf-8")
+        parsed = load_batch(complete_path, allow_large_journal=True)
+    last = parsed.events[-1]
+    return last.schema_version, last.schema_content_hash
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("batch", type=Path)
+    parser.add_argument(
+        "--journal",
+        type=Path,
+        help="verified prior journal required for a non-SCHEMA incremental batch",
+    )
     parser.add_argument("--compile", dest="compiled_path", type=Path)
     parser.add_argument("--print-effective", action="store_true")
     parser.add_argument("--print-state", action="store_true")
     args = parser.parse_args(argv)
 
     try:
+        initial_schema = active_schema_from_journal(args.journal) if args.journal else None
         batch = load_batch(
             args.batch,
             allow_large_journal=args.print_effective or args.print_state,
+            initial_schema=initial_schema,
         )
         if args.compiled_path:
             args.compiled_path.write_text(

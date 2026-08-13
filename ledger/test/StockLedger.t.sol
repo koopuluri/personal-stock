@@ -12,7 +12,6 @@ contract StockLedgerTest is Test {
     event EventAppended(
         uint256 indexed sequence,
         bytes32 indexed eventType,
-        uint32 indexed schemaVersion,
         uint64 effectiveAt,
         bytes32 previousHead,
         bytes32 eventHash,
@@ -32,11 +31,11 @@ contract StockLedgerTest is Test {
     }
 
     function test_AppendEmitsPayloadAndAdvancesHashChain() public {
-        StockLedger.EventInput memory input = _input("FORMATION", 1, 1_785_564_800, "{}");
+        StockLedger.EventInput memory input = _input("FORMATION", 1_785_564_800, "{}");
         bytes32 expected = ledger.previewEventHash(1, bytes32(0), input);
 
         vm.expectEmit(true, true, true, true);
-        emit EventAppended(1, bytes32("FORMATION"), 1, 1_785_564_800, bytes32(0), expected, bytes("{}"));
+        emit EventAppended(1, bytes32("FORMATION"), 1_785_564_800, bytes32(0), expected, bytes("{}"));
         bytes32 actual = ledger.append(0, bytes32(0), input);
 
         assertEq(actual, expected);
@@ -46,8 +45,8 @@ contract StockLedgerTest is Test {
 
     function test_BatchIsAtomicAndChainsEveryEvent() public {
         StockLedger.EventInput[] memory inputs = new StockLedger.EventInput[](2);
-        inputs[0] = _input("FORMATION", 1, 1_785_564_800, "{}");
-        inputs[1] = _input("AGREEMENT_ADOPTION", 1, 1_785_564_801, "{\"shareholder_id\":\"holder_000000\"}");
+        inputs[0] = _input("FORMATION", 1_785_564_800, "{}");
+        inputs[1] = _input("AGREEMENT_ADOPTION", 1_785_564_801, "{\"shareholder_id\":\"holder_000000\"}");
 
         bytes32 first = ledger.previewEventHash(1, bytes32(0), inputs[0]);
         bytes32 second = ledger.previewEventHash(2, first, inputs[1]);
@@ -59,19 +58,19 @@ contract StockLedgerTest is Test {
     }
 
     function test_StaleWriterCannotAppend() public {
-        ledger.append(0, bytes32(0), _input("FORMATION", 1, 1, "{}"));
+        ledger.append(0, bytes32(0), _input("FORMATION", 1, "{}"));
 
         vm.expectRevert(abi.encodeWithSelector(StockLedger.UnexpectedEventCount.selector, 0, 1));
-        ledger.append(0, bytes32(0), _input("SHARE_ISSUANCE", 1, 2, "{}"));
+        ledger.append(0, bytes32(0), _input("SHARE_ISSUANCE", 2, "{}"));
 
         vm.expectRevert(abi.encodeWithSelector(StockLedger.UnexpectedHead.selector, bytes32(0), ledger.head()));
-        ledger.append(1, bytes32(0), _input("SHARE_ISSUANCE", 1, 2, "{}"));
+        ledger.append(1, bytes32(0), _input("SHARE_ISSUANCE", 2, "{}"));
     }
 
     function test_NonControllerCannotAppend() public {
         vm.prank(stranger);
         vm.expectRevert(StockLedger.NotController.selector);
-        ledger.append(0, bytes32(0), _input("FORMATION", 1, 1, "{}"));
+        ledger.append(0, bytes32(0), _input("FORMATION", 1, "{}"));
     }
 
     function test_InvalidEnvelopeAndBatchAreRejected() public {
@@ -79,16 +78,13 @@ contract StockLedgerTest is Test {
         ledger.appendBatch(0, bytes32(0), new StockLedger.EventInput[](0));
 
         vm.expectRevert(StockLedger.InvalidEventType.selector);
-        ledger.append(0, bytes32(0), StockLedger.EventInput(bytes32(0), 1, 1, "{}"));
-
-        vm.expectRevert(StockLedger.InvalidSchemaVersion.selector);
-        ledger.append(0, bytes32(0), StockLedger.EventInput(bytes32("FORMATION"), 0, 1, "{}"));
+        ledger.append(0, bytes32(0), StockLedger.EventInput(bytes32(0), 1, "{}"));
 
         vm.expectRevert(StockLedger.InvalidEffectiveTime.selector);
-        ledger.append(0, bytes32(0), StockLedger.EventInput(bytes32("FORMATION"), 1, 0, "{}"));
+        ledger.append(0, bytes32(0), StockLedger.EventInput(bytes32("FORMATION"), 0, "{}"));
 
         vm.expectRevert(StockLedger.EmptyPayload.selector);
-        ledger.append(0, bytes32(0), StockLedger.EventInput(bytes32("FORMATION"), 1, 1, ""));
+        ledger.append(0, bytes32(0), StockLedger.EventInput(bytes32("FORMATION"), 1, ""));
     }
 
     function test_ControllerTransferRequiresAcceptance() public {
@@ -106,7 +102,7 @@ contract StockLedgerTest is Test {
         assertEq(ledger.pendingController(), address(0));
 
         vm.expectRevert(StockLedger.NotController.selector);
-        ledger.append(0, bytes32(0), _input("FORMATION", 1, 1, "{}"));
+        ledger.append(0, bytes32(0), _input("FORMATION", 1, "{}"));
     }
 
     function test_BatchSizeIsBounded() public {
@@ -115,12 +111,12 @@ contract StockLedgerTest is Test {
         ledger.appendBatch(0, bytes32(0), inputs);
     }
 
-    function _input(string memory eventType, uint32 schemaVersion, uint64 effectiveAt, string memory payload)
+    function _input(string memory eventType, uint64 effectiveAt, string memory payload)
         internal
         pure
         returns (StockLedger.EventInput memory)
     {
-        return StockLedger.EventInput(_bytes32(eventType), schemaVersion, effectiveAt, bytes(payload));
+        return StockLedger.EventInput(_bytes32(eventType), effectiveAt, bytes(payload));
     }
 
     function _bytes32(string memory value) internal pure returns (bytes32 result) {

@@ -51,7 +51,7 @@ if [ -n "$(git -C "$REPO_ROOT" status --porcelain --untracked-files=no)" ]; then
   echo "refusing publication from a dirty tracked worktree; commit and review first" >&2
   exit 1
 fi
-"$SCRIPT_DIR/check.sh" "$BATCH_PATH"
+"$SCRIPT_DIR/check.sh" "$BATCH_PATH" "$JOURNAL_PATH"
 
 mkdir -p "$LEDGER_DIR/cache"
 COMPILED_BATCH_PATH=$(mktemp "$LEDGER_DIR/cache/compiled-batch.XXXXXX.json")
@@ -64,7 +64,8 @@ cast_in_ledger() {
   (cd "$LEDGER_DIR" && cast "$@")
 }
 
-python3 "$SCRIPT_DIR/ledger_events.py" "$BATCH_PATH" --compile "$COMPILED_BATCH_PATH"
+python3 "$SCRIPT_DIR/ledger_events.py" "$BATCH_PATH" --journal "$JOURNAL_PATH" \
+  --compile "$COMPILED_BATCH_PATH"
 python3 "$SCRIPT_DIR/preview_batch.py" "$JOURNAL_PATH" "$BATCH_PATH" --output "$PREVIEW_PATH"
 
 FIRST_SEQUENCE=$(( $(jq -r '.before.event_count' "$PREVIEW_PATH") + 1 ))

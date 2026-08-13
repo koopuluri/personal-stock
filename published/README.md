@@ -16,4 +16,6 @@ cryptographically verified public mirror and audit trail. Never edit generated v
 by hand; regenerate them with `ledger/script/sync.sh`.
 
 Network directories are intentionally separate. Base Sepolia is a rehearsal ledger
-and has no legal or operational effect on the Base mainnet personal stock.
+and has no legal or operational effect on the Base mainnet personal stock. A directory
+whose name ends in `-legacy` preserves a superseded rehearsal and must never be used as
+the active publication target.

@@ -7,13 +7,59 @@
   "expected_head": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "events": [
     {
+      "event_type": "SCHEMA",
+      "effective_at": "2026-08-12T22:00:00-07:00",
+      "data": {
+        "version": "1.0.0",
+        "content_hash": "0x32db52ba4c53b9811bcf335e0845159b54ab408e772048eada28f04c282c1d24"
+      }
+    },
+    {
       "event_type": "FORMATION",
-      "schema_version": 1,
-      "effective_at": "2026-08-01T00:00:00Z",
+      "effective_at": "2026-08-12T22:00:01-07:00",
       "data": {
         "owner_shareholder_id": "holder_000000",
-        "owner_display_name": "Karthik Uppuluri",
-        "owner_handle": "@koopuluri"
+        "owner_display_name": "Test Owner",
+        "owner_handle": null
+      }
+    },
+    {
+      "event_type": "AGREEMENT_ADOPTION",
+      "effective_at": "2026-08-12T22:00:02-07:00",
+      "data": {
+        "shareholder_id": "holder_000000",
+        "agreement_version": "1.0.0",
+        "agreement_content_hash": "0x584bc54e4b1d2220dac1ad17c6ab55ca93ae763e43e0e692ec502f675016287c"
+      }
+    },
+    {
+      "event_type": "AGREEMENT_CONFIGURATION",
+      "effective_at": "2026-08-12T22:00:03-07:00",
+      "data": {
+        "floor_base_amount_usd": "10000000",
+        "floor_cpi_series": "CUUR0000SA0",
+        "floor_cpi_base_period": "2026-06",
+        "floor_cpi_base_value": "333.952",
+        "authorized_shares": 12000000,
+        "royalty_rate": "0.05",
+        "amendment_approval_threshold": "0.75"
+      }
+    },
+    {
+      "event_type": "PORTFOLIO_COMMENCEMENT",
+      "effective_at": "2026-08-12T22:00:04-07:00",
+      "data": {
+        "opening_portfolio_net_gain_usd": "0",
+        "opening_item_count": 0
+      }
+    },
+    {
+      "event_type": "SHARE_ISSUANCE",
+      "effective_at": "2026-08-12T22:00:04-07:00",
+      "data": {
+        "recipient_shareholder_id": "holder_000000",
+        "shares": 9000000,
+        "actual_cash_paid_usd": "0"
       }
     }
   ]

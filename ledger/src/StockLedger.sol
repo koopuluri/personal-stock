@@ -4,15 +4,14 @@ pragma solidity ^0.8.24;
 /// @title StockLedger
 /// @notice An append-only journal for one personal stock.
 /// @dev The contract deliberately knows nothing about agreement economics. It orders
-///      versioned event envelopes, commits them to a hash chain, and emits their
+///      event envelopes, commits them to a hash chain, and emits their
 ///      payloads. Current state is reconstructed offchain by replaying the logs.
 contract StockLedger {
-    bytes32 public constant EVENT_HASH_DOMAIN = keccak256("personal-stock-ledger/event/v1");
+    bytes32 public constant EVENT_HASH_DOMAIN = keccak256("personal-stock-ledger/event/v2");
     uint256 public constant MAX_BATCH_SIZE = 100;
 
     struct EventInput {
         bytes32 eventType;
-        uint32 schemaVersion;
         uint64 effectiveAt;
         bytes payload;
     }
@@ -26,7 +25,6 @@ contract StockLedger {
     event EventAppended(
         uint256 indexed sequence,
         bytes32 indexed eventType,
-        uint32 indexed schemaVersion,
         uint64 effectiveAt,
         bytes32 previousHead,
         bytes32 eventHash,
@@ -42,7 +40,6 @@ contract StockLedger {
     error EmptyBatch();
     error BatchTooLarge();
     error InvalidEventType();
-    error InvalidSchemaVersion();
     error InvalidEffectiveTime();
     error EmptyPayload();
     error UnexpectedEventCount(uint256 expected, uint256 actual);
@@ -124,7 +121,6 @@ contract StockLedger {
 
     function _append(EventInput calldata input) internal returns (bytes32 eventHash) {
         if (input.eventType == bytes32(0)) revert InvalidEventType();
-        if (input.schemaVersion == 0) revert InvalidSchemaVersion();
         if (input.effectiveAt == 0) revert InvalidEffectiveTime();
         if (input.payload.length == 0) revert EmptyPayload();
 
@@ -135,9 +131,7 @@ contract StockLedger {
         eventCount = sequence;
         head = eventHash;
 
-        emit EventAppended(
-            sequence, input.eventType, input.schemaVersion, input.effectiveAt, previousHead, eventHash, input.payload
-        );
+        emit EventAppended(sequence, input.eventType, input.effectiveAt, previousHead, eventHash, input.payload);
     }
 
     function _eventHash(uint256 sequence, bytes32 previousHead, EventInput calldata input)
@@ -152,7 +146,6 @@ contract StockLedger {
                 address(this),
                 sequence,
                 input.eventType,
-                input.schemaVersion,
                 input.effectiveAt,
                 keccak256(input.payload),
                 previousHead

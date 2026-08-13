@@ -21,14 +21,11 @@ contract Append is Script {
 
         for (uint256 i = 0; i < length; ++i) {
             string memory base = string.concat(".events[", vm.toString(i), "]");
-            uint256 schemaVersion = vm.parseJsonUint(json, string.concat(base, ".schema_version"));
             uint256 effectiveAt = vm.parseJsonUint(json, string.concat(base, ".effective_at"));
-            require(schemaVersion <= type(uint32).max, "schema version overflow");
             require(effectiveAt <= type(uint64).max, "effective time overflow");
 
             inputs[i] = StockLedger.EventInput({
                 eventType: vm.parseJsonBytes32(json, string.concat(base, ".event_type")),
-                schemaVersion: uint32(schemaVersion),
                 effectiveAt: uint64(effectiveAt),
                 payload: vm.parseJsonBytes(json, string.concat(base, ".payload"))
             });

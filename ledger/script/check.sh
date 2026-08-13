@@ -6,8 +6,8 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 LEDGER_DIR=$(cd -- "$SCRIPT_DIR/.." && pwd)
 REPO_ROOT=$(cd -- "$LEDGER_DIR/.." && pwd)
 
-if [ "$#" -ne 1 ]; then
-  echo "usage: ledger/script/check.sh <event-batch.json>" >&2
+if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+  echo "usage: ledger/script/check.sh <event-batch.json> [verified-journal.json]" >&2
   exit 1
 fi
 
@@ -42,4 +42,12 @@ if [ "$(tail -c 1 "$batch_path" | od -An -tx1 | tr -d ' \n')" != "0a" ]; then
   exit 1
 fi
 
-python3 "$SCRIPT_DIR/ledger_events.py" "$batch_path"
+if [ "$#" -eq 2 ]; then
+  journal_path=$2
+  if [[ "$journal_path" != /* && ! -f "$journal_path" && -f "$REPO_ROOT/$journal_path" ]]; then
+    journal_path="$REPO_ROOT/$journal_path"
+  fi
+  python3 "$SCRIPT_DIR/ledger_events.py" "$batch_path" --journal "$journal_path"
+else
+  python3 "$SCRIPT_DIR/ledger_events.py" "$batch_path"
+fi

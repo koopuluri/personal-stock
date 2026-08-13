@@ -14,7 +14,7 @@ from typing import Any
 import ledger_events as ledger
 
 
-EVENT_TOPIC = "0x101851ea469c9d3538979474fd65f1bbf85b8af5f80c8b2b61d0f91f789d28b6"
+EVENT_TOPIC = "0xac58f73f0dd927ad4060bc9f19bc05c95ed0d3be6c6b042b3144b200defc5a0d"
 ZERO_HASH = "0x" + "00" * 32
 LOG_BLOCK_SPAN = 10_000
 
@@ -92,9 +92,9 @@ def fetch_block_metadata(rpc_url: str, block_number: int) -> tuple[int, str]:
 
 
 def iso_timestamp(seconds: int) -> str:
-    from datetime import datetime, timezone
+    from datetime import datetime
 
-    return datetime.fromtimestamp(seconds, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.fromtimestamp(seconds, ledger.SAN_FRANCISCO).isoformat(timespec="seconds")
 
 
 def fetch_journal(
@@ -125,13 +125,12 @@ def fetch_journal(
     block_cache: dict[int, tuple[int, str]] = {}
     for index, raw in enumerate(raw_logs, start=1):
         topics = raw["topics"]
-        if len(topics) != 4:
+        if len(topics) != 3:
             raise SyncError(f"sequence {index} has an unexpected topic count")
         sequence = int(topics[1], 16)
         if sequence != index:
             raise SyncError(f"expected sequence {index}, found {sequence}")
         event_type = decode_event_type(topics[2])
-        schema_version = int(topics[3], 16)
         effective_at, previous_head, event_hash, payload = decode_data(raw["data"])
         if previous_head != prior:
             raise SyncError(f"sequence {sequence} previous head mismatch")
@@ -139,11 +138,9 @@ def fetch_journal(
 
         source_event = {
             "event_type": event_type,
-            "schema_version": schema_version,
             "effective_at": iso_timestamp(effective_at),
             "data": data,
         }
-        ledger.validate_event(source_event, sequence, f"chain.events[{sequence - 1}]")
 
         payload_hash = run("cast", "keccak", "0x" + payload.hex()).lower()
         compiled = ledger.event_hash_preimage(
@@ -151,7 +148,6 @@ def fetch_journal(
             address,
             sequence,
             event_type,
-            schema_version,
             effective_at,
             payload_hash,
             previous_head,
@@ -194,7 +190,6 @@ def source_journal(chain_id: int, address: str, events: list[dict[str, Any]], he
         "events": [
             {
                 "event_type": item["event_type"],
-                "schema_version": item["schema_version"],
                 "effective_at": item["effective_at"],
                 "data": item["data"],
             }

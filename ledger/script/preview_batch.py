@@ -33,7 +33,6 @@ def source_events(journal: dict[str, Any]) -> list[dict[str, Any]]:
     return [
         {
             "event_type": item["event_type"],
-            "schema_version": item["schema_version"],
             "effective_at": item["effective_at"],
             "data": item["data"],
         }
@@ -83,9 +82,10 @@ def changes(before: Any, after: Any, path: str = "$") -> list[dict[str, Any]]:
 
 def preview(journal_path: Path, batch_path: Path) -> dict[str, Any]:
     journal = json.loads(journal_path.read_text(encoding="utf-8"))
-    batch = ledger.load_batch(batch_path)
     if journal.get("format") != "personal-stock-ledger-journal":
         raise PreviewError("journal has an unsupported format")
+    active_schema = ledger.active_schema_from_journal(journal_path)
+    batch = ledger.load_batch(batch_path, initial_schema=active_schema)
     if batch.chain_id != journal["chain_id"]:
         raise PreviewError("batch chain ID does not match journal")
     if batch.stock_contract.lower() != journal["stock_contract"].lower():
@@ -99,7 +99,6 @@ def preview(journal_path: Path, batch_path: Path) -> dict[str, Any]:
     proposed_events = [
         {
             "event_type": event.event_type,
-            "schema_version": event.schema_version,
             "effective_at": event.effective_at,
             "data": event.data,
         }
@@ -122,7 +121,6 @@ def preview(journal_path: Path, batch_path: Path) -> dict[str, Any]:
             batch.stock_contract,
             event.sequence,
             event.event_type,
-            event.schema_version,
             event.effective_at_unix,
             payload_hash,
             prior_head,
@@ -133,6 +131,7 @@ def preview(journal_path: Path, batch_path: Path) -> dict[str, Any]:
                 "sequence": event.sequence,
                 "event_type": event.event_type,
                 "schema_version": event.schema_version,
+                "schema_content_hash": event.schema_content_hash,
                 "effective_at": event.effective_at,
                 "previous_head": prior_head,
                 "payload_hash": payload_hash,
