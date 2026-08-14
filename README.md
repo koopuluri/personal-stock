@@ -27,9 +27,12 @@ supporting records remain private.
 The short `current_state.summary` at the top of `ledger.json` explains the current
 position and latest changes for readers who do not need to inspect every event.
 
-An error is corrected by appending a `CORRECTION` event. A recorded event is not
-silently erased or rewritten. Private supporting records remain the evidence used to
-substantiate entries, answer shareholder requests, and conduct audits.
+An error is corrected by appending a `CORRECTION` event. A recorded fact is not
+silently erased or rewritten. A disclosed schema migration may re-encode the same
+facts under a new `schema_version` as described in `schema.md`, with the prior
+representation preserved in Git history. Private supporting records remain the
+evidence used to substantiate entries, answer shareholder requests, and conduct
+audits.
 
 ## Periodic releases
 

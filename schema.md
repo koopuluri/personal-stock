@@ -1,4 +1,4 @@
-# Personal Stock Ledger Schema 1.0.0
+# Personal Stock Ledger Schema 1.1.0
 
 This schema defines the JSON structure used by [`ledger.json`](ledger.json). The
 Personal Stock Agreement controls the legal and economic meaning of every entry.
@@ -86,6 +86,10 @@ peak_usd             nonnegative decimal string
 view, not a separate source of authority. If it conflicts with the effective event
 history, the event history controls and the state must be corrected.
 
+`schema.md` always describes the current `schema_version` used by `ledger.json`.
+Earlier schema versions and ledger representations remain available in the
+repository's Git history.
+
 ## Event envelope
 
 Every event contains:
@@ -158,27 +162,36 @@ username        nonempty public username or null
 ### `AGREEMENT_ADOPTION`
 
 ```text
-shareholder_id           existing shareholder identifier
-agreement_version        three-part published version
-agreement_content_hash   SHA-256 of the exact published agreement bytes
-agreement_release_url    immutable GitHub Release URL for those bytes
+agreement_version                         three-part published version
+agreement_content_hash                    SHA-256 of the exact published agreement bytes
+agreement_release_url                     immutable GitHub Release URL for those bytes
+adoption_basis                            INITIAL_OWNER_ADOPTION, NO_NON_OWNER_SHARES,
+                                          or AMENDMENT_APPROVAL_THRESHOLD
+previous_agreement_version                prior governing version, or null for the initial adoption
+non_owner_shares_at_adoption              nonnegative integer
+material_change_summary                   nonempty string, or null for the initial adoption
+configuration.floor.base_amount_usd       positive decimal string
+configuration.floor.cpi_series            nonempty public series identifier
+configuration.floor.cpi_base_period       YYYY-MM
+configuration.floor.cpi_base_value        positive decimal string
+configuration.authorized_shares           positive integer
+configuration.royalty_rate                decimal string from 0 through 1
+configuration.amendment_approval_threshold decimal string greater than 0 through 1
 ```
 
-### `AGREEMENT_CONFIGURATION`
+An `AGREEMENT_ADOPTION` is a stock-level event: the identified version becomes the
+single agreement governing the personal stock at `effective_at`. Every adoption
+contains a complete snapshot of the executable agreement settings, including values
+that did not change from the prior version. `current_state.governing_agreement`,
+`current_state.configuration`, and `current_state.shares.authorized` are derived from
+the latest effective adoption. The published agreement controls if a snapshot is
+recorded incorrectly.
 
-```text
-floor_base_amount_usd          positive decimal string, optional group
-floor_cpi_series               nonempty string, optional group
-floor_cpi_base_period          YYYY-MM, optional group
-floor_cpi_base_value           positive decimal string, optional group
-authorized_shares              positive integer, optional
-royalty_rate                   decimal string from 0 through 1, optional
-amendment_approval_threshold   decimal string greater than 0 through 1, optional
-```
-
-At least one setting is present. The four floor fields are supplied together. The
-first configuration follows the owner's adoption and supplies every setting. A later
-configuration may contain only values changed by an effective agreement amendment.
+The initial adoption uses `INITIAL_OWNER_ADOPTION`. A replacement version uses
+`NO_NON_OWNER_SHARES` when the owner's complete signed proposal becomes effective
+immediately because no non-owner shares are outstanding. Future adoption bases and
+the proposal and shareholder-approval events needed when non-owner shares are
+outstanding must be added to this schema before first use.
 
 ### `ASSET_REGISTERED`
 
@@ -206,8 +219,8 @@ opening_portfolio_net_gain_usd  nonpositive decimal string
 opening_item_count              nonnegative integer
 ```
 
-This occurs once after the owner's adoption, initial configuration, and all opening
-items. Its `effective_at` establishes `COMMENCEMENT_TIME`.
+This occurs once after the initial agreement adoption and all opening items. Its
+`effective_at` establishes `COMMENCEMENT_TIME`.
 
 ### `SHARE_ISSUANCE`
 
@@ -236,6 +249,15 @@ settlement_price_usd_per_share  positive decimal string
 
 Additional agreement events are added to this schema before first use. Schema
 changes preserve the meaning of existing events.
+
+## Schema migrations
+
+A schema migration may rewrite the representation of existing events, including
+consolidating or renumbering them, only when it preserves every underlying fact,
+legal effect, and effective timestamp. The migration must increment `schema_version`,
+update this document, preserve the prior ledger bytes in Git history, and disclose
+the representation change in the repository commit. A schema migration is not a
+correction and may not be used to conceal or alter a factual event.
 
 ## Corrections
 
